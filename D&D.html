@@ -1,0 +1,266 @@
+<html>
+<head>
+	<style>
+	*{padding: 0; margin:0;}
+	canvas{ background: #eee; display: block; margin: 0 auto;}
+	</style>
+</head>
+<body>
+<canvas id= "myCanvas" width="800" height="600"></canvas>
+<script type="text/javascript">
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+canvas.addEventListener("mousemove", getPosition, false);
+canvas.addEventListener("mouseup", getMouseUp, false);
+canvas.addEventListener("mousedown", getMouseDown, false);
+ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+
+let fps = 100;
+const wW = window.innerWidth;
+const wH = window.innerHeight;
+let icons = [];
+let windows = [];
+let mouseX = 0;
+let mouseY = 0;
+let mouseIsDown = false;
+let firstClick = false;
+let doubleClick = false;
+let oldMouseX = -1;
+let oldMouseY = -1;
+let mouseTimer = 0;
+let openTimer = 0;
+let menu = true;
+
+let character1On = false;
+let character2On = false;
+let character3On = false;
+let character4On = false;
+
+function getPosition(event)
+{
+	mouseX = event.x - canvas.offsetLeft;
+	mouseY = event.y - canvas.offsetTop;
+}
+
+function getMouseDown(e)
+{
+	mouseIsDown = true;
+	if(doubleClick == true)
+	{
+		firstClick = true;
+		mouseTimer = 0;
+	}
+	if(firstClick == true && mouseTimer < 60)
+	{
+		doubleClick = true;
+	}
+	if(firstClick == true && mouseTimer >= 60)
+	{
+		firstClick = true;
+		mouseTimer = 0;
+	}
+	else
+	{
+		firstClick = true;
+		mouseTimer = 0;
+	}
+}
+
+function getMouseUp(e)
+{
+	mouseIsDown = false;
+	oldMouseX = -1;
+	oldMouseY = -1;
+}
+
+function Icon(x1, y1, type, address, width, height, name)
+{
+	this.x = x1;
+	this.y = y1;
+	this.type = type;
+	this.address = address;
+	this.w = width;
+	this.h = height;
+	this.name = name;
+	this.isActive = false;
+}
+
+function Window(x1, y1, type, address, width, height, name)
+{
+	this.x = x1;
+	this.y = y1;
+	this.type = type;
+	this.address = address;
+	this.w = width;
+	this.h = height;
+	this.name = name;
+}
+
+
+icons.push(new Icon(100,100,1,"img2.png",100,100,"Character Sheets"));
+icons.push(new Icon(300,100,2,"img1.png",100,100,"        Spells"));
+
+function drawIcons()
+{
+	for(let i = 0; i < icons.length; i++)
+	{
+		let img = new Image();
+		img.src = icons[i].address;
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "15px Ariel";
+		ctx.drawImage(img, icons[i].x, icons[i].y,
+					icons[i].w, icons[i].h * (5/6));
+		ctx.fillText(icons[i].name, icons[i].x,
+					icons[i].y +(icons[i].h * (5/6)) + 15);
+		if(mouseX >= icons[i].x && mouseX <= icons[i].x + icons[i].w &&
+			mouseY >= icons[i].y && mouseY <= icons[i].y + icons[i].h &&
+			doubleClick == true && menu == true)
+		{
+			doubleClick = false;
+			firstClick = false;
+			mouseTimer = 0;
+			let winX = 0 + (10 * windows.length);
+			let winY = 30 + (10 * windows.length);
+			windows.push(new Window(winX,winY,icons[i].type,
+			icons[i].address,window.innerWidth,window.innerHeight,icons[i].name));
+		}
+	}
+}
+
+function drawWindows()
+{
+	for(let i = 0; i < windows.length; i++)
+	{
+		menu = false;
+		openTimer++;
+		let img = new Image();
+		img.src = windows[i].address;
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "32px Ariel";
+		ctx.fillStyle = "rgb(150,150,150)";
+		ctx.fillRect(windows[i].x, windows[i].y,
+					windows[i].w, windows[i].h);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(windows[i].name, windows[i].x + 15, windows[i].y -6);
+		
+		//ctx.drawImage(img, windows[i].x, windows[i].y,
+		//				windows[i].w, windows[i].h);
+		if(mouseX >= windows[i].x + windows[i].w - 28 &&
+			mouseX <= windows[i].x + windows[i].w + 3 &&
+			mouseY >= windows[i].y - 30 &&
+			mouseY <= windows[i].y)
+		{
+			ctx.fillStyle = "rgb(255,0,0)";
+			ctx.fillRect(windows[i].x + windows[i].w - 28, 
+			windows[i].y - 30, 30, 30);
+			if(mouseIsDown)
+			{
+				windows.splice(i,1);
+				firstClick = false;
+				doubleClick = false;
+				menu = true;
+				openTimer = 0;
+			}
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.font = "32px Ariel";
+			ctx.fillText("X", windows[i].x + windows[i].w - 25,
+			windows[i].y - 4);
+		}
+		else
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.font = "32px Ariel";
+			ctx.fillText("X", windows[i].x + windows[i].w - 25,
+			windows[i].y - 4);
+		}
+		
+		//ctx.fillText(icons[i].name, icons[i].x + 2,
+		//				icons[i].y + (icons[i].h * (5/6)) + 5)
+		if(windows[i].type == 1)
+		{
+			ctx.fillStyle = "rgb(100,100,100)";
+			ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //1
+			ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //2
+			ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //3
+			ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //4
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.font = "40px Ariel";
+			ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
+			ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
+			ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
+			ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
+			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //1
+			{
+				ctx.fillStyle = "rgb(80,80,80)";
+				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
+				if(mouseIsDown && openTimer >= 15)
+				{
+					character1On = true;
+				}
+			}
+			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //2
+			{
+				ctx.fillStyle = "rgb(80,80,80)";
+				ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
+				if(mouseIsDown && openTimer >= 15)
+				{
+					character2On = true;
+				}
+			}
+			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //3
+			{
+				ctx.fillStyle = "rgb(80,80,80)";
+				ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
+				if(mouseIsDown && openTimer >= 15)
+				{
+					character3On = true;
+				}
+			}
+			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //4
+			{
+				ctx.fillStyle = "rgb(80,80,80)";
+				ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
+				if(mouseIsDown && openTimer >= 15)
+				{
+					character4On = true;
+				}
+			}
+		}
+	}
+}
+
+function characterSheets()
+{
+	
+}
+
+
+function draw() {
+	setTimeout(function() {
+	requestAnimationFrame(draw);
+	ctx.clearRect(0,0,wW,wH);
+	///all code goes here
+	mouseTimer++;
+	drawIcons();
+	drawWindows();
+	if(mouseIsDown)
+	{
+		oldMouseX = mouseX;
+		oldMouseY = mouseY;
+	}
+	}, 1000/fps);
+}
+draw();
+
+</script>
+</body>
+</html>
