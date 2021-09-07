@@ -39,7 +39,23 @@ let character3On = false;
 let character4On = false;
 
 let sheet1 = new Image();
-sheet1.src = "sheet1.png";
+sheet1.src = "images/sheet1.png";
+let sheet2 = new Image();
+sheet2.src = "images/sheet2.png";
+let sheet3 = new Image();
+sheet3.src = "images/sheet3.png";
+let sheet4 = new Image();
+sheet4.src = "images/sheet4.png";
+let sheet5 = new Image();
+sheet5.src = "images/sheet5.png";
+let sheet6 = new Image();
+sheet6.src = "images/sheet6.png";
+let sheet7 = new Image();
+sheet7.src = "images/sheet7.png";
+let sheet8 = new Image();
+sheet8.src = "images/sheet8.png";
+let sheet9 = new Image();
+sheet9.src = "images/sheet9.png";
 
 function getPosition(event)
 {
@@ -102,8 +118,8 @@ function Window(x1, y1, type, address, width, height, name)
 }
 
 
-icons.push(new Icon(100,100,1,"img2.png",100,100,"Character Sheets"));
-icons.push(new Icon(300,100,2,"img1.png",100,100,"        Spells"));
+icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
+icons.push(new Icon(300,100,2,"images/img1.png",100,100,"        Spells"));
 
 function drawIcons()
 {
@@ -265,7 +281,17 @@ function characterSheets()
 		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("← Back to characters", 10, 40);
-		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		ctx.fillStyle = "rgb(255,255,255)";
+		ctx.fillRect(0,75,1225,700);
+		ctx.drawImage(sheet1, 0, 75, 700, 140);
+		ctx.drawImage(sheet2, 700, 75, 275, 675);
+		ctx.drawImage(sheet3, 0, 215, 250, 335);
+		ctx.drawImage(sheet4, 250, 215, 240, 300);
+		ctx.drawImage(sheet5, 975, 75, 250, 49);
+		ctx.drawImage(sheet6, 0, 550, 250, 225);
+		ctx.drawImage(sheet8, 485, 200, 220, 325);
+		ctx.drawImage(sheet7, 250, 515, 240, 260);
+		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.fillStyle = "rgb(200,200,200)";
@@ -286,7 +312,17 @@ function characterSheets()
 		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("← Back to characters", 10, 40);
-		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		ctx.fillStyle = "rgb(255,255,255)";
+		ctx.fillRect(0,75,1225,700);
+		ctx.drawImage(sheet1, 0, 75, 700, 140);
+		ctx.drawImage(sheet2, 700, 75, 275, 675);
+		ctx.drawImage(sheet3, 0, 215, 250, 335);
+		ctx.drawImage(sheet4, 250, 215, 240, 300);
+		ctx.drawImage(sheet5, 975, 75, 250, 49);
+		ctx.drawImage(sheet6, 0, 550, 250, 225);
+		ctx.drawImage(sheet8, 485, 200, 220, 325);
+		ctx.drawImage(sheet7, 250, 515, 240, 260);
+		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.fillStyle = "rgb(200,200,200)";
@@ -307,7 +343,17 @@ function characterSheets()
 		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("← Back to characters", 10, 40);
-		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		ctx.fillStyle = "rgb(255,255,255)";
+		ctx.fillRect(0,75,1225,700);
+		ctx.drawImage(sheet1, 0, 75, 700, 140);
+		ctx.drawImage(sheet2, 700, 75, 275, 675);
+		ctx.drawImage(sheet3, 0, 215, 250, 335);
+		ctx.drawImage(sheet4, 250, 215, 240, 300);
+		ctx.drawImage(sheet5, 975, 75, 250, 49);
+		ctx.drawImage(sheet6, 0, 550, 250, 225);
+		ctx.drawImage(sheet8, 485, 200, 220, 325);
+		ctx.drawImage(sheet7, 250, 515, 240, 260);
+		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.fillStyle = "rgb(200,200,200)";
@@ -328,7 +374,17 @@ function characterSheets()
 		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("← Back to characters", 10, 40);
-		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		ctx.fillStyle = "rgb(255,255,255)";
+		ctx.fillRect(0,75,1225,700);
+		ctx.drawImage(sheet1, 0, 75, 700, 140);
+		ctx.drawImage(sheet2, 700, 75, 275, 675);
+		ctx.drawImage(sheet3, 0, 215, 250, 335);
+		ctx.drawImage(sheet4, 250, 215, 240, 300);
+		ctx.drawImage(sheet5, 975, 75, 250, 49);
+		ctx.drawImage(sheet6, 0, 550, 250, 225);
+		ctx.drawImage(sheet8, 485, 200, 220, 325);
+		ctx.drawImage(sheet7, 250, 515, 240, 260);
+		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.fillStyle = "rgb(200,200,200)";
