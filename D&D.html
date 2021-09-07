@@ -31,11 +31,15 @@ let oldMouseY = -1;
 let mouseTimer = 0;
 let openTimer = 0;
 let menu = true;
+let windowOn = false;
 
 let character1On = false;
 let character2On = false;
 let character3On = false;
 let character4On = false;
+
+let sheet1 = new Image();
+sheet1.src = "sheet1.png";
 
 function getPosition(event)
 {
@@ -124,6 +128,17 @@ function drawIcons()
 			let winY = 30 + (10 * windows.length);
 			windows.push(new Window(winX,winY,icons[i].type,
 			icons[i].address,window.innerWidth,window.innerHeight,icons[i].name));
+			windowOn = true;
+		}
+		if(mouseX >= icons[i].x && mouseX <= icons[i].x + icons[i].w &&
+			mouseY >= icons[i].y && mouseY <= icons[i].y + icons[i].h &&
+			menu == true)
+		{
+			ctx.fillStyle = "rgb(210,210,210)";
+			ctx.fillRect(icons[i].x,icons[i].y - 2,icons[i].w,icons[i].h + 2);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.drawImage(img, icons[i].x, icons[i].y, icons[i].w, icons[i].h * (5/6));
+			ctx.fillText(icons[i].name, icons[i].x, icons[i].y +(icons[i].h * (5/6)) + 15);
 		}
 	}
 }
@@ -196,9 +211,10 @@ function drawWindows()
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
-				if(mouseIsDown && openTimer >= 15)
+				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character1On = true;
+					windowOn = false;
 				}
 			}
 			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //2
@@ -207,9 +223,10 @@ function drawWindows()
 				ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
-				if(mouseIsDown && openTimer >= 15)
+				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character2On = true;
+					windowOn = false;
 				}
 			}
 			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //3
@@ -218,9 +235,10 @@ function drawWindows()
 				ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
-				if(mouseIsDown && openTimer >= 15)
+				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character3On = true;
+					windowOn = false;
 				}
 			}
 			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //4
@@ -229,9 +247,10 @@ function drawWindows()
 				ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
-				if(mouseIsDown && openTimer >= 15)
+				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character4On = true;
+					windowOn = false;
 				}
 			}
 		}
@@ -240,7 +259,90 @@ function drawWindows()
 
 function characterSheets()
 {
-	
+	if(character1On)
+	{
+		ctx.fillStyle = "rgb(230,230,230)";
+		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("← Back to characters", 10, 40);
+		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
+		{
+			ctx.fillStyle = "rgb(200,200,200)";
+			ctx.fillRect(0,5,375,50);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("← Back to characters", 10, 40);
+			
+			if(mouseIsDown)
+			{
+				character1On = false;
+				windowOn = true;
+			}
+		}
+	}
+	if(character2On)
+	{
+		ctx.fillStyle = "rgb(230,230,230)";
+		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("← Back to characters", 10, 40);
+		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
+		{
+			ctx.fillStyle = "rgb(200,200,200)";
+			ctx.fillRect(0,5,375,50);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("← Back to characters", 10, 40);
+			
+			if(mouseIsDown)
+			{
+				character2On = false;
+				windowOn = true;
+			}
+		}
+	}
+	if(character3On)
+	{
+		ctx.fillStyle = "rgb(230,230,230)";
+		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("← Back to characters", 10, 40);
+		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
+		{
+			ctx.fillStyle = "rgb(200,200,200)";
+			ctx.fillRect(0,5,375,50);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("← Back to characters", 10, 40);
+			
+			if(mouseIsDown)
+			{
+				character3On = false;
+				windowOn = true;
+			}
+		}
+	}
+	if(character4On)
+	{
+		ctx.fillStyle = "rgb(230,230,230)";
+		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("← Back to characters", 10, 40);
+		ctx.drawImage(sheet1, 0, 100, 700, 150);
+		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
+		{
+			ctx.fillStyle = "rgb(200,200,200)";
+			ctx.fillRect(0,5,375,50);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("← Back to characters", 10, 40);
+			
+			if(mouseIsDown)
+			{
+				character4On = false;
+				windowOn = true;
+			}
+		}
+	}
 }
 
 
@@ -252,6 +354,7 @@ function draw() {
 	mouseTimer++;
 	drawIcons();
 	drawWindows();
+	characterSheets();
 	if(mouseIsDown)
 	{
 		oldMouseX = mouseX;
