@@ -95,6 +95,7 @@ function getMouseUp(e)
 	oldMouseY = -1;
 }
 
+
 function Icon(x1, y1, type, address, width, height, name)
 {
 	this.x = x1;
@@ -333,14 +334,14 @@ function characterSheets()
 	{
 		ctx.canvas.height = 789;
 		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(10,10,375,50);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "40px Ariel";
 		ctx.fillText("← Back to characters", 15, 45);
 		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,75,1225,700);
+		ctx.fillRect(0,75,1230,700);
 		ctx.drawImage(sheet1, 0, 75, 700, 140);
 		ctx.drawImage(sheet2, 700, 75, 275, 675);
 		ctx.drawImage(sheet3, 0, 215, 250, 335);
@@ -363,6 +364,7 @@ function characterSheets()
 		ctx.fillText(characters[0].currentHp, 110, 360);
 		
 		//dice
+
 		ctx.font = "30px Ariel";
 		ctx.fillStyle = "rgb(175,175,175)";
 		ctx.fillRect(515,555,155,75);
@@ -373,7 +375,116 @@ function characterSheets()
 			ctx.fillStyle = "rgb(140,140,140)";
 			ctx.fillRect(515,555,155,75);
 			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.font = "30px Ariel";
 			ctx.fillText("Roll Dice", 535, 600);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d20
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,530,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d20", 525, 545);
+		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530 && mouseY <= 550)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,530,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d20", 525, 545);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d12
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(570,530,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d12", 580, 545);
+		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530 && mouseY <= 550)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(570,530,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d12", 580, 545);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d10
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(625,530,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d10", 635, 545);
+		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530 && mouseY <= 550)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(625,530,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d10", 635, 545);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d8
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,635,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d8", 530, 650);
+		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635 && mouseY <= 655)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,635,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d8", 530, 650);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d6
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(570,635,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d6", 585, 650);
+		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635 && mouseY <= 655)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(570,635,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d6", 585, 650);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		//d4
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(625,635,45,20);
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d4", 640, 650);
+		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635 && mouseY <= 655)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(625,635,45,20);
+			ctx.font = "15px Ariel";
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("d4", 640, 650);
 			if(mouseIsDown)
 			{
 				
@@ -393,6 +504,7 @@ function characterSheets()
 			{
 				character1On = false;
 				windowOn = true;
+				ctx.canvas.height = window.innerHeight;
 			}
 		}
 	}
@@ -400,14 +512,14 @@ function characterSheets()
 	{
 		ctx.canvas.height = 789;
 		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(10,10,375,50);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "40px Ariel";
 		ctx.fillText("← Back to characters", 15, 45);
 		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,75,1225,700);
+		ctx.fillRect(0,75,1230,700);
 		ctx.drawImage(sheet1, 0, 75, 700, 140);
 		ctx.drawImage(sheet2, 700, 75, 275, 675);
 		ctx.drawImage(sheet3, 0, 215, 250, 335);
@@ -455,6 +567,7 @@ function characterSheets()
 			{
 				character2On = false;
 				windowOn = true;
+				ctx.canvas.height = window.innerHeight;
 			}
 		}
 	}
@@ -462,14 +575,14 @@ function characterSheets()
 	{
 		ctx.canvas.height = 789;
 		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(10,10,375,50);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "40px Ariel";
 		ctx.fillText("← Back to characters", 15, 45);
 		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,75,1225,700);
+		ctx.fillRect(0,75,1230,700);
 		ctx.drawImage(sheet1, 0, 75, 700, 140);
 		ctx.drawImage(sheet2, 700, 75, 275, 675);
 		ctx.drawImage(sheet3, 0, 215, 250, 335);
@@ -517,6 +630,7 @@ function characterSheets()
 			{
 				character3On = false;
 				windowOn = true;
+				ctx.canvas.height = window.innerHeight;
 			}
 		}
 	}
@@ -524,14 +638,14 @@ function characterSheets()
 	{
 		ctx.canvas.height = 789;
 		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(10,10,375,50);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "40px Ariel";
 		ctx.fillText("← Back to characters", 15, 45);
 		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,75,1225,700);
+		ctx.fillRect(0,75,1230,700);
 		ctx.drawImage(sheet1, 0, 75, 700, 140);
 		ctx.drawImage(sheet2, 700, 75, 275, 675);
 		ctx.drawImage(sheet3, 0, 215, 250, 335);
@@ -579,6 +693,7 @@ function characterSheets()
 			{
 				character4On = false;
 				windowOn = true;
+				ctx.canvas.height = window.innerHeight;
 			}
 		}
 	}
