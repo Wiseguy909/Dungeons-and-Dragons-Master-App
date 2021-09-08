@@ -21,6 +21,7 @@ const wW = window.innerWidth;
 const wH = window.innerHeight;
 let icons = [];
 let windows = [];
+let characters = [];
 let mouseX = 0;
 let mouseY = 0;
 let mouseIsDown = false;
@@ -116,6 +117,21 @@ function Window(x1, y1, type, address, width, height, name)
 	this.h = height;
 	this.name = name;
 }
+
+function character(slot,name,cClass,level,maxHp,currentHp)
+{
+	this.slot = slot;
+	this.name = name;
+	this.cClass = cClass;
+	this.level = level;
+	this.maxHp = maxHp;
+	this.currentHp = currentHp;
+}
+
+characters.push(new character(1,"Jeffery","Rogue",1,10,10));
+characters.push(new character(2,"Name","Class",0,0,0));
+characters.push(new character(3,"Name","Class",0,0,0));
+characters.push(new character(4,"Name","Class",0,0,0));
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
@@ -216,17 +232,40 @@ function drawWindows()
 			ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //3
 			ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //4
 			ctx.fillStyle = "rgb(0,0,0)";
+			
 			ctx.font = "40px Ariel";
 			ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
 			ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
 			ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
 			ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
+			
+			ctx.font = "30px Ariel";
+			ctx.fillText(characters[0].name,windows[i].x + 75, windows[i].y + 100);
+			ctx.fillText(characters[1].name,windows[i].w/2 + 75, windows[i].y + 100);
+			ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
+			ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
+			
+			ctx.fillText("Level " + characters[0].level + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
+			ctx.fillText("Level " + characters[1].level + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
+			ctx.fillText("Level " + characters[2].level + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
+			ctx.fillText("Level " + characters[3].level + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
+			
+			ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
+			ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
+			ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
+			ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
+			
 			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //1
 			{
 				ctx.fillStyle = "rgb(80,80,80)";
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.font = "40px Ariel";
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
+				ctx.font = "30px Ariel";
+				ctx.fillText(characters[0].name,windows[i].x + 75, windows[i].y + 100);
+				ctx.fillText("Level " + characters[0].level + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
+				ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character1On = true;
@@ -238,7 +277,12 @@ function drawWindows()
 				ctx.fillStyle = "rgb(80,80,80)";
 				ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.font = "40px Ariel";
 				ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
+				ctx.font = "30px Ariel";
+				ctx.fillText(characters[1].name,windows[i].w/2 + 75, windows[i].y + 100);
+				ctx.fillText("Level " + characters[1].level + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
+				ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character2On = true;
@@ -250,7 +294,12 @@ function drawWindows()
 				ctx.fillStyle = "rgb(80,80,80)";
 				ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.font = "40px Ariel";
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
+				ctx.font = "30px Ariel";
+				ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
+				ctx.fillText("Level " + characters[2].level + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
+				ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character3On = true;
@@ -262,7 +311,12 @@ function drawWindows()
 				ctx.fillStyle = "rgb(80,80,80)";
 				ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.font = "40px Ariel";
 				ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
+				ctx.font = "30px Ariel";
+				ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
+				ctx.fillText("Level " + characters[3].level + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
+				ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
 					character4On = true;
@@ -294,8 +348,22 @@ function characterSheets()
 		ctx.drawImage(sheet8, 485, 200, 220, 325);
 		ctx.drawImage(sheet7, 250, 515, 240, 260);
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
+		
+		//character info
+		
+		ctx.font = "20px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[0].name,60,155);
+		ctx.font = "15px Ariel";
+		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140);
+		ctx.fillText(characters[0].maxHp, 115, 325);
+		ctx.font = "25px Ariel";
+		ctx.fillText(characters[0].currentHp, 110, 360);
+		
+		
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
+			ctx.font = "40px Ariel";
 			ctx.fillStyle = "rgb(200,200,200)";
 			ctx.fillRect(0,5,375,50);
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -329,6 +397,7 @@ function characterSheets()
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
+			ctx.font = "40px Ariel";
 			ctx.fillStyle = "rgb(200,200,200)";
 			ctx.fillRect(0,5,375,50);
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -362,6 +431,7 @@ function characterSheets()
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
+			ctx.font = "40px Ariel";
 			ctx.fillStyle = "rgb(200,200,200)";
 			ctx.fillRect(0,5,375,50);
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -395,6 +465,7 @@ function characterSheets()
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
+			ctx.font = "40px Ariel";
 			ctx.fillStyle = "rgb(200,200,200)";
 			ctx.fillRect(0,5,375,50);
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -409,6 +480,7 @@ function characterSheets()
 	}
 }
 
+//window.open("pdf url here", '_blank');
 
 function draw() {
 	setTimeout(function() {
