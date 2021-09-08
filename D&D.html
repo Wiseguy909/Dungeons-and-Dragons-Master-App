@@ -360,6 +360,24 @@ function characterSheets()
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[0].currentHp, 110, 360);
 		
+		//dice
+		ctx.font = "30px Ariel";
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,555,155,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("Roll Dice", 535, 600);
+		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555 && mouseY <= 630)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,555,155,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("Roll Dice", 535, 600);
+			if(mouseIsDown)
+			{
+				
+			}
+		}
+		
 		
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
@@ -395,6 +413,32 @@ function characterSheets()
 		ctx.drawImage(sheet8, 485, 200, 220, 325);
 		ctx.drawImage(sheet7, 250, 515, 240, 260);
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
+		
+		//character info
+		
+		ctx.font = "20px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[1].name,60,155);
+		ctx.font = "15px Ariel";
+		ctx.fillText(characters[1].cClass + " " + characters[1].level, 320, 140);
+		ctx.fillText(characters[1].maxHp, 115, 325);
+		ctx.font = "25px Ariel";
+		ctx.fillText(characters[1].currentHp, 110, 360);
+		
+		//dice
+		ctx.font = "30px Ariel";
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,555,155,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("Roll Dice", 535, 600);
+		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555 && mouseY <= 630)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,555,155,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("Roll Dice", 535, 600);
+		}
+		
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.font = "40px Ariel";
@@ -429,6 +473,32 @@ function characterSheets()
 		ctx.drawImage(sheet8, 485, 200, 220, 325);
 		ctx.drawImage(sheet7, 250, 515, 240, 260);
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
+		
+		//character info
+		
+		ctx.font = "20px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[2].name,60,155);
+		ctx.font = "15px Ariel";
+		ctx.fillText(characters[2].cClass + " " + characters[2].level, 320, 140);
+		ctx.fillText(characters[2].maxHp, 115, 325);
+		ctx.font = "25px Ariel";
+		ctx.fillText(characters[2].currentHp, 110, 360);
+		
+		//dice
+		ctx.font = "30px Ariel";
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,555,155,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("Roll Dice", 535, 600);
+		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555 && mouseY <= 630)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,555,155,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("Roll Dice", 535, 600);
+		}
+		
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.font = "40px Ariel";
@@ -463,6 +533,32 @@ function characterSheets()
 		ctx.drawImage(sheet8, 485, 200, 220, 325);
 		ctx.drawImage(sheet7, 250, 515, 240, 260);
 		ctx.drawImage(sheet9, 975, 121, 250, 630);
+		
+		//character info
+		
+		ctx.font = "20px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[3].name,60,155);
+		ctx.font = "15px Ariel";
+		ctx.fillText(characters[3].cClass + " " + characters[3].level, 320, 140);
+		ctx.fillText(characters[3].maxHp, 115, 325);
+		ctx.font = "25px Ariel";
+		ctx.fillText(characters[3].currentHp, 110, 360);
+		
+		//dice
+		ctx.font = "30px Ariel";
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(515,555,155,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("Roll Dice", 535, 600);
+		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555 && mouseY <= 630)
+		{
+			ctx.fillStyle = "rgb(140,140,140)";
+			ctx.fillRect(515,555,155,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText("Roll Dice", 535, 600);
+		}
+		
 		if(mouseX >= 5 && mouseX <= 375 && mouseY >= 5 && mouseY <= 50)
 		{
 			ctx.font = "40px Ariel";
