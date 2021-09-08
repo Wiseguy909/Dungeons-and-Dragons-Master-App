@@ -7,12 +7,15 @@
 </head>
 <body>
 <canvas id= "myCanvas" width="800" height="600"></canvas>
+<script src="keyboard.js"></script>
 <script type="text/javascript">
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 canvas.addEventListener("mousemove", getPosition, false);
 canvas.addEventListener("mouseup", getMouseUp, false);
 canvas.addEventListener("mousedown", getMouseDown, false);
+document.addEventListener("keydown",keyDownHandler, false);
+document.addEventListener("keyup",keyUpHandler,false);
 ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 
