@@ -25,8 +25,6 @@ const wH = window.innerHeight;
 let icons = [];
 let windows = [];
 let characters = [];
-let mouseX = 0;
-let mouseY = 0;
 let mouseIsDown = false;
 let firstClick = false;
 let doubleClick = false;
@@ -70,6 +68,8 @@ function getPosition(event)
 function getMouseDown(e)
 {
 	mouseIsDown = true;
+	let oldMouseX = mouseX;
+	let oldMouseY = mouseY;
 	if(doubleClick == true)
 	{
 		firstClick = true;
@@ -94,8 +94,8 @@ function getMouseDown(e)
 function getMouseUp(e)
 {
 	mouseIsDown = false;
-	oldMouseX = -1;
-	oldMouseY = -1;
+	//oldMouseX = -1;
+	//oldMouseY = -1;
 }
 
 
@@ -122,7 +122,7 @@ function Window(x1, y1, type, address, width, height, name)
 	this.name = name;
 }
 
-function character(slot,name,cClass,level,maxHp,currentHp)
+function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp)
 {
 	this.slot = slot;
 	this.name = name;
@@ -130,12 +130,17 @@ function character(slot,name,cClass,level,maxHp,currentHp)
 	this.level = level;
 	this.maxHp = maxHp;
 	this.currentHp = currentHp;
+	this.race = race;
+	this.background = background;
+	this.alignment = alignment;
+	this.pName = pName;
+	this.xp = xp;
 }
 
-characters.push(new character(1,"Jeffery","Rogue",1,10,10));
-characters.push(new character(2,"Name","Class",0,0,0));
-characters.push(new character(3,"Name","Class",0,0,0));
-characters.push(new character(4,"Name","Class",0,0,0));
+characters.push(new character(1,"Jeffery","Rogue",1,10,10,"Human","Hermit","Chaotic Good","Bob Joe","Milestone"));
+characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
+characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
+characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
@@ -249,10 +254,10 @@ function drawWindows()
 			ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
 			ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
 			
-			ctx.fillText("Level " + characters[0].level + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
-			ctx.fillText("Level " + characters[1].level + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
-			ctx.fillText("Level " + characters[2].level + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
-			ctx.fillText("Level " + characters[3].level + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
+			ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
+			ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
+			ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
+			ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
 			
 			ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
 			ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
@@ -268,7 +273,7 @@ function drawWindows()
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
 				ctx.font = "30px Ariel";
 				ctx.fillText(characters[0].name,windows[i].x + 75, windows[i].y + 100);
-				ctx.fillText("Level " + characters[0].level + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
+				ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
 				ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
@@ -285,7 +290,7 @@ function drawWindows()
 				ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
 				ctx.font = "30px Ariel";
 				ctx.fillText(characters[1].name,windows[i].w/2 + 75, windows[i].y + 100);
-				ctx.fillText("Level " + characters[1].level + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
+				ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
 				ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
@@ -302,7 +307,7 @@ function drawWindows()
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
 				ctx.font = "30px Ariel";
 				ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
-				ctx.fillText("Level " + characters[2].level + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
+				ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
 				ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
@@ -319,7 +324,7 @@ function drawWindows()
 				ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
 				ctx.font = "30px Ariel";
 				ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
-				ctx.fillText("Level " + characters[3].level + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
+				ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
 				ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
 				if(mouseIsDown && openTimer >= 15 && windowOn == true)
 				{
@@ -335,7 +340,7 @@ function characterSheets()
 {
 	if(character1On)
 	{
-		ctx.canvas.height = 789;
+		ctx.canvas.height = 700;
 		ctx.fillStyle = "rgb(230,230,230)";
 		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(255,255,255)";
@@ -350,6 +355,7 @@ function characterSheets()
 		ctx.drawImage(sheet7, 250, 515-85, 240, 260);
 		ctx.drawImage(sheet9, 975, 0, 250, 630);
 		
+		//exit
 		if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
 		{
 			ctx.fillStyle = "rgb(255,0,0)";
@@ -374,19 +380,44 @@ function characterSheets()
 			ctx.fillText("X", 3, 26);
 		}
 		
-		//character info
+	//character info
 		
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].name,60,155-85);
+		
 		ctx.font = "15px Ariel";
+		
+		//class
+		if(mouseX >= 315 && mouseX <= 375 && mouseY >= 40 && mouseY <= 55)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(315,40,60,15);
+		}
+		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
+		{
+			characters[0].cClass = word.join("");
+		}
+		if(oldMouseX < 315 || oldMouseX > 375 || oldMouseY < 40 || oldMouseY > 55)
+		{
+			word = [];
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140-85);
 		ctx.fillText(characters[0].maxHp, 115, 325-85);
+		ctx.fillText(characters[0].race, 319, 85);
+		ctx.fillText(characters[0].background, 450, 55);
+		ctx.fillText(characters[0].alignment, 450, 85);
+		ctx.fillText(characters[0].pName, 563, 55);
+		ctx.fillText(characters[0].xp, 563, 85);
+		
+		
 		ctx.font = "25px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].currentHp, 110, 360-85);
 		
 		//dice
-
+		{
 		ctx.font = "30px Ariel";
 		ctx.fillStyle = "rgb(175,175,175)";
 		ctx.fillRect(515,555-85,155,75);
@@ -512,10 +543,11 @@ function characterSheets()
 				
 			}
 		}
+		}
 	}
 	if(character2On)
 	{
-		ctx.canvas.height = 789;
+		ctx.canvas.height = 700;
 		ctx.fillStyle = "rgb(230,230,230)";
 		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(255,255,255)";
@@ -559,9 +591,16 @@ function characterSheets()
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[1].name,60,155-85);
+		
 		ctx.font = "15px Ariel";
 		ctx.fillText(characters[1].cClass + " " + characters[1].level, 320, 140-85);
 		ctx.fillText(characters[1].maxHp, 115, 325-85);
+		ctx.fillText(characters[1].race, 319, 85);
+		ctx.fillText(characters[1].background, 450, 55);
+		ctx.fillText(characters[1].alignment, 450, 85);
+		ctx.fillText(characters[1].pName, 563, 55);
+		ctx.fillText(characters[1].xp, 563, 85);
+		
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[1].currentHp, 110, 360-85);
 		
@@ -695,7 +734,7 @@ function characterSheets()
 	}
 	if(character3On)
 	{
-		ctx.canvas.height = 789;
+		ctx.canvas.height = 700;
 		ctx.fillStyle = "rgb(230,230,230)";
 		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(255,255,255)";
@@ -739,9 +778,16 @@ function characterSheets()
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[2].name,60,155-85);
+		
 		ctx.font = "15px Ariel";
 		ctx.fillText(characters[2].cClass + " " + characters[2].level, 320, 140-85);
 		ctx.fillText(characters[2].maxHp, 115, 325-85);
+		ctx.fillText(characters[2].race, 319, 85);
+		ctx.fillText(characters[2].background, 450, 55);
+		ctx.fillText(characters[2].alignment, 450, 85);
+		ctx.fillText(characters[2].pName, 563, 55);
+		ctx.fillText(characters[2].xp, 563, 85);
+		
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[2].currentHp, 110, 360-85);
 		
@@ -875,7 +921,7 @@ function characterSheets()
 	}
 	if(character4On)
 	{
-		ctx.canvas.height = 789;
+		ctx.canvas.height = 700;
 		ctx.fillStyle = "rgb(230,230,230)";
 		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(255,255,255)";
@@ -919,9 +965,16 @@ function characterSheets()
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[3].name,60,155-85);
+		
 		ctx.font = "15px Ariel";
 		ctx.fillText(characters[3].cClass + " " + characters[3].level, 320, 140-85);
 		ctx.fillText(characters[3].maxHp, 115, 325-85);
+		ctx.fillText(characters[3].race, 319, 85);
+		ctx.fillText(characters[3].background, 450, 55);
+		ctx.fillText(characters[3].alignment, 450, 85);
+		ctx.fillText(characters[3].pName, 563, 55);
+		ctx.fillText(characters[3].xp, 563, 85);
+		
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[3].currentHp, 110, 360-85);
 		
@@ -1054,6 +1107,7 @@ function characterSheets()
 		}
 	}
 }
+
 
 //window.open("pdf url here", '_blank');
 
