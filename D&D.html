@@ -397,8 +397,10 @@ function characterSheets()
 		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
 		{
 			characters[0].cClass = word.join("");
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(315,40,60,15);
 		}
-		if(oldMouseX < 315 || oldMouseX > 375 || oldMouseY < 40 || oldMouseY > 55)
+		else
 		{
 			word = [];
 		}
