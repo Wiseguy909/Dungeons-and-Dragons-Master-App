@@ -66,410 +66,405 @@ var shiftKey = false;
 var spaceBar = false;
 var enterButton = false;
 var backButton = false;
-var canPressAgain = true;
 
-let word = [];
+
+
+var cClass = [];
+var cRace = [];
+var cName = [];
+var cLevel = [];
+var cBackground = [];
+var cMaxHp = [];
+var cCurrentHp = [];
+var cAlignment = [];
+var pName = [];
+var cXP = [];
+
 
 function keyDownHandler(e){
 	if(e.keyCode == 16)
 	{
 		shiftKey = true;
 	}
-	if(e.keyCode == 48 && canPressAgain)
+	if(e.keyCode == 48)
 	{
 		button0 = true;
 		word.push("0");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 49 && canPressAgain)
+	else if(e.keyCode == 49)
 	{
 		button1 = true;
 		word.push("1");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 50 && canPressAgain)
+	else if(e.keyCode == 50)
 	{
 		button2 = true;
 		word.push("2");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 51 && canPressAgain)
+	else if(e.keyCode == 51)
 	{
 		button3 = true;
 		word.push("3");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 52 && canPressAgain)
+	else if(e.keyCode == 52)
 	{
 		button4 = true;
 		word.push("4");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 53 && canPressAgain)
+	else if(e.keyCode == 53)
 	{
 		button5 = true;
 		word.push("5");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 54 && canPressAgain)
+	else if(e.keyCode == 54)
 	{
 		button6 = true;
 		word.push("6");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 55 && canPressAgain)
+	else if(e.keyCode == 55)
 	{
 		button7 = true;
 		word.push("7");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 56 && canPressAgain)
+	else if(e.keyCode == 56)
 	{
 		button8 = true;
 		word.push("8");
-		canPressAgain = false;
 	}
-	else if(e.keyCode == 57 && canPressAgain)
+	else if(e.keyCode == 57)
 	{
 		button9 = true;
 		word.push("9");
-		canPressAgain = false;
 	}
 	
 	
 	
-	else if(shiftKey == false && e.keyCode == 65 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 65)
 	{
-	aButton = true;
-	word.push("a");
-	canPressAgain = false;
+		aButton = true;
+		word.push("a");
 	}
-	else if(shiftKey == false && e.keyCode == 66 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 66)
 	{
-	bButton = true;
-	word.push("b");
-	canPressAgain = false;
+		bButton = true;
+		word.push("b");
 	}
-	else if(shiftKey == false && e.keyCode == 67 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 67)
 	{
-	cButton = true;
-	word.push("c");
-	canPressAgain = false;
+		cButton = true;
+		word.push("c");
 	}
-	else if(shiftKey == false && e.keyCode == 68 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 68)
 	{
-	dButton = true;
-	word.push("d");
-	canPressAgain = false;
+		dButton = true;
+		word.push("d");
 	}
-	else if(shiftKey == false && e.keyCode == 69 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 69)
 	{
-	eButton = true;
-	word.push("e");
-	canPressAgain = false;
+		eButton = true;
+		word.push("e");
 	}
-	else if(shiftKey == false && e.keyCode == 70 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 70)
 	{
-	fButton = true;
-	word.push("f");
-	canPressAgain = false;
+		fButton = true;
+		word.push("f");
 	}
-	else if(shiftKey == false && e.keyCode == 71 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 71)
 	{
 	gButton = true;
 	word.push("g");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 72 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 72)
 	{
 	hButton = true;
 	word.push("h");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 73 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 73)
 	{
 	iButton = true;
 	word.push("i");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 74 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 74)
 	{
 	jButton = true;
 	word.push("j");
-	canPressAgain = false;
+	
 	}
-else if(shiftKey == false && e.keyCode == 75 && canPressAgain)
+else if(shiftKey == false && e.keyCode == 75)
 	{
 	kButton = true;
 	word.push("k");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 76 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 76)
 	{
 	lButton = true;
 	word.push("l");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 77 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 77)
 	{
 	mButton = true;
 	word.push("m");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 78 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 78)
 	{
 	nButton = true;
 	word.push("n");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == false && e.keyCode == 79 && canPressAgain)
+else if(shiftKey == false && e.keyCode == 79)
 	{
 	oButton = true;
 	word.push("o");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 80 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 80)
 	{
 	pButton = true;
 	word.push("p");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 81 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 81)
 	{
 	qButton = true;
 	word.push("q");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 82 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 82)
 	{
 	rButton = true;
 	word.push("r");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == false && e.keyCode == 83 && canPressAgain)
+else if(shiftKey == false && e.keyCode == 83)
 	{
 	sButton = true;
 	word.push("s");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 84 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 84)
 	{
 	tButton = true;
 	word.push("t");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 85 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 85)
 	{
 	uButton = true;
 	word.push("u");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 86 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 86)
 	{
 	vButton = true;
 	word.push("v");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == false && e.keyCode == 87 && canPressAgain)
+else if(shiftKey == false && e.keyCode == 87)
 	{
 	wButton = true;
 	word.push("w");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 88 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 88)
 	{
 	xButton = true;
 	word.push("x");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 89 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 89)
 	{
 	yButton = true;
 	word.push("y");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == false && e.keyCode == 90 && canPressAgain)
+	else if(shiftKey == false && e.keyCode == 90)
 	{
 	zButton = true;
 	word.push("z");
-	canPressAgain = false;
+	
 	}
 	
-	else if(shiftKey == true && e.keyCode == 65 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 65)
 	{
 	AButton = true;
 	word.push("A");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 66 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 66)
 	{
 	BButton = true;
 	word.push("B");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 67 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 67)
 	{
 	CButton = true;
 	word.push("C");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 68 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 68)
 	{
 	DButton = true;
 	word.push("D");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 69 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 69)
 	{
 	EButton = true;
 	word.push("E");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 70 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 70)
 	{
 	FButton = true;
 	word.push("F");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 71 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 71)
 	{
 	GButton = true;
 	word.push("G");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 72 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 72)
 	{
 	HButton = true;
 	word.push("H");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 73 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 73)
 	{
 	IButton = true;
 	word.push("I");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 74 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 74)
 	{
 	JButton = true;
 	word.push("J");
-	canPressAgain = false;
+	
 	}
-else if(shiftKey == true && e.keyCode == 75 && canPressAgain)
+else if(shiftKey == true && e.keyCode == 75)
 	{
 	KButton = true;
 	word.push("K");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 76 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 76)
 	{
 	LButton = true;
 	word.push("L");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 77 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 77)
 	{
 	MButton = true;
 	word.push("M");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 78 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 78)
 	{
 	NButton = true;
 	word.push("N");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == true && e.keyCode == 79 && canPressAgain)
+else if(shiftKey == true && e.keyCode == 79)
 	{
 	OButton = true;
 	word.push("O");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 80 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 80)
 	{
 	PButton = true;
 	word.push("P");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 81 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 81)
 	{
 	QButton = true;
 	word.push("Q");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 82 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 82)
 	{
 	RButton = true;
 	word.push("R");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == true && e.keyCode == 83 && canPressAgain)
+else if(shiftKey == true && e.keyCode == 83)
 	{
 	SButton = true;
 	word.push("S");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 84 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 84)
 	{
 	TButton = true;
 	word.push("T");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 85 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 85)
 	{
 	UButton = true;
 	word.push("U");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 86 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 86)
 	{
 	VButton = true;
 	word.push("V");
-	canPressAgain = false;
+	
 	}	
-else if(shiftKey == true && e.keyCode == 87 && canPressAgain)
+else if(shiftKey == true && e.keyCode == 87)
 	{
 	WButton = true;
 	word.push("W");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 88 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 88)
 	{
 	XButton = true;
 	word.push("X");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 89 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 89)
 	{
 	YButton = true;
 	word.push("Y");
-	canPressAgain = false;
+	
 	}
-	else if(shiftKey == true && e.keyCode == 90 && canPressAgain)
+	else if(shiftKey == true && e.keyCode == 90)
 	{
 	ZButton = true;
 	word.push("Z");
-	canPressAgain = false;
+	
 	}
 	
-	else if(e.keyCode == 32 && canPressAgain)
+	else if(e.keyCode == 32)
 	{
 		spaceBar = true;
 		word.push(" ");
-		canPressAgain = false;
+		
 	}
-	else if(e.keyCode == 13 && canPressAgain)
+	else if(e.keyCode == 13)
 	{
 	///enter
 	enterButton = true;
-	canPressAgain = false;
+	
 	}
 	else if(e.keyCode == 8)
 	{
 	///backspace
 	backButton = true;
 	word.pop();
-	canPressAgain = false;
+	
 	}
 
 }
@@ -481,332 +476,332 @@ function keyUpHandler(e){
 	if(e.keycode == 48)
 	{
 		button0 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 49)
 	{
 		button1 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 50)
 	{
 		button2 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 51)
 	{
 		button3 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 52)
 	{
 		button4 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 53)
 	{
 		button5 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 54)
 	{
 		button6 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 55)
 	{
 		button7 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 56)
 	{
 		button8 = false;
-		canPressAgain = false;
+		
 	}
 	if(e.keycode == 57)
 	{
 		button9 = false;
-		canPressAgain = false;
+		
 	}
 	
 	
 	if(e.keyCode == 65)
 	{
 	aButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 66)
 	{
 	bButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 67)
 	{
 	cButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 68)
 	{
 	dButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 69)
 	{
 	eButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 70)
 	{
 	fButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 71)
 	{
 	gButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 72)
 	{
 	hButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 73)
 	{
 	iButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 74)
 	{
 	jButton = false;
-	canPressAgain = true;
+	
 	}
 else if(e.keyCode == 75)
 	{
 	kButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 76)
 	{
 	lButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 77)
 	{
 	mButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 78)
 	{
 	nButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 79)
 	{
 	oButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 80)
 	{
 	pButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 81)
 	{
 	qButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 82)
 	{
 	rButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 83)
 	{
 	sButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 84)
 	{
 	tButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 85)
 	{
 	uButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 86)
 	{
 	vButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 87)
 	{
 	wButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 88)
 	{
 	xButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 89)
 	{
 	yButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 90)
 	{
 	zButton = false;
-	canPressAgain = true;
+	
 	}
 	
 	if(e.keyCode == 65 && e.keyCode == 16)
 	{
 	AButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 66 && e.keyCode == 16)
 	{
 	BButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 67 && e.keyCode == 16)
 	{
 	CButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 68 && e.keyCode == 16)
 	{
 	DButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 69 && e.keyCode == 16)
 	{
 	EButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 70 && e.keyCode == 16)
 	{
 	FButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 71 && e.keyCode == 16)
 	{
 	GButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 72 && e.keyCode == 16)
 	{
 	HButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 73 && e.keyCode == 16)
 	{
 	IButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 74 && e.keyCode == 16)
 	{
 	JButton = false;
-	canPressAgain = true;
+	
 	}
 else if(e.keyCode == 75 && e.keyCode == 16)
 	{
 	KButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 76 && e.keyCode == 16)
 	{
 	LButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 77 && e.keyCode == 16)
 	{
 	MButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 78 && e.keyCode == 16)
 	{
 	NButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 79 && e.keyCode == 16)
 	{
 	OButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 80 && e.keyCode == 16)
 	{
 	PButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 81 && e.keyCode == 16)
 	{
 	QButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 82 && e.keyCode == 16)
 	{
 	RButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 83 && e.keyCode == 16)
 	{
 	SButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 84 && e.keyCode == 16)
 	{
 	TButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 85 && e.keyCode == 16)
 	{
 	UButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 86 && e.keyCode == 16)
 	{
 	VButton = false;
-	canPressAgain = true;
+	
 	}	
 else if(e.keyCode == 87 && e.keyCode == 16)
 	{
 	WButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 88 && e.keyCode == 16)
 	{
 	XButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 89 && e.keyCode == 16)
 	{
 	YButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 90 && e.keyCode == 16)
 	{
 	ZButton = false;
-	canPressAgain = true;
+	
 	}
 	
 	else if(e.keyCode == 32)
 	{
 		spaceBar = false;
-		canPressAgain = true;
+		
 	}
 	else if(e.keyCode == 13)
 	{
 	///enter
 	enterButton = false;
-	canPressAgain = true;
+	
 	}
 	else if(e.keyCode == 8)
 	{
 	///backspace
 	backButton = false;
-	canPressAgain = true;
+	
 	}
 }

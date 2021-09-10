@@ -59,6 +59,8 @@ sheet8.src = "images/sheet8.png";
 let sheet9 = new Image();
 sheet9.src = "images/sheet9.png";
 
+let word = [];
+
 function getPosition(event)
 {
 	mouseX = event.x - canvas.offsetLeft;
@@ -141,6 +143,7 @@ characters.push(new character(1,"Jeffery","Rogue",1,10,10,"Human","Hermit","Chao
 characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
+
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
@@ -389,20 +392,54 @@ function characterSheets()
 		ctx.font = "15px Ariel";
 		
 		//class
+		let word1 = word.slice();
+		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				var Class = true;
+				characters[0].cClass = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(315,40,60,15);
+			}
+		}
+		else
+		{
+			Class = false;
+		}
 		if(mouseX >= 315 && mouseX <= 375 && mouseY >= 40 && mouseY <= 55)
 		{
 			ctx.fillStyle = "rgba(220,220,220,.8)";
 			ctx.fillRect(315,40,60,15);
 		}
-		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
+		
+		//race
+		if(oldMouseX >= 314 && oldMouseX <= 374 && oldMouseY >= 70 && oldMouseY <= 85)
 		{
-			characters[0].cClass = word.join("");
-			ctx.fillStyle = "rgba(220,220,220,.8)";
-			ctx.fillRect(315,40,60,15);
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				var race = true;
+				characters[0].race = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(314,70,60,15);
+			}
 		}
 		else
 		{
-			word = [];
+			race = false;
+		}
+		if(mouseX >= 314 && mouseX <= 374 && mouseY >= 70 && mouseY <= 85)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(314,70,60,15);
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140-85);
