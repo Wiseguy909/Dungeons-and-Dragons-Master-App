@@ -148,10 +148,11 @@ function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignm
 	this.xp = xp;
 }
 
-characters.push(new character(1,"Jeffery","Rogue",1,10,10,"Human","Hermit","Chaotic Good","Bob Joe","Milestone"));
+characters.push(new character(1,"Name","Class",1,10,10,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
+
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
@@ -392,7 +393,7 @@ function characterSheets()
 		}
 		
 	//character info
-		
+		{
 		//class
 		let word1 = word.slice();
 		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
@@ -404,6 +405,7 @@ function characterSheets()
 			else
 			{
 				characters[0].cClass = word1.join("");
+				localStorage.setItem("c1Class", characters[0].cClass);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(315,40,60,15);
 			}
@@ -424,6 +426,7 @@ function characterSheets()
 			else
 			{
 				characters[0].race = word1.join("");
+				localStorage.setItem("c1Race", characters[0].race);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(314,70,60,15);
 			}
@@ -444,6 +447,7 @@ function characterSheets()
 			else
 			{
 				characters[0].background = word1.join("");
+				localStorage.setItem("c1Background", characters[0].background);	
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(448,40,60,15);
 			}
@@ -464,6 +468,7 @@ function characterSheets()
 			else
 			{
 				characters[0].alignment = word1.join("");
+				localStorage.setItem("c1Alignment", characters[0].alignment);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(448,70,60,15);
 			}
@@ -484,6 +489,7 @@ function characterSheets()
 			else
 			{
 				characters[0].pName = word1.join("");
+				localStorage.setItem("c1pName", characters[0].pName);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(560,40,60,15);
 			}
@@ -504,6 +510,7 @@ function characterSheets()
 			else
 			{
 				characters[0].xp = word1.join("");
+				localStorage.setItem("c1XP", characters[0].xp);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(560,70,60,15);
 			}
@@ -524,6 +531,7 @@ function characterSheets()
 			else
 			{
 				characters[0].name = word1.join("");
+				localStorage.setItem("c1Name", characters[0].name);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(60,50,190,30);
 			}
@@ -573,22 +581,25 @@ function characterSheets()
 			ctx.fillStyle = "rgba(220,220,220,.8)";
 			ctx.fillRect(40,250,170,30);
 		}
+		}
 		
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].name,60,155-85);
 		
-		
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140-85);
+		
 		ctx.fillText(characters[0].maxHp, 115, 325-85);
-		//ctx.fillText(getLines(ctx,characters[0].race,50), 319, 85);
-		wrapText(ctx,characters[0].race,319,85,100,20);
+		
+		//wrapText(ctx,characters[0].race,319,85,100,20);
+		ctx.fillText(characters[0].race, 319, 85);
 		ctx.fillText(characters[0].background, 450, 55);
 		ctx.fillText(characters[0].alignment, 450, 85);
 		ctx.fillText(characters[0].pName, 563, 55);
 		ctx.fillText(characters[0].xp, 563, 85);
+		
 		
 		
 		ctx.font = "25px Ariel";
@@ -1068,6 +1079,23 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
     ctx.fillText(line, x, y);
   }
 
+function useLocalStorage()
+{
+	var c1Name = localStorage.getItem("c1Name");
+	characters[0].name = c1Name;
+	var c1Class = localStorage.getItem("c1Class");
+	characters[0].cClass = c1Class;
+	var c1Race = localStorage.getItem("c1Race");
+	characters[0].race = c1Race;
+	var c1Background = localStorage.getItem("c1Background");
+	characters[0].background = c1Background;
+	var c1Alignment = localStorage.getItem("c1Alignment");
+	characters[0].alignment = c1Alignment;
+	var c1pName = localStorage.getItem("c1pName");
+	characters[0].pName = c1pName;
+	var c1XP = localStorage.getItem("c1XP");
+	characters[0].xp = c1XP;
+}
 
 //window.open("pdf url here", '_blank');
 
@@ -1080,6 +1108,7 @@ function draw() {
 	drawIcons();
 	drawWindows();
 	characterSheets();
+	useLocalStorage();
 	if(mouseIsDown)
 	{
 		oldMouseX = mouseX;
