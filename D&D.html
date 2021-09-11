@@ -34,6 +34,15 @@ let mouseTimer = 0;
 let openTimer = 0;
 let menu = true;
 let windowOn = false;
+let d20 = false;
+let d12 = false;
+let d10 = false;
+let d8 = false;
+let d6 = false;
+let d4 = false;
+let num = 1;
+let diceNum = "1";
+let result = 0;
 
 let character1On = false;
 let character2On = false;
@@ -143,7 +152,6 @@ characters.push(new character(1,"Jeffery","Rogue",1,10,10,"Human","Hermit","Chao
 characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
-
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
@@ -385,12 +393,6 @@ function characterSheets()
 		
 	//character info
 		
-		ctx.font = "20px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[0].name,60,155-85);
-		
-		ctx.font = "15px Ariel";
-		
 		//class
 		let word1 = word.slice();
 		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
@@ -401,15 +403,10 @@ function characterSheets()
 			}
 			else
 			{
-				var Class = true;
 				characters[0].cClass = word1.join("");
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(315,40,60,15);
 			}
-		}
-		else
-		{
-			Class = false;
 		}
 		if(mouseX >= 315 && mouseX <= 375 && mouseY >= 40 && mouseY <= 55)
 		{
@@ -426,25 +423,168 @@ function characterSheets()
 			}
 			else
 			{
-				var race = true;
 				characters[0].race = word1.join("");
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(314,70,60,15);
 			}
-		}
-		else
-		{
-			race = false;
 		}
 		if(mouseX >= 314 && mouseX <= 374 && mouseY >= 70 && mouseY <= 85)
 		{
 			ctx.fillStyle = "rgba(220,220,220,.8)";
 			ctx.fillRect(314,70,60,15);
 		}
+		
+		//background
+		if(oldMouseX >= 450 && oldMouseX <= 510 && oldMouseY >= 40 && oldMouseY <= 55)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].background = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(448,40,60,15);
+			}
+		}
+		if(mouseX >= 450 && mouseX <= 510 && mouseY >= 40 && mouseY <= 55)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(448,40,60,15);
+		}
+		
+		//alignment
+		if(oldMouseX >= 450 && oldMouseX <= 510 && oldMouseY >= 70 && oldMouseY <= 85)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].alignment = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(448,70,60,15);
+			}
+		}
+		if(mouseX >= 450 && mouseX <= 510 && mouseY >= 70 && mouseY <= 85)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(448,70,60,15);
+		}
+		
+		//player name
+		if(oldMouseX >= 560 && oldMouseX <= 620 && oldMouseY >= 40 && oldMouseY <= 55)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].pName = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(560,40,60,15);
+			}
+		}
+		if(mouseX >= 560 && mouseX <= 620 && mouseY >= 40 && mouseY <= 55)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(560,40,60,15);
+		}
+		
+		//experience
+		if(oldMouseX >= 560 && oldMouseX <= 620 && oldMouseY >= 70 && oldMouseY <= 85)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].xp = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(560,70,60,15);
+			}
+		}
+		if(mouseX >= 560 && mouseX <= 620 && mouseY >= 70 && mouseY <= 85)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(560,70,60,15);
+		}
+		
+		//name
+		if(oldMouseX >= 60 && oldMouseX <= 250 && oldMouseY >= 50 && oldMouseY <= 80)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].name = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(60,50,190,30);
+			}
+		}
+		if(mouseX >= 60 && mouseX <= 250 && mouseY >= 50 && mouseY <= 80)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(60,50,190,30);
+		}
+		
+		//max health
+		if(oldMouseX >= 115 && oldMouseX <= 190 && oldMouseY >= 230 && oldMouseY <= 245)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].maxHp = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(115,230,75,15);
+			}
+		}
+		if(mouseX >= 115 && mouseX <= 190 && mouseY >= 230 && mouseY <= 245)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(115,230,75,15);
+		}
+		
+		//current health
+		if(oldMouseX >= 40 && oldMouseX <= 210 && oldMouseY >= 250 && oldMouseY <= 285)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[0].currentHp = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(40,250,170,30);
+			}
+		}
+		if(mouseX >= 40 && mouseX <= 210 && mouseY >= 250 && mouseY <= 285)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(40,250,170,30);
+		}
+		
+		ctx.font = "20px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[0].name,60,155-85);
+		
+		
+		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140-85);
 		ctx.fillText(characters[0].maxHp, 115, 325-85);
-		ctx.fillText(characters[0].race, 319, 85);
+		//ctx.fillText(getLines(ctx,characters[0].race,50), 319, 85);
+		wrapText(ctx,characters[0].race,319,85,100,20);
 		ctx.fillText(characters[0].background, 450, 55);
 		ctx.fillText(characters[0].alignment, 450, 85);
 		ctx.fillText(characters[0].pName, 563, 55);
@@ -456,133 +596,7 @@ function characterSheets()
 		ctx.fillText(characters[0].currentHp, 110, 360-85);
 		
 		//dice
-		{
-		ctx.font = "30px Ariel";
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,555-85,155,75);
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("Roll Dice", 535, 600-85);
-		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555-85 && mouseY <= 630-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,555-85,155,75);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "30px Ariel";
-			ctx.fillText("Roll Dice", 535, 600-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d20
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d20", 525, 545-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d20", 525, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d12
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d12", 580, 545-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d12", 580, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d10
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d10", 635, 545-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d10", 635, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d8
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d8", 530, 650-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d8", 530, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d6
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d6", 585, 650-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d6", 585, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d4
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d4", 640, 650-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d4", 640, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		}
+		dice();
 	}
 	if(character2On)
 	{
@@ -643,133 +657,7 @@ function characterSheets()
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[1].currentHp, 110, 360-85);
 		
-		//dice
-
-		ctx.font = "30px Ariel";
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,555-85,155,75);
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("Roll Dice", 535, 600-85);
-		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555-85 && mouseY <= 630-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,555-85,155,75);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "30px Ariel";
-			ctx.fillText("Roll Dice", 535, 600-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d20
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d20", 525, 545-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d20", 525, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d12
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d12", 580, 545-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d12", 580, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d10
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d10", 635, 545-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d10", 635, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d8
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d8", 530, 650-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d8", 530, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d6
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d6", 585, 650-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d6", 585, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d4
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d4", 640, 650-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d4", 640, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
+		dice()
 	}
 	if(character3On)
 	{
@@ -830,133 +718,7 @@ function characterSheets()
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[2].currentHp, 110, 360-85);
 		
-		//dice
-
-		ctx.font = "30px Ariel";
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,555-85,155,75);
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("Roll Dice", 535, 600-85);
-		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555-85 && mouseY <= 630-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,555-85,155,75);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "30px Ariel";
-			ctx.fillText("Roll Dice", 535, 600-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d20
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d20", 525, 545-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d20", 525, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d12
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d12", 580, 545-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d12", 580, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d10
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,530-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d10", 635, 545-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530-85 && mouseY <= 550-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d10", 635, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d8
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(515,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d8", 530, 650-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d8", 530, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d6
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(570,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d6", 585, 650-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d6", 585, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
-		//d4
-		ctx.fillStyle = "rgb(175,175,175)";
-		ctx.fillRect(625,635-85,45,20);
-		ctx.font = "15px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText("d4", 640, 650-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635-85 && mouseY <= 655-85)
-		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d4", 640, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
-		}
+		dice();
 	}
 	if(character4On)
 	{
@@ -1017,135 +779,294 @@ function characterSheets()
 		ctx.font = "25px Ariel";
 		ctx.fillText(characters[3].currentHp, 110, 360-85);
 		
-		//dice
-
-		ctx.font = "30px Ariel";
-		ctx.fillStyle = "rgb(175,175,175)";
+		dice();
+	}
+}
+function dice()
+{
+	let word2 = word.slice();
+	if(mouseX >= 615 && mouseX <= 665 && mouseY >= 580 && mouseY <= 605)
+	{
+		ctx.fillStyle = "rgba(220,220,220,.8)";
+		ctx.fillRect(615,580,50,25);
+	}
+	if(oldMouseX >= 615 && oldMouseX <= 665 && oldMouseY >= 580 && oldMouseY <= 605)
+	{
+		if(mouseIsDown)
+		{
+			word = [];
+		}
+		else
+		{
+			diceNum = word2.join("");
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(615,580,50,25);
+		}
+	}
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.font = "20px Ariel";
+	ctx.fillText("How many?",515,600)
+	ctx.textAlign = "center";
+	ctx.fillText(diceNum,640,600);
+	num = parseInt(diceNum);
+	ctx.textAlign = "start";
+	
+	//roll button
+	ctx.font = "30px Ariel";
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(515,555-85,155,75);
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("Roll Dice", 535, 600-85);
+	if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555-85 && mouseY <= 630-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515,555-85,155,75);
 		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "30px Ariel";
 		ctx.fillText("Roll Dice", 535, 600-85);
-		if(mouseX >= 515 && mouseX <= 670 && mouseY >= 555-85 && mouseY <= 630-85)
+		if(mouseIsDown && firstClick)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,555-85,155,75);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "30px Ariel";
-			ctx.fillText("Roll Dice", 535, 600-85);
-			if(mouseIsDown)
+			firstClick = false;
+			result = 0;
+			for(let i = 0; i < num; i++)
 			{
-				
+				if(d20)
+				{
+					result += Math.floor(Math.random()*20)+1;
+				}
+				if(d12)
+				{
+					result += Math.floor(Math.random()*12)+1;
+				}
+				if(d10)
+				{
+					result += Math.floor(Math.random()*10)+1;
+				}
+				if(d8)
+				{
+					result += Math.floor(Math.random()*8)+1;
+				}
+				if(d6)
+				{
+					result += Math.floor(Math.random()*6)+1;
+				}
+				if(d4)
+				{
+					result += Math.floor(Math.random()*4)+1;
+				}
 			}
 		}
-		//d20
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	//d20
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(515,530-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d20", 525, 545-85);
+	if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530-85 && mouseY <= 550-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515,530-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d20", 525, 545-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530-85 && mouseY <= 550-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d20", 525, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = true;
+			d12 = false;
+			d10 = false;
+			d8 = false;
+			d6 = false;
+			d4 = false;
 		}
-		//d12
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	if(d20)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
+		ctx.fillRect(515,530-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d20", 525, 545-85);
+	}
+	//d12
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(570,530-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d12", 580, 545-85);
+	if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530-85 && mouseY <= 550-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(570,530-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d12", 580, 545-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530-85 && mouseY <= 550-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d12", 580, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = false;
+			d12 = true;
+			d10 = false;
+			d8 = false;
+			d6 = false;
+			d4 = false;
 		}
-		//d10
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	if(d12)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
+		ctx.fillRect(570,530-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d12", 580, 545-85);
+	}
+	//d10
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(625,530-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d10", 635, 545-85);
+	if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530-85 && mouseY <= 550-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(625,530-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d10", 635, 545-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530-85 && mouseY <= 550-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,530-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d10", 635, 545-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = false;
+			d12 = false;
+			d10 = true;
+			d8 = false;
+			d6 = false;
+			d4 = false;
 		}
-		//d8
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	if(d10)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
+		ctx.fillRect(625,530-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d10", 635, 545-85);
+	}
+	//d8
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(515,635-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d8", 530, 650-85);
+	if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635-85 && mouseY <= 655-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515,635-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d8", 530, 650-85);
-		if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635-85 && mouseY <= 655-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(515,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d8", 530, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = false;
+			d12 = false;
+			d10 = false;
+			d8 = true;
+			d6 = false;
+			d4 = false;
 		}
-		//d6
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	if(d8)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
+		ctx.fillRect(515,635-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d8", 530, 650-85);
+	}
+	//d6
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(570,635-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d6", 585, 650-85);
+	if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635-85 && mouseY <= 655-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(570,635-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d6", 585, 650-85);
-		if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635-85 && mouseY <= 655-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(570,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d6", 585, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = false;
+			d12 = false;
+			d10 = false;
+			d8 = false;
+			d6 = true;
+			d4 = false;
 		}
-		//d4
-		ctx.fillStyle = "rgb(175,175,175)";
+	}
+	if(d6)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
+		ctx.fillRect(570,635-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d6", 585, 650-85);
+	}
+	//d4
+	ctx.fillStyle = "rgb(175,175,175)";
+	ctx.fillRect(625,635-85,45,20);
+	ctx.font = "15px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("d4", 640, 650-85);
+	if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635-85 && mouseY <= 655-85)
+	{
+		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(625,635-85,45,20);
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d4", 640, 650-85);
-		if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635-85 && mouseY <= 655-85)
+		if(mouseIsDown)
 		{
-			ctx.fillStyle = "rgb(140,140,140)";
-			ctx.fillRect(625,635-85,45,20);
-			ctx.font = "15px Ariel";
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillText("d4", 640, 650-85);
-			if(mouseIsDown)
-			{
-				
-			}
+			d20 = false;
+			d12 = false;
+			d10 = false;
+			d8 = false;
+			d6 = false;
+			d4 = true;
 		}
 	}
+	if(d4)
+	{
+		ctx.fillStyle = "rgb(175,175,175)";
+		ctx.fillRect(625,635-85,45,20);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("d4", 640, 650-85);
+	}
+	
+	
+	ctx.strokeStyle = "rgb(0,0,0)";
+	ctx.strokeRect(550,620,100,50);
+	ctx.font = "25px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.textAlign = "center";
+	ctx.fillText(result, 600, 655);
+	ctx.textAlign = "start";
 }
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+
+    for(var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = ctx.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
+        ctx.fillText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+      }
+      else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line, x, y);
+  }
 
 
 //window.open("pdf url here", '_blank');

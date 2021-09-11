@@ -68,19 +68,6 @@ var enterButton = false;
 var backButton = false;
 
 
-
-var cClass = [];
-var cRace = [];
-var cName = [];
-var cLevel = [];
-var cBackground = [];
-var cMaxHp = [];
-var cCurrentHp = [];
-var cAlignment = [];
-var pName = [];
-var cXP = [];
-
-
 function keyDownHandler(e){
 	if(e.keyCode == 16)
 	{
@@ -136,7 +123,6 @@ function keyDownHandler(e){
 		button9 = true;
 		word.push("9");
 	}
-	
 	
 	
 	else if(shiftKey == false && e.keyCode == 65)
