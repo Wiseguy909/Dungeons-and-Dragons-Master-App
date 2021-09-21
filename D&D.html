@@ -133,7 +133,7 @@ function Window(x1, y1, type, address, width, height, name)
 	this.name = name;
 }
 
-function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp)
+function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp,ac,str,dex,con,wis,intelligence,cha,proficiency)
 {
 	this.slot = slot;
 	this.name = name;
@@ -146,17 +146,34 @@ function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignm
 	this.alignment = alignment;
 	this.pName = pName;
 	this.xp = xp;
+	this.ac = ac;
+	this.str = str;
+	this.dex = dex;
+	this.con = con;
+	this.wis = wis;
+	this.intelligence = intelligence;
+	this.cha = cha;
+	this.prof = proficiency;
 }
 
-characters.push(new character(1,"Name","Class",1,10,10,"Race","Background","Alignment","Player Name","0"));
-characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
-characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
-characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0"));
 
+characters.push(new character(1,"Name","Class",1,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
+characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
+characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
+characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
 
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
 icons.push(new Icon(300,100,2,"images/img1.png",100,100,"        Spells"));
+
+
+function equipment(weapon1,weapon2,weapon3,armor)
+{
+	this.weap1 = weapon1;
+	this.weap2 = weapon2;
+	this.weap3 = weapon3;
+	this.armor = armor;
+}
 
 function drawIcons()
 {
@@ -352,8 +369,26 @@ function characterSheets()
 {
 	if(character1On)
 	{
-		ctx.canvas.height = 700;
-		ctx.fillStyle = "rgb(230,230,230)";
+		drawSheet(0);
+	}
+	if(character2On)
+	{
+		drawSheet(1);
+	}
+	if(character3On)
+	{
+		drawSheet(2);
+	}
+	if(character4On)
+	{
+		drawSheet(3);
+	}
+}
+
+function drawSheet(slot)
+{
+	ctx.canvas.height = 700;
+		ctx.fillStyle ="rgb(230,230,230)";
 		ctx.fillRect(0,0,window.innerWidth, 789);
 		ctx.fillStyle = "rgb(255,255,255)";
 		ctx.fillRect(0,-10,1230,700);
@@ -375,6 +410,9 @@ function characterSheets()
 			if(mouseIsDown)
 			{
 				character1On = false;
+				character2On = false;
+				character3On = false;
+				character4On = false;
 				windowOn = true;
 				ctx.canvas.height = window.innerHeight;
 				openTimer = 0;
@@ -393,7 +431,7 @@ function characterSheets()
 		}
 		
 	//character info
-		{
+{
 		//class
 		let word1 = word.slice();
 		if(oldMouseX >= 315 && oldMouseX <= 375 && oldMouseY >= 40 && oldMouseY <= 55)
@@ -404,8 +442,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].cClass = word1.join("");
-				localStorage.setItem("c1Class", characters[0].cClass);
+				characters[slot].cClass = word1.join("");
+				localStorage.setItem(JSON.stringify("cClass"+slot), characters[slot].cClass);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(315,40,60,15);
 			}
@@ -425,8 +463,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].race = word1.join("");
-				localStorage.setItem("c1Race", characters[0].race);
+				characters[slot].race = word1.join("");
+				localStorage.setItem(JSON.stringify("race"+slot), characters[slot].race);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(314,70,60,15);
 			}
@@ -446,8 +484,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].background = word1.join("");
-				localStorage.setItem("c1Background", characters[0].background);	
+				characters[slot].background = word1.join("");
+				localStorage.setItem(JSON.stringify("background"+slot), characters[slot].background);	
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(448,40,60,15);
 			}
@@ -467,8 +505,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].alignment = word1.join("");
-				localStorage.setItem("c1Alignment", characters[0].alignment);
+				characters[slot].alignment = word1.join("");
+				localStorage.setItem(JSON.stringify("alignment"+slot), characters[slot].alignment);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(448,70,60,15);
 			}
@@ -488,8 +526,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].pName = word1.join("");
-				localStorage.setItem("c1pName", characters[0].pName);
+				characters[slot].pName = word1.join("");
+				localStorage.setItem(JSON.stringify("pName"+slot), characters[slot].pName);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(560,40,60,15);
 			}
@@ -509,8 +547,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].xp = word1.join("");
-				localStorage.setItem("c1XP", characters[0].xp);
+				characters[slot].xp = word1.join("");
+				localStorage.setItem(JSON.stringify("XP"+slot), characters[slot].xp);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(560,70,60,15);
 			}
@@ -530,8 +568,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].name = word1.join("");
-				localStorage.setItem("c1Name", characters[0].name);
+				characters[slot].name = word1.join("");
+				localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(60,50,190,30);
 			}
@@ -551,7 +589,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].maxHp = word1.join("");
+				characters[slot].maxHp = word1.join("");
+				localStorage.setItem(JSON.stringify("maxHP"+slot),characters[slot].maxHp);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(115,230,75,15);
 			}
@@ -571,7 +610,8 @@ function characterSheets()
 			}
 			else
 			{
-				characters[0].currentHp = word1.join("");
+				characters[slot].currentHp = word1.join("");
+				localStorage.setItem(JSON.stringify("currentHP"+slot),characters[slot].currentHp);
 				ctx.fillStyle = "rgba(220,220,220,.8)";
 				ctx.fillRect(40,250,170,30);
 			}
@@ -581,218 +621,399 @@ function characterSheets()
 			ctx.fillStyle = "rgba(220,220,220,.8)";
 			ctx.fillRect(40,250,170,30);
 		}
+		
+		//armor class
+		if(oldMouseX >= 35 && oldMouseX <= 60 && oldMouseY >= 160 && oldMouseY <= 185)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].ac = word1.join("");
+				localStorage.setItem(JSON.stringify("ac"+slot),characters[slot].ac);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(35,160,25,25);
+			}
 		}
+		if(mouseX >= 35 && mouseX <= 60 && mouseY >= 160 && mouseY <= 185)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(35,160,25,25);
+		}
+		
+		//strength
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 92 && oldMouseY <= 110)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].str = word1.join("");
+				localStorage.setItem(JSON.stringify("str"+slot),characters[slot].str);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,92,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 92 && mouseY <= 110)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,92,20,20);
+		}
+		
+		//dexterity
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 196 && oldMouseY <= 216)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].dex = word1.join("");
+				localStorage.setItem(JSON.stringify("dex"+slot),characters[slot].dex);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,196,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 196 && mouseY <= 216)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,196,20,20);
+		}
+		
+		//constitution
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 298 && oldMouseY <=318)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].con = word1.join("");
+				localStorage.setItem(JSON.stringify("con"+slot),characters[slot].con);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,298,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 298 && mouseY <= 318)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,298,20,20);
+		}
+		
+		//intelligence
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 402 && oldMouseY <=422)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].intelligence = word1.join("");
+				localStorage.setItem(JSON.stringify("intelligence"+slot),characters[slot].intelligence);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,402,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 402 && mouseY <= 422)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,402,20,20);
+		}
+		
+		//wisdom
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 505 && oldMouseY <=525)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].wis = word1.join("");
+				localStorage.setItem(JSON.stringify("wis"+slot),characters[slot].wis);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,505,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 505 && mouseY <= 525)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,505,20,20);
+		}
+		
+		//charisma
+		if(oldMouseX >= 742 && oldMouseX <= 761 && oldMouseY >= 609 && oldMouseY <=629)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].cha = word1.join("");
+				localStorage.setItem(JSON.stringify("cha"+slot),characters[slot].cha);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(742,609,20,20);
+			}
+		}
+		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 609 && mouseY <= 629)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(742,609,20,20);
+		}
+		
+		//proficiency bonus
+		if(oldMouseX >= 812 && oldMouseX <= 842 && oldMouseY >= 65 && oldMouseY <=95)
+		{
+			if(mouseIsDown)
+			{
+				word = [];
+			}
+			else
+			{
+				characters[slot].prof = word1.join("");
+				localStorage.setItem(JSON.stringify("prof"+slot),characters[slot].prof);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(812,65,30,30);
+			}
+		}
+		if(mouseX >= 812 && mouseX <= 842 && mouseY >= 65 && mouseY <= 95)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(812,65,30,30);
+		}
+}
 		
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[0].name,60,155-85);
+		ctx.fillText(characters[slot].name,60,155-85);
 		
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[0].cClass + " " + characters[0].level, 320, 140-85);
+		ctx.fillText(characters[slot].cClass + " " + characters[slot].level, 320, 140-85);
 		
-		ctx.fillText(characters[0].maxHp, 115, 325-85);
+		ctx.fillText(characters[slot].maxHp, 121, 325-85);
 		
-		//wrapText(ctx,characters[0].race,319,85,100,20);
-		ctx.fillText(characters[0].race, 319, 85);
-		ctx.fillText(characters[0].background, 450, 55);
-		ctx.fillText(characters[0].alignment, 450, 85);
-		ctx.fillText(characters[0].pName, 563, 55);
-		ctx.fillText(characters[0].xp, 563, 85);
+		//wrapText(ctx,characters[slot].race,319,85,100,20);
+		ctx.fillText(characters[slot].race, 319, 85);
+		ctx.fillText(characters[slot].background, 450, 55);
+		ctx.fillText(characters[slot].alignment, 450, 85);
+		ctx.fillText(characters[slot].pName, 563, 55);
+		ctx.fillText(characters[slot].xp, 563, 85);
 		
 		
 		
 		ctx.font = "25px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[0].currentHp, 110, 360-85);
+		ctx.textAlign = "center";
+		ctx.fillText(characters[slot].currentHp, 125, 360-85);
+		ctx.fillText(characters[slot].ac, 47, 180);
+		ctx.fillText("+"+characters[slot].prof, 825, 87);
+		
+		if(characters[slot].str >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 751, 75);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].str-10)/2), 751, 75);
+		}
+		if(characters[slot].dex >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 751, 179);
+			//initiative
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 120, 184);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 751, 179);
+			//initiative
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 120, 184);
+		}
+		if(characters[slot].con >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].con-10)/2), 751, 282);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].con-10)/2), 751, 282);
+		}
+		if(characters[slot].intelligence >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 751, 385);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 751, 385);
+		}
+		if(characters[slot].wis >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 751, 488);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 751, 488);
+		}
+		if(characters[slot].cha >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 751, 592);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 751, 592);
+		}
+		
+		ctx.font = "20px Ariel";
+		ctx.fillText(Math.floor((characters[slot].wis-10)/2)+10,1000,655);
+		
+		ctx.font = "15px Ariel";
+		ctx.fillText(characters[slot].str, 751, 107);
+		ctx.fillText(characters[slot].dex, 751, 210);
+		ctx.fillText(characters[slot].con, 751, 314);
+		ctx.fillText(characters[slot].intelligence, 751, 417);
+		ctx.fillText(characters[slot].wis, 751, 520);
+		ctx.fillText(characters[slot].cha, 751, 622);
+		
+		//saving throws
+		if(characters[slot].str >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 133);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 133);
+		}
+		if(characters[slot].dex >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 152);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 152);
+		}
+		if(characters[slot].con >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].con-10)/2), 843, 171);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].con-10)/2), 843, 171);
+		}
+		if(characters[slot].intelligence >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+		}
+		if(characters[slot].wis >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 210);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 210);
+		}
+		if(characters[slot].cha >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 229);
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 229);
+		}
+		
+		//skills
+		if(characters[slot].str >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 357);//athletics
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 357);//athletics
+		}
+		if(characters[slot].dex >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 298);//acrobatics
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 591);//sleight of hand
+			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 611);//stealth
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 298);//acrobatics
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 591);//sleight of hand
+			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 611);//stealth
+		}
+		if(characters[slot].con >= 10)
+		{
+			
+		}
+		else
+		{
+			
+		}
+		if(characters[slot].intelligence >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 337);//arcana
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 396);//history
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 455);//investigation
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 494);//nature
+			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 572);//religion
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 337);//arcana
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 396);//history
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 455);//investigation
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 494);//nature
+			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 572);//religion
+		}
+		if(characters[slot].wis >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 318);//animal handling
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 416);//insight
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 474);//medicine
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 513);//perception
+			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 630);//survival
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 318);//animal handling
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 416);//insight
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 474);//medicine
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 513);//perception
+			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 630);//survival
+		}
+		if(characters[slot].cha >= 10)
+		{
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 377);//deception
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 435);//intimidation
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 532);//performance
+			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 552);//persuasion
+		}
+		else
+		{
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 377);//deception
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 435);//intimidation
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 532);//performance
+			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 552);//persuasion
+		}
+		
+		
+		ctx.textAlign = "start";
 		
 		//dice
 		dice();
-	}
-	if(character2On)
-	{
-		ctx.canvas.height = 700;
-		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, 789);
-		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,-10,1230,700);
-		ctx.drawImage(sheet1, 0, 75-85, 700, 140);
-		ctx.drawImage(sheet2, 700, 75-85, 275, 675);
-		ctx.drawImage(sheet3, 0, 215-85, 250, 335);
-		ctx.drawImage(sheet4, 250, 215-85, 240, 300);
-		ctx.drawImage(sheet5, 975, 625, 250, 49);
-		ctx.drawImage(sheet6, 0, 550-85, 250, 225);
-		ctx.drawImage(sheet8, 485, 200-85, 220, 325);
-		ctx.drawImage(sheet7, 250, 515-85, 240, 260);
-		ctx.drawImage(sheet9, 975, 0, 250, 630);
-		
-		if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
-		{
-			ctx.fillStyle = "rgb(255,0,0)";
-			ctx.fillRect(0,0,30,30);
-			if(mouseIsDown)
-			{
-				character2On = false;
-				windowOn = true;
-				ctx.canvas.height = window.innerHeight;
-				openTimer = 0;
-			}
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		else
-		{
-			ctx.fillStyle = "rgb(210,210,210)";
-			ctx.fillRect(0,0,30,30);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		
-		//character info
-		
-		ctx.font = "20px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[1].name,60,155-85);
-		
-		ctx.font = "15px Ariel";
-		ctx.fillText(characters[1].cClass + " " + characters[1].level, 320, 140-85);
-		ctx.fillText(characters[1].maxHp, 115, 325-85);
-		ctx.fillText(characters[1].race, 319, 85);
-		ctx.fillText(characters[1].background, 450, 55);
-		ctx.fillText(characters[1].alignment, 450, 85);
-		ctx.fillText(characters[1].pName, 563, 55);
-		ctx.fillText(characters[1].xp, 563, 85);
-		
-		ctx.font = "25px Ariel";
-		ctx.fillText(characters[1].currentHp, 110, 360-85);
-		
-		dice()
-	}
-	if(character3On)
-	{
-		ctx.canvas.height = 700;
-		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, 789);
-		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,-10,1230,700);
-		ctx.drawImage(sheet1, 0, 75-85, 700, 140);
-		ctx.drawImage(sheet2, 700, 75-85, 275, 675);
-		ctx.drawImage(sheet3, 0, 215-85, 250, 335);
-		ctx.drawImage(sheet4, 250, 215-85, 240, 300);
-		ctx.drawImage(sheet5, 975, 625, 250, 49);
-		ctx.drawImage(sheet6, 0, 550-85, 250, 225);
-		ctx.drawImage(sheet8, 485, 200-85, 220, 325);
-		ctx.drawImage(sheet7, 250, 515-85, 240, 260);
-		ctx.drawImage(sheet9, 975, 0, 250, 630);
-		
-		if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
-		{
-			ctx.fillStyle = "rgb(255,0,0)";
-			ctx.fillRect(0,0,30,30);
-			if(mouseIsDown)
-			{
-				character3On = false;
-				windowOn = true;
-				ctx.canvas.height = window.innerHeight;
-				openTimer = 0;
-			}
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		else
-		{
-			ctx.fillStyle = "rgb(210,210,210)";
-			ctx.fillRect(0,0,30,30);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		
-		//character info
-		
-		ctx.font = "20px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[2].name,60,155-85);
-		
-		ctx.font = "15px Ariel";
-		ctx.fillText(characters[2].cClass + " " + characters[2].level, 320, 140-85);
-		ctx.fillText(characters[2].maxHp, 115, 325-85);
-		ctx.fillText(characters[2].race, 319, 85);
-		ctx.fillText(characters[2].background, 450, 55);
-		ctx.fillText(characters[2].alignment, 450, 85);
-		ctx.fillText(characters[2].pName, 563, 55);
-		ctx.fillText(characters[2].xp, 563, 85);
-		
-		ctx.font = "25px Ariel";
-		ctx.fillText(characters[2].currentHp, 110, 360-85);
-		
-		dice();
-	}
-	if(character4On)
-	{
-		ctx.canvas.height = 700;
-		ctx.fillStyle = "rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, 789);
-		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.fillRect(0,-10,1230,700);
-		ctx.drawImage(sheet1, 0, 75-85, 700, 140);
-		ctx.drawImage(sheet2, 700, 75-85, 275, 675);
-		ctx.drawImage(sheet3, 0, 215-85, 250, 335);
-		ctx.drawImage(sheet4, 250, 215-85, 240, 300);
-		ctx.drawImage(sheet5, 975, 625, 250, 49);
-		ctx.drawImage(sheet6, 0, 550-85, 250, 225);
-		ctx.drawImage(sheet8, 485, 200-85, 220, 325);
-		ctx.drawImage(sheet7, 250, 515-85, 240, 260);
-		ctx.drawImage(sheet9, 975, 0, 250, 630);
-		
-		if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
-		{
-			ctx.fillStyle = "rgb(255,0,0)";
-			ctx.fillRect(0,0,30,30);
-			if(mouseIsDown)
-			{
-				character4On = false;
-				windowOn = true;
-				ctx.canvas.height = window.innerHeight;
-				openTimer = 0;
-			}
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		else
-		{
-			ctx.fillStyle = "rgb(210,210,210)";
-			ctx.fillRect(0,0,30,30);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", 3, 26);
-		}
-		
-		//character info
-		
-		ctx.font = "20px Ariel";
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(characters[3].name,60,155-85);
-		
-		ctx.font = "15px Ariel";
-		ctx.fillText(characters[3].cClass + " " + characters[3].level, 320, 140-85);
-		ctx.fillText(characters[3].maxHp, 115, 325-85);
-		ctx.fillText(characters[3].race, 319, 85);
-		ctx.fillText(characters[3].background, 450, 55);
-		ctx.fillText(characters[3].alignment, 450, 85);
-		ctx.fillText(characters[3].pName, 563, 55);
-		ctx.fillText(characters[3].xp, 563, 85);
-		
-		ctx.font = "25px Ariel";
-		ctx.fillText(characters[3].currentHp, 110, 360-85);
-		
-		dice();
-	}
 }
+
 function dice()
 {
 	let word2 = word.slice();
@@ -1081,20 +1302,43 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
 function useLocalStorage()
 {
-	var c1Name = localStorage.getItem("c1Name");
-	characters[0].name = c1Name;
-	var c1Class = localStorage.getItem("c1Class");
-	characters[0].cClass = c1Class;
-	var c1Race = localStorage.getItem("c1Race");
-	characters[0].race = c1Race;
-	var c1Background = localStorage.getItem("c1Background");
-	characters[0].background = c1Background;
-	var c1Alignment = localStorage.getItem("c1Alignment");
-	characters[0].alignment = c1Alignment;
-	var c1pName = localStorage.getItem("c1pName");
-	characters[0].pName = c1pName;
-	var c1XP = localStorage.getItem("c1XP");
-	characters[0].xp = c1XP;
+	for(i = 0; i <= 3; i++)
+	{
+		var name = localStorage.getItem(JSON.stringify("name"+i));
+		characters[i].name = name;
+		var cClass = localStorage.getItem(JSON.stringify("cClass"+i));
+		characters[i].cClass = cClass;
+		var race = localStorage.getItem(JSON.stringify("race"+i));
+		characters[i].race = race;
+		var background = localStorage.getItem(JSON.stringify("background"+i));
+		characters[i].background = background;
+		var alignment = localStorage.getItem(JSON.stringify("alignment"+i));
+		characters[i].alignment = alignment;
+		var pName = localStorage.getItem(JSON.stringify("pName"+i));
+		characters[i].pName = pName;
+		var XP = localStorage.getItem(JSON.stringify("XP"+i));
+		characters[i].xp = XP;
+		var maxHP = localStorage.getItem(JSON.stringify("maxHP"+i));
+		characters[i].maxHp = maxHP;
+		var currentHP = localStorage.getItem(JSON.stringify("currentHP"+i));
+		characters[i].currentHp = currentHP;
+		var ac = localStorage.getItem(JSON.stringify("ac"+i));
+		characters[i].ac = ac;
+		var str = localStorage.getItem(JSON.stringify("str"+i));
+		characters[i].str = str;
+		var dex = localStorage.getItem(JSON.stringify("dex"+i));
+		characters[i].dex = dex;
+		var con = localStorage.getItem(JSON.stringify("con"+i));
+		characters[i].con = con;
+		var intelligence = localStorage.getItem(JSON.stringify("intelligence"+i));
+		characters[i].intelligence = intelligence;
+		var wis = localStorage.getItem(JSON.stringify("wis"+i));
+		characters[i].wis = wis;
+		var cha = localStorage.getItem(JSON.stringify("cha"+i));
+		characters[i].cha = cha;
+		var prof = localStorage.getItem(JSON.stringify("prof"+i));
+		characters[i].prof = prof;
+	}
 }
 
 //window.open("pdf url here", '_blank');
