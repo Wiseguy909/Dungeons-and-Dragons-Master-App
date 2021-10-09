@@ -25,6 +25,8 @@ const wH = window.innerHeight;
 let icons = [];
 let windows = [];
 let characters = [];
+let proficiencies = [];
+let equipment = [];
 let mouseIsDown = false;
 let firstClick = false;
 let doubleClick = false;
@@ -133,7 +135,9 @@ function Window(x1, y1, type, address, width, height, name)
 	this.name = name;
 }
 
-function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp,ac,str,dex,con,wis,intelligence,cha,proficiency)
+function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp,ac,str,dex,con,wis,intelligence,
+					cha,proficiency,equipment,cp,sp,gp,ep,pp,pTraits,ideals,bonds,flaws,traits,inspiration,deathSaveS1,
+					deathSaveS2,deathSaveS3,deathSaveF1,deathSaveF2,deathSaveF3,tHP,speed,tHitDice,cHitDice)
 {
 	this.slot = slot;
 	this.name = name;
@@ -154,26 +158,93 @@ function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignm
 	this.intelligence = intelligence;
 	this.cha = cha;
 	this.prof = proficiency;
+	this.equipment = equipment;
+	this.cp = cp;
+	this.sp = sp;
+	this.gp = gp;
+	this.ep = ep;
+	this.pp = pp;
+	this.pTraits = pTraits;
+	this.ideals = ideals;
+	this.flaws = flaws;
+	this.bonds = bonds;
+	this.traits = traits;
+	this.inspiration = inspiration;
+	this.deathSaveS1 = deathSaveS1;
+	this.deathSaveS2 = deathSaveS2;
+	this.deathSaveS3 = deathSaveS3;
+	this.deathSaveF1 = deathSaveF1;
+	this.deathSaveF2 = deathSaveF2;
+	this.deathSaveF3 = deathSaveF3;
+	this.tHP = tHP;
+	this.speed = speed;
+	
 }
 
+function proficiency(strProf,dexProf,conProf,intProf,wisProf,chaProf,acrobaticsProf,animalProf,arcanaProf,athleticsProf,
+					deceptionProf,historyProf,insightProf,intimidationProf,investigationProf,natureProf,perceptionProf,
+					performanceProf,persuasionProf,religionProf,sleightProf,stealthProf,survivalProf,other)
+{
+	this.strProf = strProf;
+	this.dexProf = dexProf;
+	this.conProf = conProf;
+	this.intProf = intProf;
+	this.wisProf = wisProf;
+	this.chaProf = chaProf;
+	this.acrobaticsProf = acrobaticsProf;
+	this.animalProf = animalProf;
+	this.arcanaProf = arcanaProf;
+	this.athleticsProf = athleticsProf;
+	this.deceptionProf = deceptionProf;
+	this.historyProf = historyProf;
+	this.insightProf = insightProf;
+	this.intimidationProf = intimidationProf;
+	this.investigationProf = investigationProf;
+	this.natureProf = natureProf;
+	this.perceptionProf = perceptionProf;
+	this.performanceProf = performanceProf;
+	this.persuasionProf = persuasionProf;
+	this.religionProf = religionProf;
+	this.sleightProf = sleightProf;
+	this.stealthProf = stealthProf;
+	this.survivalProf = survivalProf;
+	this.other = other;
+}
 
-characters.push(new character(1,"Name","Class",1,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
-characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
-characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
-characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2"));
+function weapon(name1,name2,name3,bonus1,bonus2,bonus3,damage1,damage2,damage3,details)
+{
+	this.n1 = name1;
+	this.n2 = name2;
+	this.n3 = name3;
+	this.b1 = bonus1;
+	this.b2 = bonus2;
+	this.b3 = bonus3;
+	this.d1 = damage1;
+	this.d2 = damage2;
+	this.d3 = damage3;
+	this.details = details;
+}
 
+equipment.push(new weapon("","","","","","","","","",""));
+equipment.push(new weapon("","","","","","","","","",""));
+equipment.push(new weapon("","","","","","","","","",""));
+equipment.push(new weapon("","","","","","","","","",""));
+
+characters.push(new character(1,"Name","Class",1,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
+characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
+characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
+characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
+
+proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
+proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
+proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
+proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
 
 icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
 icons.push(new Icon(300,100,2,"images/img1.png",100,100,"        Spells"));
 
 
-function equipment(weapon1,weapon2,weapon3,armor)
-{
-	this.weap1 = weapon1;
-	this.weap2 = weapon2;
-	this.weap3 = weapon3;
-	this.armor = armor;
-}
+
 
 function drawIcons()
 {
@@ -197,7 +268,7 @@ function drawIcons()
 			let winX = 0 + (10 * windows.length);
 			let winY = 30 + (10 * windows.length);
 			windows.push(new Window(winX,winY,icons[i].type,
-			icons[i].address,window.innerWidth,window.innerHeight,icons[i].name));
+			icons[i].address,wW,wH,icons[i].name));
 			windowOn = true;
 		}
 		if(mouseX >= icons[i].x && mouseX <= icons[i].x + icons[i].w &&
@@ -389,7 +460,7 @@ function drawSheet(slot)
 {
 	ctx.canvas.height = 700;
 		ctx.fillStyle ="rgb(230,230,230)";
-		ctx.fillRect(0,0,window.innerWidth, 789);
+		ctx.fillRect(0,0,wW,789);
 		ctx.fillStyle = "rgb(255,255,255)";
 		ctx.fillRect(0,-10,1230,700);
 		ctx.drawImage(sheet1, 0, 75-85, 700, 140);
@@ -414,7 +485,7 @@ function drawSheet(slot)
 				character3On = false;
 				character4On = false;
 				windowOn = true;
-				ctx.canvas.height = window.innerHeight;
+				ctx.canvas.height = wH;
 				openTimer = 0;
 			}
 			ctx.fillStyle = "rgb(0,0,0)";
@@ -438,19 +509,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].cClass.split("");
 			}
 			else
 			{
 				characters[slot].cClass = word1.join("");
 				localStorage.setItem(JSON.stringify("cClass"+slot), characters[slot].cClass);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(315,40,60,15);
 			}
 		}
 		if(mouseX >= 315 && mouseX <= 375 && mouseY >= 40 && mouseY <= 55)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(315,40,60,15);
 		}
 		
@@ -459,19 +530,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].race.split("");
 			}
 			else
 			{
 				characters[slot].race = word1.join("");
 				localStorage.setItem(JSON.stringify("race"+slot), characters[slot].race);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(314,70,60,15);
 			}
 		}
 		if(mouseX >= 314 && mouseX <= 374 && mouseY >= 70 && mouseY <= 85)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(314,70,60,15);
 		}
 		
@@ -480,19 +551,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].background.split("");
 			}
 			else
 			{
 				characters[slot].background = word1.join("");
 				localStorage.setItem(JSON.stringify("background"+slot), characters[slot].background);	
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(448,40,60,15);
 			}
 		}
 		if(mouseX >= 450 && mouseX <= 510 && mouseY >= 40 && mouseY <= 55)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(448,40,60,15);
 		}
 		
@@ -501,19 +572,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].alignment.split("");
 			}
 			else
 			{
 				characters[slot].alignment = word1.join("");
 				localStorage.setItem(JSON.stringify("alignment"+slot), characters[slot].alignment);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(448,70,60,15);
 			}
 		}
 		if(mouseX >= 450 && mouseX <= 510 && mouseY >= 70 && mouseY <= 85)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(448,70,60,15);
 		}
 		
@@ -522,19 +593,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].pName.split("");
 			}
 			else
 			{
 				characters[slot].pName = word1.join("");
 				localStorage.setItem(JSON.stringify("pName"+slot), characters[slot].pName);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(560,40,60,15);
 			}
 		}
 		if(mouseX >= 560 && mouseX <= 620 && mouseY >= 40 && mouseY <= 55)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(560,40,60,15);
 		}
 		
@@ -543,19 +614,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].xp.split("");
 			}
 			else
 			{
 				characters[slot].xp = word1.join("");
 				localStorage.setItem(JSON.stringify("XP"+slot), characters[slot].xp);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(560,70,60,15);
 			}
 		}
 		if(mouseX >= 560 && mouseX <= 620 && mouseY >= 70 && mouseY <= 85)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(560,70,60,15);
 		}
 		
@@ -564,19 +635,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].name.split("");
 			}
 			else
 			{
 				characters[slot].name = word1.join("");
 				localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(60,50,190,30);
 			}
 		}
 		if(mouseX >= 60 && mouseX <= 250 && mouseY >= 50 && mouseY <= 80)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(60,50,190,30);
 		}
 		
@@ -585,41 +656,62 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].maxHp.split("");
 			}
 			else
 			{
 				characters[slot].maxHp = word1.join("");
 				localStorage.setItem(JSON.stringify("maxHP"+slot),characters[slot].maxHp);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(115,230,75,15);
 			}
 		}
-		if(mouseX >= 115 && mouseX <= 190 && mouseY >= 230 && mouseY <= 245)
+		if(mouseX >= 115 && mouseX <= 190 && mouseY >= 228 && mouseY <= 243)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
-			ctx.fillRect(115,230,75,15);
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(115,228,75,15);
 		}
 		
 		//current health
-		if(oldMouseX >= 40 && oldMouseX <= 210 && oldMouseY >= 250 && oldMouseY <= 285)
+		if(oldMouseX >= 40 && oldMouseX <= 210 && oldMouseY >= 250 && oldMouseY <= 290)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].currentHp.split("");
 			}
 			else
 			{
 				characters[slot].currentHp = word1.join("");
 				localStorage.setItem(JSON.stringify("currentHP"+slot),characters[slot].currentHp);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
-				ctx.fillRect(40,250,170,30);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(40,250,170,40);
 			}
 		}
-		if(mouseX >= 40 && mouseX <= 210 && mouseY >= 250 && mouseY <= 285)
+		if(mouseX >= 40 && mouseX <= 210 && mouseY >= 250 && mouseY <= 290)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
-			ctx.fillRect(40,250,170,30);
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(40,250,170,40);
+		}
+		
+		//temporary health
+		if(oldMouseX >= 40 && oldMouseX <= 210 && oldMouseY >= 315 && oldMouseY <= 355)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].tHP.split("");
+			}
+			else
+			{
+				characters[slot].tHP = word1.join("");
+				localStorage.setItem(JSON.stringify("tHP"+slot),characters[slot].tHP);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(40,315,170,40);
+			}
+		}
+		if(mouseX >= 40 && mouseX <= 210 && mouseY >= 315 && mouseY <= 355)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(40,315,170,40);
 		}
 		
 		//armor class
@@ -627,19 +719,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].ac.split("");
 			}
 			else
 			{
 				characters[slot].ac = word1.join("");
 				localStorage.setItem(JSON.stringify("ac"+slot),characters[slot].ac);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(35,160,25,25);
 			}
 		}
 		if(mouseX >= 35 && mouseX <= 60 && mouseY >= 160 && mouseY <= 185)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(35,160,25,25);
 		}
 		
@@ -648,19 +740,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].str.split("");
 			}
 			else
 			{
 				characters[slot].str = word1.join("");
 				localStorage.setItem(JSON.stringify("str"+slot),characters[slot].str);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,92,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 92 && mouseY <= 110)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,92,20,20);
 		}
 		
@@ -669,19 +761,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].dex.split("");
 			}
 			else
 			{
 				characters[slot].dex = word1.join("");
 				localStorage.setItem(JSON.stringify("dex"+slot),characters[slot].dex);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,196,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 196 && mouseY <= 216)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,196,20,20);
 		}
 		
@@ -690,19 +782,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].con.split("");
 			}
 			else
 			{
 				characters[slot].con = word1.join("");
 				localStorage.setItem(JSON.stringify("con"+slot),characters[slot].con);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,298,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 298 && mouseY <= 318)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,298,20,20);
 		}
 		
@@ -711,19 +803,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].intelligence.split("");
 			}
 			else
 			{
 				characters[slot].intelligence = word1.join("");
 				localStorage.setItem(JSON.stringify("intelligence"+slot),characters[slot].intelligence);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,402,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 402 && mouseY <= 422)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,402,20,20);
 		}
 		
@@ -732,19 +824,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].wis.split("");
 			}
 			else
 			{
 				characters[slot].wis = word1.join("");
 				localStorage.setItem(JSON.stringify("wis"+slot),characters[slot].wis);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,505,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 505 && mouseY <= 525)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,505,20,20);
 		}
 		
@@ -753,19 +845,19 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].cha.split("");
 			}
 			else
 			{
 				characters[slot].cha = word1.join("");
 				localStorage.setItem(JSON.stringify("cha"+slot),characters[slot].cha);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(742,609,20,20);
 			}
 		}
 		if(mouseX >= 742 && mouseX <= 761 && mouseY >= 609 && mouseY <= 629)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(742,609,20,20);
 		}
 		
@@ -774,48 +866,427 @@ function drawSheet(slot)
 		{
 			if(mouseIsDown)
 			{
-				word = [];
+				word = characters[slot].prof.split("");
 			}
 			else
 			{
 				characters[slot].prof = word1.join("");
 				localStorage.setItem(JSON.stringify("prof"+slot),characters[slot].prof);
-				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(812,65,30,30);
 			}
 		}
 		if(mouseX >= 812 && mouseX <= 842 && mouseY >= 65 && mouseY <= 95)
 		{
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(812,65,30,30);
+		}
+		
+		//personality traits
+		if(oldMouseX >= 506 && oldMouseX <= 681 && oldMouseY >= 142 && oldMouseY <= 200)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].pTraits.split("");
+			}
+			else
+			{
+				characters[slot].pTraits = word1.join("");
+				localStorage.setItem(JSON.stringify("pTraits"+slot), characters[slot].pTraits);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(506,142,181,60);
+			}
+		}
+		if(mouseX >= 506 && mouseX <= 681 && mouseY >= 142 && mouseY <= 200)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(506,142,181,58);
+		}
+		
+		//ideals
+		if(oldMouseX >= 506 && oldMouseX <= 681 && oldMouseY >= 228 && oldMouseY <= 272)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].ideals.split("");
+			}
+			else
+			{
+				characters[slot].ideals = word1.join("");
+				localStorage.setItem(JSON.stringify("ideals"+slot), characters[slot].ideals);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(506,228,181,44);
+			}
+		}
+		if(mouseX >= 506 && mouseX <= 681 && mouseY >= 228 && mouseY <= 272)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(506,228,181,44);
+		}
+		
+		//bonds
+		if(oldMouseX >= 506 && oldMouseX <= 681 && oldMouseY >= 298 && oldMouseY <= 344)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].bonds.split("");
+			}
+			else
+			{
+				characters[slot].bonds = word1.join("");
+				localStorage.setItem(JSON.stringify("bonds"+slot), characters[slot].bonds);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(506,298,181,44);
+			}
+		}
+		if(mouseX >= 506 && mouseX <= 681 && mouseY >= 298 && mouseY <= 344)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(506,298,181,44);
+		}
+		
+		//flaws
+		if(oldMouseX >= 506 && oldMouseX <= 681 && oldMouseY >= 367 && oldMouseY <= 411)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].flaws.split("");
+			}
+			else
+			{
+				characters[slot].flaws = word1.join("");
+				localStorage.setItem(JSON.stringify("flaws"+slot), characters[slot].flaws);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(506,367,181,44);
+			}
+		}
+		if(mouseX >= 506 && mouseX <= 681 && mouseY >= 367 && mouseY <= 411)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(506,367,181,44);
+		}
+		
+		//Features and Traits
+		if(oldMouseX >= 987 && oldMouseX <= 1214 && oldMouseY >= 10 && oldMouseY <= 594)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].traits.split("");
+			}
+			else
+			{
+				characters[slot].traits = word1.join("");
+				localStorage.setItem(JSON.stringify("traits"+slot), characters[slot].traits);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(987,10,227,594);
+			}
+		}
+		if(mouseX >= 987 && mouseX <= 1214 && mouseY >= 10 && mouseY <= 594)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(987,10,227,594);
+		}
+		
+		//death saving throws
+		if(characters[slot].deathSaveS1 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(185,399,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 180 && mouseX <= 190 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS1 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 180 && mouseX <= 190 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS1 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		
+		if(characters[slot].deathSaveS2 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(203,399,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 198 && mouseX <= 208 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS2 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 198 && mouseX <= 208 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS2 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		
+		if(characters[slot].deathSaveS3 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(220,399,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 215 && mouseX <= 225 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS3 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 215 && mouseX <= 225 && mouseY >= 394 && mouseY <= 404)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveS3 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		
+		if(characters[slot].deathSaveF1 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(185,419,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 180 && mouseX <= 190 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF1 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 180 && mouseX <= 190 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF1 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		
+		if(characters[slot].deathSaveF2 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(203,419,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 198 && mouseX <= 208 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF2 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 198 && mouseX <= 208 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF2 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		
+		if(characters[slot].deathSaveF3 == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(220,419,5,0,2*Math.PI,true);
+			ctx.fill();
+			ctx.closePath();
+			if(mouseX >= 215 && mouseX <= 225 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF3 = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 215 && mouseX <= 225 && mouseY >= 414 && mouseY <= 424)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].deathSaveF3 = "true";
+					firstClick = false;
+				}
+			}
+		}
+		localStorage.setItem(JSON.stringify("deathSaveS1"+slot), characters[slot].deathSaveS1);
+		localStorage.setItem(JSON.stringify("deathSaveS2"+slot), characters[slot].deathSaveS2);
+		localStorage.setItem(JSON.stringify("deathSaveS3"+slot), characters[slot].deathSaveS3);
+		localStorage.setItem(JSON.stringify("deathSaveF1"+slot), characters[slot].deathSaveF1);
+		localStorage.setItem(JSON.stringify("deathSaveF2"+slot), characters[slot].deathSaveF2);
+		localStorage.setItem(JSON.stringify("deathSaveF3"+slot), characters[slot].deathSaveF3);
+		
+		//speed
+		if(oldMouseX >= 176 && oldMouseX <= 226 && oldMouseY >= 152 && oldMouseY <= 200)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].speed.split("");
+			}
+			else
+			{
+				characters[slot].speed = word1.join("");
+				localStorage.setItem(JSON.stringify("speed"+slot),characters[slot].speed);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(176,152,50,48);
+			}
+		}
+		if(mouseX >= 176 && mouseX <= 226 && mouseY >= 152 && mouseY <= 200)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(176,152,50,48);
+		}
+		
+		//inspiration
+		if(characters[slot].inspiration == "true")
+		{
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.beginPath();
+			ctx.arc(825,25,10,0,2*Math.PI,false);
+			ctx.closePath();
+			ctx.fill();
+			if(mouseX >= 807 && mouseX <= 842 && mouseY >= 7 && mouseY <= 43)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].inspiration = "false";
+					firstClick = false;
+				}
+			}
+		}
+		else
+		{
+			if(mouseX >= 807 && mouseX <= 842 && mouseY >= 7 && mouseY <= 43)
+			{
+				if(mouseIsDown && firstClick)
+				{
+					characters[slot].inspiration = "true";
+					firstClick = false;
+				}
+			}
+		}
+		localStorage.setItem(JSON.stringify("inspiration"+slot), characters[slot].inspiration);
+		
+		//hit dice
+		if(oldMouseX >= 49 && oldMouseX <= 109 && oldMouseY >= 387 && oldMouseY <= 400)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].tHitDice.split("");
+			}
+			else
+			{
+				characters[slot].tHitDice = word1.join("");
+				localStorage.setItem(JSON.stringify("tHitDice"+slot),characters[slot].tHitDice);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(49,387,60,13);
+			}
+		}
+		if(mouseX >= 49 && mouseX <= 109 && mouseY >= 387 && mouseY <= 400)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(49,387,60,13);
+		}
+		
+		if(oldMouseX >= 25 && oldMouseX <= 113 && oldMouseY >= 404 && oldMouseY <= 434)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].cHitDice.split("");
+			}
+			else
+			{
+				characters[slot].cHitDice = word1.join("");
+				localStorage.setItem(JSON.stringify("cHitDice"+slot),characters[slot].cHitDice);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(25,404,87,30);
+			}
+		}
+		if(mouseX >= 25 && mouseX <= 113 && mouseY >= 404 && mouseY <= 434)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.6)";
+			ctx.fillRect(25,404,87,30);
 		}
 }
 		
 		ctx.font = "20px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[slot].name,60,155-85);
+		ctx.textAlign = "center";
+		ctx.fillText(characters[slot].cHitDice, 68, 424);
+		ctx.textAlign = "start";
 		
 		ctx.font = "15px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[slot].cClass + " " + characters[slot].level, 320, 140-85);
-		
+		wrapText(ctx,characters[slot].pTraits,508,151,180,16);
+		wrapText(ctx,characters[slot].ideals,508,238,180,16);
+		wrapText(ctx,characters[slot].bonds,508,308,180,16);
+		wrapText(ctx,characters[slot].flaws,508,378,180,16);
+		wrapText(ctx,characters[slot].traits,992,22,227,17.5);
 		ctx.fillText(characters[slot].maxHp, 121, 325-85);
-		
-		//wrapText(ctx,characters[slot].race,319,85,100,20);
 		ctx.fillText(characters[slot].race, 319, 85);
 		ctx.fillText(characters[slot].background, 450, 55);
 		ctx.fillText(characters[slot].alignment, 450, 85);
 		ctx.fillText(characters[slot].pName, 563, 55);
 		ctx.fillText(characters[slot].xp, 563, 85);
-		
+		ctx.fillText(characters[slot].tHitDice, 50, 398);
 		
 		
 		ctx.font = "25px Ariel";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.textAlign = "center";
-		ctx.fillText(characters[slot].currentHp, 125, 360-85);
+		ctx.fillText(characters[slot].currentHp, 125, 280);
+		ctx.fillText(characters[slot].tHP, 125, 345);
 		ctx.fillText(characters[slot].ac, 47, 180);
 		ctx.fillText("+"+characters[slot].prof, 825, 87);
+		ctx.fillText(characters[slot].speed, 201, 185);
 		
 		if(characters[slot].str >= 10)
 		{
@@ -881,78 +1352,601 @@ function drawSheet(slot)
 		ctx.fillText(characters[slot].wis, 751, 520);
 		ctx.fillText(characters[slot].cha, 751, 622);
 		
+
+		ctx.beginPath();
+		//proficiencies
+{
 		//saving throws
-		if(characters[slot].str >= 10)
+		if(characters[slot].str >= 10 ||
+		(Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].strProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 133);
+			if(proficiencies[slot].strProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)), 843, 133);
+				ctx.arc(820,129,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 125 && mouseY <= 133)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].strProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 133);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 125 && mouseY <= 133)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].strProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 133);
+			if(proficiencies[slot].strProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)), 843, 133);
+				ctx.arc(820,129,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 125 && mouseY <= 133)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].strProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 133);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 125 && mouseY <= 133)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].strProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].dex >= 10)
+		localStorage.setItem(JSON.stringify("strProf"+slot), proficiencies[slot].strProf);
+		if(characters[slot].dex >= 10 ||
+		(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].dexProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 152);
+			if(proficiencies[slot].dexProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 152);
+				ctx.arc(820,148,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 144 && mouseY <= 152)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].dexProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 152);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 144 && mouseY <= 152)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].dexProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 152);
+			if(proficiencies[slot].dexProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 152);
+				ctx.arc(820,148,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 144 && mouseY <= 152)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].dexProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 152);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 144 && mouseY <= 152)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].dexProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].con >= 10)
+		localStorage.setItem(JSON.stringify("dexProf"+slot), proficiencies[slot].dexProf);
+		if(characters[slot].con >= 10 ||
+		(Math.floor((characters[slot].con-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].conProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].con-10)/2), 843, 171);
+			if(proficiencies[slot].conProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].con-10)/2)+parseInt(characters[slot].prof)), 843, 171);
+				ctx.arc(820,167,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 163 && mouseY <= 171)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].conProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].con-10)/2), 843, 171);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 163 && mouseY <= 171)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].conProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].con-10)/2), 843, 171);
+			if(proficiencies[slot].conProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].con-10)/2)+parseInt(characters[slot].prof)), 843, 171);
+				ctx.arc(820,167,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 163 && mouseY <= 171)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].conProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].con-10)/2), 843, 171);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 163 && mouseY <= 171)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].conProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].intelligence >= 10)
+		localStorage.setItem(JSON.stringify("conProf"+slot), proficiencies[slot].conProf);
+		if(characters[slot].intelligence >= 10 ||
+		(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].intProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+			if(proficiencies[slot].intProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 190);
+				ctx.arc(820,186,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 182 && mouseY <= 190)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 182 && mouseY <= 190)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+			if(proficiencies[slot].intProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 190);
+				ctx.arc(820,186,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 182 && mouseY <= 190)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 190);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 182 && mouseY <= 190)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].wis >= 10)
+		localStorage.setItem(JSON.stringify("intProf"+slot), proficiencies[slot].intProf);
+		if(characters[slot].wis >= 10 ||
+		(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].wisProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 210);
+			if(proficiencies[slot].wisProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 210);
+				ctx.arc(820,206,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 202 && mouseY <= 210)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].wisProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 210);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 202 && mouseY <= 210)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].wisProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 210);
+			if(proficiencies[slot].wisProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 210);
+				ctx.arc(820,206,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 202 && mouseY <= 210)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].wisProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 210);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 202 && mouseY <= 210)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].wisProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].cha >= 10)
+		localStorage.setItem(JSON.stringify("wisProf"+slot), proficiencies[slot].wisProf);
+		if(characters[slot].cha >= 10 ||
+		(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].chaProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 229);
+			if(proficiencies[slot].chaProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 229);
+				ctx.arc(820,225,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 221 && mouseY <= 229)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].chaProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 229);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 221 && mouseY <= 229)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].chaProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 229);
+			if(proficiencies[slot].chaProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 229);
+				ctx.arc(820,225,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 221 && mouseY <= 229)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].chaProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 229);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 221 && mouseY <= 229)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].chaProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
+		localStorage.setItem(JSON.stringify("chaProf"+slot), proficiencies[slot].chaProf);
 		
 		//skills
-		if(characters[slot].str >= 10)
+		if(characters[slot].str >= 10 ||
+		(Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].strProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 357);//athletics
+			if(proficiencies[slot].athleticsProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)), 843, 357);//athletics
+				ctx.arc(820,353,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 349 && mouseY <= 357)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].athleticsProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].str-10)/2), 843, 357);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 349 && mouseY <= 357)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].athleticsProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 357);//athletics
+			if(proficiencies[slot].athleticsProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].str-10)/2)+parseInt(characters[slot].prof)), 843, 357);//athletics
+				ctx.arc(820,353,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 349 && mouseY <= 357)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].athleticsProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].str-10)/2), 843, 357);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 349 && mouseY <= 357)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].athleticsProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].dex >= 10)
+		localStorage.setItem(JSON.stringify("athleticsProf"+slot), proficiencies[slot].athleticsProf);
+		if(characters[slot].dex >= 10 ||
+		(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].dexProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 298);//acrobatics
-			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 591);//sleight of hand
-			ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 611);//stealth
+			if(proficiencies[slot].acrobaticsProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 298);//acrobatics
+				ctx.arc(820,294,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 290 && mouseY <= 298)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].acrobaticsProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 298);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 290 && mouseY <= 298)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].acrobaticsProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].sleightProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 591);//sleight of hand
+				ctx.arc(820,587,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 583 && mouseY <= 591)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].sleightProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 591);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 583 && mouseY <= 591)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].sleightProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].stealthProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 611);//stealth
+				ctx.arc(820,607,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 603 && mouseY <= 611)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].stealthProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].dex-10)/2), 843, 611);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 603 && mouseY <= 611)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].stealthProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 298);//acrobatics
-			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 591);//sleight of hand
-			ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 611);//stealth
+			if(proficiencies[slot].acrobaticsProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 298);//acrobatics
+				ctx.arc(820,294,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 290 && mouseY <= 298)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].acrobaticsProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 298);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 290 && mouseY <= 298)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].acrobaticsProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].sleightProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 591);//sleight of hand
+				ctx.arc(820,587,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 583 && mouseY <= 591)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].sleightProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 591);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 583 && mouseY <= 591)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].sleightProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].stealthProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].dex-10)/2)+parseInt(characters[slot].prof)), 843, 611);//stealth
+				ctx.arc(820,607,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 603 && mouseY <= 611)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].stealthProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].dex-10)/2), 843, 611);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 603 && mouseY <= 611)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].stealthProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].con >= 10)
+		localStorage.setItem(JSON.stringify("acrobaticsProf"+slot), proficiencies[slot].acrobaticsProf);
+		localStorage.setItem(JSON.stringify("sleightProf"+slot), proficiencies[slot].sleightProf);
+		localStorage.setItem(JSON.stringify("stealthProf"+slot), proficiencies[slot].stealthProf);
+		if(characters[slot].con >= 10 ||
+		(Math.floor((characters[slot].con-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].conProf == "true")
 		{
 			
 		}
@@ -960,66 +1954,1185 @@ function drawSheet(slot)
 		{
 			
 		}
-		if(characters[slot].intelligence >= 10)
+		if(characters[slot].intelligence >= 10 ||
+		(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].intProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 337);//arcana
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 396);//history
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 455);//investigation
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 494);//nature
-			ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 572);//religion
+			if(proficiencies[slot].arcanaProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 337);//arcana
+				ctx.arc(820,333,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 329 && mouseY <= 337)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].arcanaProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 337);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 329 && mouseY <= 337)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].arcanaProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].historyProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 396);//history
+				ctx.arc(820,392,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 388 && mouseY <= 396)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].historyProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 396);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 388 && mouseY <= 396)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].historyProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].investigationProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 455);//investigation
+				ctx.arc(820,451,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 447 && mouseY <= 455)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].investigationProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 455);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 447 && mouseY <= 455)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].investigationProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].natureProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 494);//nature
+				ctx.arc(820,490,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 486 && mouseY <= 494)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].natureProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 494);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 486 && mouseY <= 494)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].natureProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].religionProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 572);//religion
+				ctx.arc(820,568,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 564 && mouseY <= 572)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].religionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].intelligence-10)/2), 843, 572);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 564 && mouseY <= 572)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].religionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 337);//arcana
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 396);//history
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 455);//investigation
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 494);//nature
-			ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 572);//religion
+			if(proficiencies[slot].arcanaProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 337);//arcana
+				ctx.arc(820,333,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 329 && mouseY <= 337)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].arcanaProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 337);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 329 && mouseY <= 337)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].arcanaProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].historyProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 396);//history
+				ctx.arc(820,392,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 388 && mouseY <= 396)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].historyProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 396);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 388 && mouseY <= 396)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].historyProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].investigationProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 455);//investigation
+				ctx.arc(820,451,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 447 && mouseY <= 455)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].investigationProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 455);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 447 && mouseY <= 455)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].investigationProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].natureProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 494);//nature
+				ctx.arc(820,490,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 486 && mouseY <= 494)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].natureProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 494);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 486 && mouseY <= 494)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].natureProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].religionProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].intelligence-10)/2)+parseInt(characters[slot].prof)), 843, 572);//religion
+				ctx.arc(820,568,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 564 && mouseY <= 572)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].religionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].intelligence-10)/2), 843, 572);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 564 && mouseY <= 572)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].religionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].wis >= 10)
+		localStorage.setItem(JSON.stringify("arcanaProf"+slot), proficiencies[slot].arcanaProf);
+		localStorage.setItem(JSON.stringify("historyProf"+slot), proficiencies[slot].historyProf);
+		localStorage.setItem(JSON.stringify("investigationProf"+slot), proficiencies[slot].investigationProf);
+		localStorage.setItem(JSON.stringify("natureProf"+slot), proficiencies[slot].natureProf);
+		localStorage.setItem(JSON.stringify("religionProf"+slot), proficiencies[slot].religionProf);
+		if(characters[slot].wis >= 10 ||
+		(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].wisProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 318);//animal handling
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 416);//insight
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 474);//medicine
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 513);//perception
-			ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 630);//survival
+			if(proficiencies[slot].animalProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 318);//animal handling
+				ctx.arc(820,314,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 310 && mouseY <= 318)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].animalProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 318);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 310 && mouseY <= 318)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].animalProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].insightProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 416);//insight
+				ctx.arc(820,412,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 408 && mouseY <= 416)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].insightProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 416);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 408 && mouseY <= 416)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].insightProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].medicineProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 474);//medicine
+				ctx.arc(820,470,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 466 && mouseY <= 474)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].medicineProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 474);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 466 && mouseY <= 474)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].medicineProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].perceptionProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 513);//perception
+				ctx.arc(820,509,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 505 && mouseY <= 513)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].perceptionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 513);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 505 && mouseY <= 513)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].perceptionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].survivalProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 630);//survival
+				ctx.arc(820,626,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 622 && mouseY <= 630)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].survivalProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].wis-10)/2), 843, 630);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 622 && mouseY <= 630)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].survivalProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 318);//animal handling
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 416);//insight
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 474);//medicine
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 513);//perception
-			ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 630);//survival
+			if(proficiencies[slot].animalProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 318);//animal handling
+				ctx.arc(820,314,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 310 && mouseY <= 318)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].animalProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 318);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 310 && mouseY <= 318)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].animalProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].insightProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 416);//insight
+				ctx.arc(820,412,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 408 && mouseY <= 416)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].insightProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 416);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 408 && mouseY <= 416)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].insightProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].medicineProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 474);//medicine
+				ctx.arc(820,470,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 466 && mouseY <= 474)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].medicineProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 474);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 466 && mouseY <= 474)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].medicineProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].perceptionProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 513);//perception
+				ctx.arc(820,509,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 505 && mouseY <= 513)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].perceptionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 513);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 505 && mouseY <= 513)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].perceptionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].survivalProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].wis-10)/2)+parseInt(characters[slot].prof)), 843, 630);//survival
+				ctx.arc(820,626,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 622 && mouseY <= 630)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].survivalProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].wis-10)/2), 843, 630);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 622 && mouseY <= 630)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].survivalProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
-		if(characters[slot].cha >= 10)
+		localStorage.setItem(JSON.stringify("animalProf"+slot), proficiencies[slot].animalProf);
+		localStorage.setItem(JSON.stringify("insightProf"+slot), proficiencies[slot].insightProf);
+		localStorage.setItem(JSON.stringify("medicineProf"+slot), proficiencies[slot].medicineProf);
+		localStorage.setItem(JSON.stringify("perceptionProf"+slot), proficiencies[slot].perceptionProf);
+		localStorage.setItem(JSON.stringify("survivalProf"+slot), proficiencies[slot].survivalProf);
+		if(characters[slot].cha >= 10 ||
+		(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)) >= 0 && proficiencies[0].chaProf == "true")
 		{
-			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 377);//deception
-			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 435);//intimidation
-			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 532);//performance
-			ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 552);//persuasion
+			if(proficiencies[slot].deceptionProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 377);//deception
+				ctx.arc(820,373,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 369 && mouseY <= 377)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].deceptionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 377);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 369 && mouseY <= 377)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].deceptionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].intimidationProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 435);//intimidation
+				ctx.arc(820,431,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 427 && mouseY <= 435)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intimidationProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 435);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 427 && mouseY <= 435)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intimidationProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].performanceProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 532);//performanceProf
+				ctx.arc(820,528,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 524 && mouseY <= 532)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].performanceProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 532);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 524 && mouseY <= 532)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].performanceProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].persuasionProf == "true")
+			{
+				ctx.fillText("+"+(Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 552);//persuasion
+				ctx.arc(820,548,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 544 && mouseY <= 552)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].persuasionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText("+"+Math.floor((characters[slot].cha-10)/2), 843, 552);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 544 && mouseY <= 552)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].persuasionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 377);//deception
-			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 435);//intimidation
-			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 532);//performance
-			ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 552);//persuasion
+			if(proficiencies[slot].deceptionProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 377);//deception
+				ctx.arc(820,373,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 369 && mouseY <= 377)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].deceptionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 377);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 369 && mouseY <= 377)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].deceptionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].intimidationProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 435);//intimidation
+				ctx.arc(820,431,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 427 && mouseY <= 435)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intimidationProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 435);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 427 && mouseY <= 435)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].intimidationProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].performanceProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 532);//performanceProf
+				ctx.arc(820,528,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 524 && mouseY <= 532)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].performanceProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 532);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 524 && mouseY <= 532)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].performanceProf = "true";
+						firstClick = false;
+					}
+				}
+			}
+			if(proficiencies[slot].persuasionProf == "true")
+			{
+				ctx.fillText((Math.floor((characters[slot].cha-10)/2)+parseInt(characters[slot].prof)), 843, 552);//persuasion
+				ctx.arc(820,548,4,0,2*Math.PI,true);
+				ctx.fill();
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 544 && mouseY <= 552)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].persuasionProf = "false";
+						firstClick = false;
+					}
+				}
+			}
+			else
+			{
+				ctx.fillText(Math.floor((characters[slot].cha-10)/2), 843, 552);
+				if(mouseX >= 816 && mouseX <= 824 && mouseY >= 544 && mouseY <= 552)
+				{
+					if(mouseIsDown && firstClick)
+					{
+						proficiencies[slot].persuasionProf = "true";
+						firstClick = false;
+					}
+				}
+			}
 		}
+		localStorage.setItem(JSON.stringify("deceptionProf"+slot), proficiencies[slot].deceptionProf);
+		localStorage.setItem(JSON.stringify("intimidationProf"+slot), proficiencies[slot].intimidationProf);
+		localStorage.setItem(JSON.stringify("performanceProf"+slot), proficiencies[slot].performanceProf);
+		localStorage.setItem(JSON.stringify("persuasionProf"+slot), proficiencies[slot].persuasionProf);
 		
+		//other
+		let word1 = word.slice();
+		if(oldMouseX >= 10 && oldMouseX <= 237 && oldMouseY >= 475 && oldMouseY <= 668)
+		{
+			if(mouseIsDown)
+			{
+				word = proficiencies[slot].other.split("");
+			}
+			else
+			{
+				proficiencies[slot].other = word1.join("");
+				localStorage.setItem(JSON.stringify("otherProf"+slot), proficiencies[slot].other);
+				ctx.fillStyle = "rgba(220,220,220,.6)";
+				ctx.fillRect(10,475,227,193);
+			}
+		}
+		if(mouseX >= 10 && mouseX <= 237 && mouseY >= 475 && mouseY <= 668)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(10,475,227,193);
+		}
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "start";
+		wrapText(ctx,proficiencies[slot].other,15,487,225,16);
+}
+		ctx.closePath();
+		
+		//equipment
+{
+		let word1 = word.slice();
+		if(oldMouseX >= 323 && oldMouseX <= 478 && oldMouseY >= 440 && oldMouseY <= 670)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].equipment.split("");
+			}
+			else
+			{
+				characters[slot].equipment = word1.join("");
+				localStorage.setItem(JSON.stringify("equipment"+slot), characters[slot].equipment);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(323,440,155,230);
+			}
+		}
+		if(mouseX >= 323 && mouseX <= 478 && mouseY >= 440 && mouseY <= 670)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(323,440,155,230);
+		}
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		wrapText(ctx,characters[slot].equipment,325,452,160,15.2);
+		
+		//cp
+		if(oldMouseX >= 275 && oldMouseX <= 310 && oldMouseY >= 450 && oldMouseY <= 475)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].cp.split("");
+			}
+			else
+			{
+				characters[slot].cp = word1.join("");
+				localStorage.setItem(JSON.stringify("cp"+slot), characters[slot].cp);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(275,450,35,25);
+			}
+		}
+		if(mouseX >= 275 && mouseX <= 310 && mouseY >= 450 && mouseY <= 475)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(275,450,35,25);
+		}
+		ctx.textAlign = "center";
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].cp,292,467);
+		
+		//sp
+		if(oldMouseX >= 275 && oldMouseX <= 310 && oldMouseY >= 486 && oldMouseY <= 511)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].sp.split("");
+			}
+			else
+			{
+				characters[slot].sp = word1.join("");
+				localStorage.setItem(JSON.stringify("sp"+slot), characters[slot].sp);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(275,486,35,25);
+			}
+		}
+		if(mouseX >= 275 && mouseX <= 310 && mouseY >= 486 && mouseY <= 511)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(275,486,35,25);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].sp,292,503);
+		
+		//ep
+		if(oldMouseX >= 275 && oldMouseX <= 310 && oldMouseY >= 522 && oldMouseY <= 547)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].ep.split("");
+			}
+			else
+			{
+				characters[slot].ep = word1.join("");
+				localStorage.setItem(JSON.stringify("ep"+slot), characters[slot].ep);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(275,522,35,25);
+			}
+		}
+		if(mouseX >= 275 && mouseX <= 310 && mouseY >= 522 && mouseY <= 547)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(275,522,35,25);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].ep,292,539);
+		
+		//gp
+		if(oldMouseX >= 275 && oldMouseX <= 310 && oldMouseY >= 557 && oldMouseY <= 582)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].gp.split("");
+			}
+			else
+			{
+				characters[slot].gp = word1.join("");
+				localStorage.setItem(JSON.stringify("gp"+slot), characters[slot].gp);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(275,557,35,25);
+			}
+		}
+		if(mouseX >= 275 && mouseX <= 310 && mouseY >= 557 && mouseY <= 582)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(275,557,35,25);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].gp,292,575);
+		
+		//pp
+		if(oldMouseX >= 275 && oldMouseX <= 310 && oldMouseY >= 592 && oldMouseY <= 617)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].pp.split("");
+			}
+			else
+			{
+				characters[slot].pp = word1.join("");
+				localStorage.setItem(JSON.stringify("pp"+slot), characters[slot].pp);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(275,592,35,25);
+			}
+		}
+		if(mouseX >= 275 && mouseX <= 310 && mouseY >= 592 && mouseY <= 617)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(275,592,35,25);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].pp,292,610);
 		
 		ctx.textAlign = "start";
+		//weapon 1 name
+		if(oldMouseX >= 265 && oldMouseX <= 350 && oldMouseY >= 153 && oldMouseY <= 173)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].n1.split("");
+			}
+			else
+			{
+				equipment[slot].n1 = word1.join("");
+				localStorage.setItem(JSON.stringify("n1"+slot), equipment[slot].n1);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(265,153,80,20);
+			}
+		}
+		if(mouseX >= 265 && mouseX <= 350 && mouseY >= 153 && mouseY <= 173)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(265,153,80,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].n1,268,168);
 		
-		//dice
+		//weapon 2 name
+		if(oldMouseX >= 265 && oldMouseX <= 345 && oldMouseY >= 182 && oldMouseY <= 202)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].n2.split("");
+			}
+			else
+			{
+				equipment[slot].n2 = word1.join("");
+				localStorage.setItem(JSON.stringify("n2"+slot), equipment[slot].n2);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(265,182,80,20);
+			}
+		}
+		if(mouseX >= 265 && mouseX <= 345 && mouseY >= 182 && mouseY <= 202)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(265,182,80,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].n2,268,197);
+		
+		//weapon 3 name
+		if(oldMouseX >= 265 && oldMouseX <= 345 && oldMouseY >= 211 && oldMouseY <= 231)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].n3.split("");
+			}
+			else
+			{
+				equipment[slot].n3 = word1.join("");
+				localStorage.setItem(JSON.stringify("n3"+slot), equipment[slot].n3);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(265,211,80,20);
+			}
+		}
+		if(mouseX >= 265 && mouseX <= 345 && mouseY >= 211 && mouseY <= 231)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(265,211,80,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].n3,268,226);
+		
+		//weapon 1 atk bonus
+		if(oldMouseX >= 351 && oldMouseX <= 390 && oldMouseY >= 153 && oldMouseY <= 173)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].b1.split("");
+			}
+			else
+			{
+				equipment[slot].b1 = word1.join("");
+				localStorage.setItem(JSON.stringify("b1"+slot), equipment[slot].b1);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(351,153,39,20);
+			}
+		}
+		if(mouseX >= 351 && mouseX <= 390 && mouseY >= 153 && mouseY <= 173)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(351,153,40,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].b1,354,168);
+		
+		//weapon 2 atk bonus
+		if(oldMouseX >= 351 && oldMouseX <= 390 && oldMouseY >= 182 && oldMouseY <= 202)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].b2.split("");
+			}
+			else
+			{
+				equipment[slot].b2 = word1.join("");
+				localStorage.setItem(JSON.stringify("b2"+slot), equipment[slot].b2);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(351,182,39,20);
+			}
+		}
+		if(mouseX >= 351 && mouseX <= 390 && mouseY >= 182 && mouseY <= 202)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(351,182,39,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].b2,354,197);
+		
+		//weapon 3 atk bonus
+		if(oldMouseX >= 351 && oldMouseX <= 390 && oldMouseY >= 211 && oldMouseY <= 231)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].b3.split("");
+			}
+			else
+			{
+				equipment[slot].b3 = word1.join("");
+				localStorage.setItem(JSON.stringify("b3"+slot), equipment[slot].b3);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(351,211,39,20);
+			}
+		}
+		if(mouseX >= 351 && mouseX <= 390 && mouseY >= 211 && mouseY <= 231)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(351,211,39,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].b3,354,226);
+		
+		//weapon 1 damage
+		if(oldMouseX >= 397 && oldMouseX <= 475 && oldMouseY >= 153 && oldMouseY <= 173)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].d1.split("");
+			}
+			else
+			{
+				equipment[slot].d1 = word1.join("");
+				localStorage.setItem(JSON.stringify("d1"+slot), equipment[slot].d1);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(397,153,78,20);
+			}
+		}
+		if(mouseX >= 397 && mouseX <= 475 && mouseY >= 153 && mouseY <= 173)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(397,153,78,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].d1,400,168);
+		
+		//weapon 2 damage
+		if(oldMouseX >= 397 && oldMouseX <= 475 && oldMouseY >= 182 && oldMouseY <= 202)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].d2.split("");
+			}
+			else
+			{
+				equipment[slot].d2 = word1.join("");
+				localStorage.setItem(JSON.stringify("d2"+slot), equipment[slot].d2);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(397,182,78,20);
+			}
+		}
+		if(mouseX >= 397 && mouseX <= 475 && mouseY >= 182 && mouseY <= 202)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(397,182,78,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].d2,400,197);
+		
+		//weapon 3 damage
+		if(oldMouseX >= 397 && oldMouseX <= 475 && oldMouseY >= 211 && oldMouseY <= 231)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].d3.split("");
+			}
+			else
+			{
+				equipment[slot].d3 = word1.join("");
+				localStorage.setItem(JSON.stringify("d3"+slot), equipment[slot].d3);
+				ctx.fillStyle = "rgba(220,220,220,.8)";
+				ctx.fillRect(397,211,78,20);
+			}
+		}
+		if(mouseX >= 397 && mouseX <= 475 && mouseY >= 211 && mouseY <= 231)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillRect(397,211,78,20);
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(equipment[slot].d3,400,226);
+		
+		//weapon details
+		if(oldMouseX >= 261 && oldMouseX <= 478 && oldMouseY >= 235 && oldMouseY <= 405)
+		{
+			if(mouseIsDown)
+			{
+				word = equipment[slot].details.split("");
+			}
+			else
+			{
+				equipment[slot].details = word1.join("");
+				localStorage.setItem(JSON.stringify("details"+slot), equipment[slot].details);
+				ctx.fillStyle = "rgba(220,220,220,.3)";
+				ctx.fillRect(261,235,217,170);
+			}
+		}
+		if(mouseX >= 261 && mouseX <= 478 && mouseY >= 235 && mouseY <= 405)
+		{
+			ctx.fillStyle = "rgba(220,220,220,.3)";
+			ctx.fillRect(261,235,217,170);
+		}
+		ctx.font = "15px Ariel";
+		ctx.fillStyle = "rgb(0,0,0)";
+		wrapText(ctx,equipment[slot].details,265,245,214,15.7);
+}
+		
+		
 		dice();
 }
+
 
 function dice()
 {
 	let word2 = word.slice();
 	if(mouseX >= 615 && mouseX <= 665 && mouseY >= 580 && mouseY <= 605)
 	{
-		ctx.fillStyle = "rgba(220,220,220,.8)";
+		ctx.fillStyle = "rgba(220,220,220,.6)";
 		ctx.fillRect(615,580,50,25);
 	}
 	if(oldMouseX >= 615 && oldMouseX <= 665 && oldMouseY >= 580 && oldMouseY <= 605)
@@ -1031,7 +3144,7 @@ function dice()
 		else
 		{
 			diceNum = word2.join("");
-			ctx.fillStyle = "rgba(220,220,220,.8)";
+			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(615,580,50,25);
 		}
 	}
@@ -1280,25 +3393,32 @@ function dice()
 	ctx.textAlign = "start";
 }
 
-function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(' ');
-    var line = '';
+function wrapText(ctx, text, x, y, maxWidth, lineHeight)
+{
+	if(text != null)
+	{
+		var words = text.split(' ');
+		var line = '';
 
-    for(var n = 0; n < words.length; n++) {
-      var testLine = line + words[n] + ' ';
-      var metrics = ctx.measureText(testLine);
-      var testWidth = metrics.width;
-      if (testWidth > maxWidth && n > 0) {
-        ctx.fillText(line, x, y);
-        line = words[n] + ' ';
-        y += lineHeight;
-      }
-      else {
-        line = testLine;
-      }
-    }
-    ctx.fillText(line, x, y);
-  }
+		for(var n = 0; n < words.length; n++)
+		{
+			var testLine = line + words[n] + ' ';
+			var metrics = ctx.measureText(testLine);
+			var testWidth = metrics.width;
+			if (testWidth > maxWidth && n > 0)
+			{
+				ctx.fillText(line, x, y);
+				line = words[n] + ' ';
+				y += lineHeight;
+			}
+			else
+			{
+				line = testLine;
+			}
+		}
+		ctx.fillText(line, x, y);
+	}
+}
 
 function useLocalStorage()
 {
@@ -1306,38 +3426,324 @@ function useLocalStorage()
 	{
 		var name = localStorage.getItem(JSON.stringify("name"+i));
 		characters[i].name = name;
+		if(characters[i].name == null)
+		{
+			characters[i].name = "Name";
+		}
 		var cClass = localStorage.getItem(JSON.stringify("cClass"+i));
 		characters[i].cClass = cClass;
+		if(characters[i].cClass == null)
+		{
+			characters[i].cClass = "Class";
+		}
 		var race = localStorage.getItem(JSON.stringify("race"+i));
 		characters[i].race = race;
+		if(characters[i].race == null)
+		{
+			characters[i].race = "Race";
+		}
 		var background = localStorage.getItem(JSON.stringify("background"+i));
 		characters[i].background = background;
+		if(characters[i].background == null)
+		{
+			characters[i].background = "Background";
+		}
 		var alignment = localStorage.getItem(JSON.stringify("alignment"+i));
 		characters[i].alignment = alignment;
+		if(characters[i].alignment == null)
+		{
+			characters[i].alignment = "Alignment";
+		}
 		var pName = localStorage.getItem(JSON.stringify("pName"+i));
 		characters[i].pName = pName;
+		if(characters[i].pName == null)
+		{
+			characters[i].pName = "Player Name";
+		}
 		var XP = localStorage.getItem(JSON.stringify("XP"+i));
 		characters[i].xp = XP;
+		if(characters[i].xp == null)
+		{
+			characters[i].xp = "0";
+		}
 		var maxHP = localStorage.getItem(JSON.stringify("maxHP"+i));
 		characters[i].maxHp = maxHP;
+		if(characters[i].maxHp == null)
+		{
+			characters[i].maxHp = "0";
+		}
 		var currentHP = localStorage.getItem(JSON.stringify("currentHP"+i));
 		characters[i].currentHp = currentHP;
+		if(characters[i].currentHp == null)
+		{
+			characters[i].currentHp = "0";
+		}
 		var ac = localStorage.getItem(JSON.stringify("ac"+i));
 		characters[i].ac = ac;
+		if(characters[i].ac == null)
+		{
+			characters[i].ac = "10";
+		}
 		var str = localStorage.getItem(JSON.stringify("str"+i));
 		characters[i].str = str;
+		if(characters[i].str == null)
+		{
+			characters[i].str = "10";
+		}
 		var dex = localStorage.getItem(JSON.stringify("dex"+i));
 		characters[i].dex = dex;
+		if(characters[i].dex == null)
+		{
+			characters[i].dex = "10";
+		}
 		var con = localStorage.getItem(JSON.stringify("con"+i));
 		characters[i].con = con;
+		if(characters[i].con == null)
+		{
+			characters[i].con = "10";
+		}
 		var intelligence = localStorage.getItem(JSON.stringify("intelligence"+i));
 		characters[i].intelligence = intelligence;
+		if(characters[i].intelligence == null)
+		{
+			characters[i].intelligence = "10";
+		}
 		var wis = localStorage.getItem(JSON.stringify("wis"+i));
 		characters[i].wis = wis;
+		if(characters[i].wis == null)
+		{
+			characters[i].wis = "10";
+		}
 		var cha = localStorage.getItem(JSON.stringify("cha"+i));
 		characters[i].cha = cha;
+		if(characters[i].cha == null)
+		{
+			characters[i].cha = "10";
+		}
 		var prof = localStorage.getItem(JSON.stringify("prof"+i));
 		characters[i].prof = prof;
+		if(characters[i].prof == null)
+		{
+			characters[i].prof = "2";
+		}
+		var strProf = localStorage.getItem(JSON.stringify("strProf"+i));
+		proficiencies[i].strProf = strProf;
+		var dexProf = localStorage.getItem(JSON.stringify("dexProf"+i));
+		proficiencies[i].dexProf = dexProf;
+		var conProf = localStorage.getItem(JSON.stringify("conProf"+i));
+		proficiencies[i].conProf = conProf;
+		var intProf = localStorage.getItem(JSON.stringify("intProf"+i));
+		proficiencies[i].intProf = intProf;
+		var wisProf = localStorage.getItem(JSON.stringify("wisProf"+i));
+		proficiencies[i].wisProf = wisProf;
+		var chaProf = localStorage.getItem(JSON.stringify("chaProf"+i));
+		proficiencies[i].chaProf = chaProf;
+		var acrobaticsProf = localStorage.getItem(JSON.stringify("acrobaticsProf"+i));
+		proficiencies[i].acrobaticsProf = acrobaticsProf;
+		var animalProf = localStorage.getItem(JSON.stringify("animalProf"+i));
+		proficiencies[i].animalProf = animalProf;
+		var arcanaProf = localStorage.getItem(JSON.stringify("arcanaProf"+i));
+		proficiencies[i].arcanaProf = arcanaProf;
+		var athleticsProf = localStorage.getItem(JSON.stringify("athleticsProf"+i));
+		proficiencies[i].athleticsProf = athleticsProf;
+		var deceptionProf = localStorage.getItem(JSON.stringify("deceptionProf"+i));
+		proficiencies[i].deceptionProf = deceptionProf;
+		var historyProf = localStorage.getItem(JSON.stringify("historyProf"+i));
+		proficiencies[i].historyProf = historyProf;
+		var insightProf = localStorage.getItem(JSON.stringify("insightProf"+i));
+		proficiencies[i].insightProf = insightProf;
+		var intimidationProf = localStorage.getItem(JSON.stringify("intimidationProf"+i));
+		proficiencies[i].intimidationProf = intimidationProf;
+		var investigationProf = localStorage.getItem(JSON.stringify("investigationProf"+i));
+		proficiencies[i].investigationProf = investigationProf;
+		var medicineProf = localStorage.getItem(JSON.stringify("medicineProf"+i));
+		proficiencies[i].medicineProf = medicineProf;
+		var natureProf = localStorage.getItem(JSON.stringify("natureProf"+i));
+		proficiencies[i].natureProf = natureProf;
+		var perceptionProf = localStorage.getItem(JSON.stringify("perceptionProf"+i));
+		proficiencies[i].perceptionProf = perceptionProf;
+		var performanceProf = localStorage.getItem(JSON.stringify("performanceProf"+i));
+		proficiencies[i].performanceProf = performanceProf;
+		var persuasionProf = localStorage.getItem(JSON.stringify("persuasionProf"+i));
+		proficiencies[i].persuasionProf = persuasionProf;
+		var religionProf = localStorage.getItem(JSON.stringify("religionProf"+i));
+		proficiencies[i].religionProf = religionProf;
+		var sleightProf = localStorage.getItem(JSON.stringify("sleightProf"+i));
+		proficiencies[i].sleightProf = sleightProf;
+		var stealthProf = localStorage.getItem(JSON.stringify("stealthProf"+i));
+		proficiencies[i].stealthProf = stealthProf;
+		var survivalProf = localStorage.getItem(JSON.stringify("survivalProf"+i));
+		proficiencies[i].survivalProf = survivalProf;
+		var otherProf = localStorage.getItem(JSON.stringify("otherProf"+i));
+		proficiencies[i].other = otherProf;
+		if(characters[i].other == null)
+		{
+			characters[i].other = "";
+		}
+		var Equipment = localStorage.getItem(JSON.stringify("equipment"+i));
+		characters[i].equipment = Equipment;
+		if(characters[i].equipment == null)
+		{
+			characters[i].equipment = "";
+		}
+		var cp = localStorage.getItem(JSON.stringify("cp"+i));
+		characters[i].cp = cp;
+		if(characters[i].cp == null)
+		{
+			characters[i].cp = "0";
+		}
+		var sp = localStorage.getItem(JSON.stringify("sp"+i));
+		characters[i].sp = sp;
+		if(characters[i].sp == null)
+		{
+			characters[i].sp = "0";
+		}
+		var gp = localStorage.getItem(JSON.stringify("gp"+i));
+		characters[i].gp = gp;
+		if(characters[i].gp == null)
+		{
+			characters[i].gp = "0";
+		}
+		var ep = localStorage.getItem(JSON.stringify("ep"+i));
+		characters[i].ep = ep;
+		if(characters[i].ep == null)
+		{
+			characters[i].ep = "0";
+		}
+		var pp = localStorage.getItem(JSON.stringify("pp"+i));
+		characters[i].pp = pp;
+		if(characters[i].pp == null)
+		{
+			characters[i].pp = "0";
+		}
+		var pTraits = localStorage.getItem(JSON.stringify("pTraits"+i));
+		characters[i].pTraits = pTraits;
+		if(characters[i].pTraits == null)
+		{
+			characters[i].pTraits = "";
+		}
+		var ideals = localStorage.getItem(JSON.stringify("ideals"+i));
+		characters[i].ideals = ideals;
+		if(characters[i].ideals == null)
+		{
+			characters[i].ideals = "";
+		}
+		var bonds = localStorage.getItem(JSON.stringify("bonds"+i));
+		characters[i].bonds = bonds;
+		if(characters[i].bonds == null)
+		{
+			characters[i].bonds = "";
+		}
+		var flaws = localStorage.getItem(JSON.stringify("flaws"+i));
+		characters[i].flaws = flaws;
+		if(characters[i].flaws == null)
+		{
+			characters[i].flaws = "";
+		}
+		var traits = localStorage.getItem(JSON.stringify("traits"+i));
+		characters[i].traits = traits;
+		if(characters[i].traits == null)
+		{
+			characters[i].traits = "";
+		}
+		var inspiration = localStorage.getItem(JSON.stringify("inspiration"+i));
+		characters[i].inspiration = inspiration;
+		var deathSaveS1 = localStorage.getItem(JSON.stringify("deathSaveS1"+i));
+		characters[i].deathSaveS1 = deathSaveS1;
+		var deathSaveS2 = localStorage.getItem(JSON.stringify("deathSaveS2"+i));
+		characters[i].deathSaveS2 = deathSaveS2;
+		var deathSaveS3 = localStorage.getItem(JSON.stringify("deathSaveS3"+i));
+		characters[i].deathSaveS3 = deathSaveS3;
+		var deathSaveF1 = localStorage.getItem(JSON.stringify("deathSaveF1"+i));
+		characters[i].deathSaveF1 = deathSaveF1;
+		var deathSaveF2 = localStorage.getItem(JSON.stringify("deathSaveF2"+i));
+		characters[i].deathSaveF2 = deathSaveF2;
+		var deathSaveF3 = localStorage.getItem(JSON.stringify("deathSaveF3"+i));
+		characters[i].deathSaveF3 = deathSaveF3;
+		var tHP = localStorage.getItem(JSON.stringify("tHP"+i));
+		characters[i].tHP = tHP;
+		if(characters[i].tHP == null)
+		{
+			characters[i].tHP = "0";
+		}
+		var speed = localStorage.getItem(JSON.stringify("speed"+i));
+		characters[i].speed = speed;
+		if(characters[i].speed == null)
+		{
+			characters[i].speed = "30 ft";
+		}
+		var n1 = localStorage.getItem(JSON.stringify("n1"+i));
+		equipment[i].n1 = n1;
+		if(equipment[i].n1 == null)
+		{
+			equipment[i].n1 = "";
+		}
+		var n2 = localStorage.getItem(JSON.stringify("n2"+i));
+		equipment[i].n2 = n2;
+		if(equipment[i].n2 == null)
+		{
+			equipment[i].n2 = "";
+		}
+		var n3 = localStorage.getItem(JSON.stringify("n3"+i));
+		equipment[i].n3 = n3;
+		if(equipment[i].n3 == null)
+		{
+			equipment[i].n3 = "";
+		}
+		var b1 = localStorage.getItem(JSON.stringify("b1"+i));
+		equipment[i].b1 = b1;
+		if(equipment[i].b1 == null)
+		{
+			equipment[i].b1 = "";
+		}
+		var b2 = localStorage.getItem(JSON.stringify("b2"+i));
+		equipment[i].b2 = b2;
+		if(equipment[i].b2 == null)
+		{
+			equipment[i].b2 = "";
+		}
+		var b3 = localStorage.getItem(JSON.stringify("b3"+i));
+		equipment[i].b3 = b3;
+		if(equipment[i].b3 == null)
+		{
+			equipment[i].b3 = "";
+		}
+		var d1 = localStorage.getItem(JSON.stringify("d1"+i));
+		equipment[i].d1 = d1;
+		if(equipment[i].d1 == null)
+		{
+			equipment[i].d1 = "";
+		}
+		var d2 = localStorage.getItem(JSON.stringify("d2"+i));
+		equipment[i].d2 = d2;
+		if(equipment[i].d2 == null)
+		{
+			equipment[i].d2 = "";
+		}
+		var d3 = localStorage.getItem(JSON.stringify("d3"+i));
+		equipment[i].d3 = d3;
+		if(equipment[i].d3 == null)
+		{
+			equipment[i].d3 = "";
+		}
+		var details = localStorage.getItem(JSON.stringify("details"+i));
+		equipment[i].details = details;
+		if(equipment[i].details == null)
+		{
+			equipment[i].details = "";
+		}
+		var tHitDice = localStorage.getItem(JSON.stringify("tHitDice"+i));
+		characters[i].tHitDice = tHitDice;
+		if(characters[i].tHitDice == null)
+		{
+			characters[i].tHitDice = "";
+		}
+		var cHitDice = localStorage.getItem(JSON.stringify("cHitDice"+i));
+		characters[i].cHitDice = cHitDice;
+		if(characters[i].cHitDice == null)
+		{
+			characters[i].cHitDice = "";
+		}
 	}
 }
 
