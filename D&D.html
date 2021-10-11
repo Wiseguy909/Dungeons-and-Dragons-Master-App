@@ -19,6 +19,7 @@ document.addEventListener("keyup",keyUpHandler,false);
 ctx.canvas.width  = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 
+//lines 23 - 76: defining any needed variables
 let fps = 100;
 const wW = window.innerWidth;
 const wH = window.innerHeight;
@@ -30,6 +31,8 @@ let equipment = [];
 let mouseIsDown = false;
 let firstClick = false;
 let doubleClick = false;
+let mouseX = -1;
+let mouseY = -1;
 let oldMouseX = -1;
 let oldMouseY = -1;
 let mouseTimer = 0;
@@ -111,6 +114,7 @@ function getMouseUp(e)
 	//oldMouseY = -1;
 }
 
+//lines 119 - 248: defining and creating Objects
 
 function Icon(x1, y1, type, address, width, height, name)
 {
@@ -244,7 +248,7 @@ icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
 icons.push(new Icon(300,100,2,"images/img1.png",100,100,"        Spells"));
 
 
-
+//draws icons to open different applications
 
 function drawIcons()
 {
@@ -284,6 +288,7 @@ function drawIcons()
 	}
 }
 
+//draws windows that are opened from icons
 function drawWindows()
 {
 	for(let i = 0; i < windows.length; i++)
@@ -292,6 +297,7 @@ function drawWindows()
 		openTimer++;
 		let img = new Image();
 		img.src = windows[i].address;
+		//closing the window
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "32px Ariel";
 		ctx.fillStyle = "rgb(150,150,150)";
@@ -299,13 +305,10 @@ function drawWindows()
 					windows[i].w, windows[i].h);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(windows[i].name, windows[i].x + 15, windows[i].y -6);
-		
-		//ctx.drawImage(img, windows[i].x, windows[i].y,
-		//				windows[i].w, windows[i].h);
-		if(mouseX >= windows[i].x + windows[i].w - 28 &&
-			mouseX <= windows[i].x + windows[i].w + 3 &&
-			mouseY >= windows[i].y - 30 &&
-			mouseY <= windows[i].y)
+		//this line is for drawing an image, probably as a background
+		<!-- ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h); -->
+		if(mouseX >= windows[i].x + windows[i].w - 28 && mouseX <= windows[i].x + windows[i].w + 3 &&
+			mouseY >= windows[i].y - 30 && mouseY <= windows[i].y)
 		{
 			ctx.fillStyle = "rgb(255,0,0)";
 			ctx.fillRect(windows[i].x + windows[i].w - 28, 
@@ -330,11 +333,11 @@ function drawWindows()
 			ctx.fillText("X", windows[i].x + windows[i].w - 25,
 			windows[i].y - 4);
 		}
-		
-		//ctx.fillText(icons[i].name, icons[i].x + 2,
-		//				icons[i].y + (icons[i].h * (5/6)) + 5)
+				
+		//if window is for character sheets
 		if(windows[i].type == 1)
 		{
+			//fill in character select screen
 			ctx.fillStyle = "rgb(100,100,100)";
 			ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //1
 			ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //2
@@ -363,7 +366,7 @@ function drawWindows()
 			ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
 			ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
 			ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
-			
+			//open character sheets
 			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //1
 			{
 				ctx.fillStyle = "rgb(80,80,80)";
@@ -436,6 +439,7 @@ function drawWindows()
 	}
 }
 
+//opens character sheets when clicked on in the window
 function characterSheets()
 {
 	if(character1On)
@@ -456,6 +460,7 @@ function characterSheets()
 	}
 }
 
+//draws the actual character sheets
 function drawSheet(slot)
 {
 	ctx.canvas.height = 700;
@@ -640,7 +645,7 @@ function drawSheet(slot)
 			else
 			{
 				characters[slot].name = word1.join("");
-				localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name);
+				
 				ctx.fillStyle = "rgba(220,220,220,.6)";
 				ctx.fillRect(60,50,190,30);
 			}
@@ -650,7 +655,7 @@ function drawSheet(slot)
 			ctx.fillStyle = "rgba(220,220,220,.6)";
 			ctx.fillRect(60,50,190,30);
 		}
-		
+		localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name);
 		//max health
 		if(oldMouseX >= 115 && oldMouseX <= 190 && oldMouseY >= 230 && oldMouseY <= 245)
 		{
@@ -3126,9 +3131,10 @@ function drawSheet(slot)
 		dice();
 }
 
-
+//draws dice roller on character sheets
 function dice()
 {
+	//number of dice
 	let word2 = word.slice();
 	if(mouseX >= 615 && mouseX <= 665 && mouseY >= 580 && mouseY <= 605)
 	{
@@ -3393,6 +3399,7 @@ function dice()
 	ctx.textAlign = "start";
 }
 
+//allows for text boxes to work properly
 function wrapText(ctx, text, x, y, maxWidth, lineHeight)
 {
 	if(text != null)
@@ -3420,326 +3427,254 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight)
 	}
 }
 
+
+//saves everything to local storage and sets presets to any null values
 function useLocalStorage()
 {
-	for(i = 0; i <= 3; i++)
+	for(let i = 0; i <= 3; i++)
 	{
-		var name = localStorage.getItem(JSON.stringify("name"+i));
-		characters[i].name = name;
+		characters[i].name = localStorage.getItem(JSON.stringify("name"+i));	
 		if(characters[i].name == null)
 		{
 			characters[i].name = "Name";
 		}
-		var cClass = localStorage.getItem(JSON.stringify("cClass"+i));
-		characters[i].cClass = cClass;
+		characters[i].cClass = localStorage.getItem(JSON.stringify("cClass"+i));
 		if(characters[i].cClass == null)
 		{
 			characters[i].cClass = "Class";
 		}
-		var race = localStorage.getItem(JSON.stringify("race"+i));
-		characters[i].race = race;
+		characters[i].race = localStorage.getItem(JSON.stringify("race"+i));
 		if(characters[i].race == null)
 		{
 			characters[i].race = "Race";
 		}
-		var background = localStorage.getItem(JSON.stringify("background"+i));
-		characters[i].background = background;
+		characters[i].background = localStorage.getItem(JSON.stringify("background"+i));
 		if(characters[i].background == null)
 		{
 			characters[i].background = "Background";
 		}
-		var alignment = localStorage.getItem(JSON.stringify("alignment"+i));
-		characters[i].alignment = alignment;
+		characters[i].alignment = localStorage.getItem(JSON.stringify("alignment"+i));
 		if(characters[i].alignment == null)
 		{
 			characters[i].alignment = "Alignment";
 		}
-		var pName = localStorage.getItem(JSON.stringify("pName"+i));
-		characters[i].pName = pName;
+		characters[i].pName = localStorage.getItem(JSON.stringify("pName"+i));
 		if(characters[i].pName == null)
 		{
 			characters[i].pName = "Player Name";
 		}
-		var XP = localStorage.getItem(JSON.stringify("XP"+i));
-		characters[i].xp = XP;
+		characters[i].xp = localStorage.getItem(JSON.stringify("XP"+i));
 		if(characters[i].xp == null)
 		{
 			characters[i].xp = "0";
 		}
-		var maxHP = localStorage.getItem(JSON.stringify("maxHP"+i));
-		characters[i].maxHp = maxHP;
+		characters[i].maxHp = localStorage.getItem(JSON.stringify("maxHP"+i));
 		if(characters[i].maxHp == null)
 		{
 			characters[i].maxHp = "0";
 		}
-		var currentHP = localStorage.getItem(JSON.stringify("currentHP"+i));
-		characters[i].currentHp = currentHP;
+		characters[i].currentHp = localStorage.getItem(JSON.stringify("currentHP"+i));
 		if(characters[i].currentHp == null)
 		{
 			characters[i].currentHp = "0";
 		}
-		var ac = localStorage.getItem(JSON.stringify("ac"+i));
-		characters[i].ac = ac;
+		characters[i].ac = localStorage.getItem(JSON.stringify("ac"+i));
 		if(characters[i].ac == null)
 		{
 			characters[i].ac = "10";
 		}
-		var str = localStorage.getItem(JSON.stringify("str"+i));
-		characters[i].str = str;
+		characters[i].str = localStorage.getItem(JSON.stringify("str"+i));
 		if(characters[i].str == null)
 		{
 			characters[i].str = "10";
 		}
-		var dex = localStorage.getItem(JSON.stringify("dex"+i));
-		characters[i].dex = dex;
+		characters[i].dex = localStorage.getItem(JSON.stringify("dex"+i));
 		if(characters[i].dex == null)
 		{
 			characters[i].dex = "10";
 		}
-		var con = localStorage.getItem(JSON.stringify("con"+i));
-		characters[i].con = con;
+		characters[i].con = localStorage.getItem(JSON.stringify("con"+i));
 		if(characters[i].con == null)
 		{
 			characters[i].con = "10";
 		}
-		var intelligence = localStorage.getItem(JSON.stringify("intelligence"+i));
-		characters[i].intelligence = intelligence;
+		characters[i].intelligence = localStorage.getItem(JSON.stringify("intelligence"+i));
 		if(characters[i].intelligence == null)
 		{
 			characters[i].intelligence = "10";
 		}
-		var wis = localStorage.getItem(JSON.stringify("wis"+i));
-		characters[i].wis = wis;
+		characters[i].wis = localStorage.getItem(JSON.stringify("wis"+i));
 		if(characters[i].wis == null)
 		{
 			characters[i].wis = "10";
 		}
-		var cha = localStorage.getItem(JSON.stringify("cha"+i));
-		characters[i].cha = cha;
+		characters[i].cha = localStorage.getItem(JSON.stringify("cha"+i));
 		if(characters[i].cha == null)
 		{
 			characters[i].cha = "10";
 		}
-		var prof = localStorage.getItem(JSON.stringify("prof"+i));
-		characters[i].prof = prof;
+		characters[i].prof = localStorage.getItem(JSON.stringify("prof"+i));
 		if(characters[i].prof == null)
 		{
 			characters[i].prof = "2";
 		}
-		var strProf = localStorage.getItem(JSON.stringify("strProf"+i));
-		proficiencies[i].strProf = strProf;
-		var dexProf = localStorage.getItem(JSON.stringify("dexProf"+i));
-		proficiencies[i].dexProf = dexProf;
-		var conProf = localStorage.getItem(JSON.stringify("conProf"+i));
-		proficiencies[i].conProf = conProf;
-		var intProf = localStorage.getItem(JSON.stringify("intProf"+i));
-		proficiencies[i].intProf = intProf;
-		var wisProf = localStorage.getItem(JSON.stringify("wisProf"+i));
-		proficiencies[i].wisProf = wisProf;
-		var chaProf = localStorage.getItem(JSON.stringify("chaProf"+i));
-		proficiencies[i].chaProf = chaProf;
-		var acrobaticsProf = localStorage.getItem(JSON.stringify("acrobaticsProf"+i));
-		proficiencies[i].acrobaticsProf = acrobaticsProf;
-		var animalProf = localStorage.getItem(JSON.stringify("animalProf"+i));
-		proficiencies[i].animalProf = animalProf;
-		var arcanaProf = localStorage.getItem(JSON.stringify("arcanaProf"+i));
-		proficiencies[i].arcanaProf = arcanaProf;
-		var athleticsProf = localStorage.getItem(JSON.stringify("athleticsProf"+i));
-		proficiencies[i].athleticsProf = athleticsProf;
-		var deceptionProf = localStorage.getItem(JSON.stringify("deceptionProf"+i));
-		proficiencies[i].deceptionProf = deceptionProf;
-		var historyProf = localStorage.getItem(JSON.stringify("historyProf"+i));
-		proficiencies[i].historyProf = historyProf;
-		var insightProf = localStorage.getItem(JSON.stringify("insightProf"+i));
-		proficiencies[i].insightProf = insightProf;
-		var intimidationProf = localStorage.getItem(JSON.stringify("intimidationProf"+i));
-		proficiencies[i].intimidationProf = intimidationProf;
-		var investigationProf = localStorage.getItem(JSON.stringify("investigationProf"+i));
-		proficiencies[i].investigationProf = investigationProf;
-		var medicineProf = localStorage.getItem(JSON.stringify("medicineProf"+i));
-		proficiencies[i].medicineProf = medicineProf;
-		var natureProf = localStorage.getItem(JSON.stringify("natureProf"+i));
-		proficiencies[i].natureProf = natureProf;
-		var perceptionProf = localStorage.getItem(JSON.stringify("perceptionProf"+i));
-		proficiencies[i].perceptionProf = perceptionProf;
-		var performanceProf = localStorage.getItem(JSON.stringify("performanceProf"+i));
-		proficiencies[i].performanceProf = performanceProf;
-		var persuasionProf = localStorage.getItem(JSON.stringify("persuasionProf"+i));
-		proficiencies[i].persuasionProf = persuasionProf;
-		var religionProf = localStorage.getItem(JSON.stringify("religionProf"+i));
-		proficiencies[i].religionProf = religionProf;
-		var sleightProf = localStorage.getItem(JSON.stringify("sleightProf"+i));
-		proficiencies[i].sleightProf = sleightProf;
-		var stealthProf = localStorage.getItem(JSON.stringify("stealthProf"+i));
-		proficiencies[i].stealthProf = stealthProf;
-		var survivalProf = localStorage.getItem(JSON.stringify("survivalProf"+i));
-		proficiencies[i].survivalProf = survivalProf;
-		var otherProf = localStorage.getItem(JSON.stringify("otherProf"+i));
-		proficiencies[i].other = otherProf;
+		proficiencies[i].strProf = localStorage.getItem(JSON.stringify("strProf"+i));
+		proficiencies[i].dexProf = localStorage.getItem(JSON.stringify("dexProf"+i));
+		proficiencies[i].conProf = localStorage.getItem(JSON.stringify("conProf"+i));
+		proficiencies[i].intProf = localStorage.getItem(JSON.stringify("intProf"+i));
+		proficiencies[i].wisProf = localStorage.getItem(JSON.stringify("wisProf"+i));
+		proficiencies[i].chaProf = localStorage.getItem(JSON.stringify("chaProf"+i));
+		proficiencies[i].acrobaticsProf = localStorage.getItem(JSON.stringify("acrobaticsProf"+i));
+		proficiencies[i].animalProf = localStorage.getItem(JSON.stringify("animalProf"+i));
+		proficiencies[i].arcanaProf = localStorage.getItem(JSON.stringify("arcanaProf"+i));
+		proficiencies[i].athleticsProf = localStorage.getItem(JSON.stringify("athleticsProf"+i));
+		proficiencies[i].deceptionProf = localStorage.getItem(JSON.stringify("deceptionProf"+i));
+		proficiencies[i].historyProf = localStorage.getItem(JSON.stringify("historyProf"+i));
+		proficiencies[i].insightProf = localStorage.getItem(JSON.stringify("insightProf"+i));
+		proficiencies[i].intimidationProf = localStorage.getItem(JSON.stringify("intimidationProf"+i));
+		proficiencies[i].investigationProf = localStorage.getItem(JSON.stringify("investigationProf"+i));
+		proficiencies[i].medicineProf = localStorage.getItem(JSON.stringify("medicineProf"+i));
+		proficiencies[i].natureProf = localStorage.getItem(JSON.stringify("natureProf"+i));
+		proficiencies[i].perceptionProf = localStorage.getItem(JSON.stringify("perceptionProf"+i));
+		proficiencies[i].performanceProf = localStorage.getItem(JSON.stringify("performanceProf"+i));
+		proficiencies[i].persuasionProf = localStorage.getItem(JSON.stringify("persuasionProf"+i));
+		proficiencies[i].religionProf = localStorage.getItem(JSON.stringify("religionProf"+i));
+		proficiencies[i].sleightProf = localStorage.getItem(JSON.stringify("sleightProf"+i));
+		proficiencies[i].stealthProf = localStorage.getItem(JSON.stringify("stealthProf"+i));
+		proficiencies[i].survivalProf = localStorage.getItem(JSON.stringify("survivalProf"+i));
+		proficiencies[i].other = localStorage.getItem(JSON.stringify("otherProf"+i));
 		if(characters[i].other == null)
 		{
 			characters[i].other = "";
 		}
-		var Equipment = localStorage.getItem(JSON.stringify("equipment"+i));
-		characters[i].equipment = Equipment;
+		characters[i].equipment = localStorage.getItem(JSON.stringify("equipment"+i));
 		if(characters[i].equipment == null)
 		{
 			characters[i].equipment = "";
 		}
-		var cp = localStorage.getItem(JSON.stringify("cp"+i));
-		characters[i].cp = cp;
+		characters[i].cp = localStorage.getItem(JSON.stringify("cp"+i));
 		if(characters[i].cp == null)
 		{
 			characters[i].cp = "0";
 		}
-		var sp = localStorage.getItem(JSON.stringify("sp"+i));
-		characters[i].sp = sp;
+		characters[i].sp = localStorage.getItem(JSON.stringify("sp"+i));
 		if(characters[i].sp == null)
 		{
 			characters[i].sp = "0";
 		}
-		var gp = localStorage.getItem(JSON.stringify("gp"+i));
-		characters[i].gp = gp;
+		characters[i].gp = localStorage.getItem(JSON.stringify("gp"+i));
 		if(characters[i].gp == null)
 		{
 			characters[i].gp = "0";
 		}
-		var ep = localStorage.getItem(JSON.stringify("ep"+i));
-		characters[i].ep = ep;
+		characters[i].ep = localStorage.getItem(JSON.stringify("ep"+i));
 		if(characters[i].ep == null)
 		{
 			characters[i].ep = "0";
 		}
-		var pp = localStorage.getItem(JSON.stringify("pp"+i));
-		characters[i].pp = pp;
+		characters[i].pp = localStorage.getItem(JSON.stringify("pp"+i));
 		if(characters[i].pp == null)
 		{
 			characters[i].pp = "0";
 		}
-		var pTraits = localStorage.getItem(JSON.stringify("pTraits"+i));
-		characters[i].pTraits = pTraits;
+		characters[i].pTraits = localStorage.getItem(JSON.stringify("pTraits"+i));
 		if(characters[i].pTraits == null)
 		{
 			characters[i].pTraits = "";
 		}
-		var ideals = localStorage.getItem(JSON.stringify("ideals"+i));
-		characters[i].ideals = ideals;
+		characters[i].ideals = localStorage.getItem(JSON.stringify("ideals"+i));
 		if(characters[i].ideals == null)
 		{
 			characters[i].ideals = "";
 		}
-		var bonds = localStorage.getItem(JSON.stringify("bonds"+i));
-		characters[i].bonds = bonds;
+		characters[i].bonds = localStorage.getItem(JSON.stringify("bonds"+i));
 		if(characters[i].bonds == null)
 		{
 			characters[i].bonds = "";
 		}
-		var flaws = localStorage.getItem(JSON.stringify("flaws"+i));
-		characters[i].flaws = flaws;
+		characters[i].flaws = localStorage.getItem(JSON.stringify("flaws"+i));
 		if(characters[i].flaws == null)
 		{
 			characters[i].flaws = "";
 		}
-		var traits = localStorage.getItem(JSON.stringify("traits"+i));
-		characters[i].traits = traits;
+		characters[i].traits = localStorage.getItem(JSON.stringify("traits"+i));
 		if(characters[i].traits == null)
 		{
 			characters[i].traits = "";
 		}
-		var inspiration = localStorage.getItem(JSON.stringify("inspiration"+i));
-		characters[i].inspiration = inspiration;
-		var deathSaveS1 = localStorage.getItem(JSON.stringify("deathSaveS1"+i));
-		characters[i].deathSaveS1 = deathSaveS1;
-		var deathSaveS2 = localStorage.getItem(JSON.stringify("deathSaveS2"+i));
-		characters[i].deathSaveS2 = deathSaveS2;
-		var deathSaveS3 = localStorage.getItem(JSON.stringify("deathSaveS3"+i));
-		characters[i].deathSaveS3 = deathSaveS3;
-		var deathSaveF1 = localStorage.getItem(JSON.stringify("deathSaveF1"+i));
-		characters[i].deathSaveF1 = deathSaveF1;
-		var deathSaveF2 = localStorage.getItem(JSON.stringify("deathSaveF2"+i));
-		characters[i].deathSaveF2 = deathSaveF2;
-		var deathSaveF3 = localStorage.getItem(JSON.stringify("deathSaveF3"+i));
-		characters[i].deathSaveF3 = deathSaveF3;
-		var tHP = localStorage.getItem(JSON.stringify("tHP"+i));
-		characters[i].tHP = tHP;
+		characters[i].inspiration = localStorage.getItem(JSON.stringify("inspiration"+i));
+		characters[i].deathSaveS1 = localStorage.getItem(JSON.stringify("deathSaveS1"+i));
+		characters[i].deathSaveS2 = localStorage.getItem(JSON.stringify("deathSaveS2"+i));
+		characters[i].deathSaveS3 = localStorage.getItem(JSON.stringify("deathSaveS3"+i));
+		characters[i].deathSaveF1 = localStorage.getItem(JSON.stringify("deathSaveF1"+i));
+		characters[i].deathSaveF2 = localStorage.getItem(JSON.stringify("deathSaveF2"+i));
+		characters[i].deathSaveF3 = localStorage.getItem(JSON.stringify("deathSaveF3"+i));
+		characters[i].tHP = localStorage.getItem(JSON.stringify("tHP"+i));
 		if(characters[i].tHP == null)
 		{
 			characters[i].tHP = "0";
 		}
-		var speed = localStorage.getItem(JSON.stringify("speed"+i));
-		characters[i].speed = speed;
+		characters[i].speed = localStorage.getItem(JSON.stringify("speed"+i));
 		if(characters[i].speed == null)
 		{
 			characters[i].speed = "30 ft";
 		}
-		var n1 = localStorage.getItem(JSON.stringify("n1"+i));
-		equipment[i].n1 = n1;
+		equipment[i].n1 = localStorage.getItem(JSON.stringify("n1"+i));
 		if(equipment[i].n1 == null)
 		{
 			equipment[i].n1 = "";
 		}
-		var n2 = localStorage.getItem(JSON.stringify("n2"+i));
-		equipment[i].n2 = n2;
+		equipment[i].n2 = localStorage.getItem(JSON.stringify("n2"+i));
 		if(equipment[i].n2 == null)
 		{
 			equipment[i].n2 = "";
 		}
-		var n3 = localStorage.getItem(JSON.stringify("n3"+i));
-		equipment[i].n3 = n3;
+		equipment[i].n3 = localStorage.getItem(JSON.stringify("n3"+i));
 		if(equipment[i].n3 == null)
 		{
 			equipment[i].n3 = "";
 		}
-		var b1 = localStorage.getItem(JSON.stringify("b1"+i));
-		equipment[i].b1 = b1;
+		equipment[i].b1 = localStorage.getItem(JSON.stringify("b1"+i));
 		if(equipment[i].b1 == null)
 		{
 			equipment[i].b1 = "";
 		}
-		var b2 = localStorage.getItem(JSON.stringify("b2"+i));
-		equipment[i].b2 = b2;
+		equipment[i].b2 = localStorage.getItem(JSON.stringify("b2"+i));
 		if(equipment[i].b2 == null)
 		{
 			equipment[i].b2 = "";
 		}
-		var b3 = localStorage.getItem(JSON.stringify("b3"+i));
-		equipment[i].b3 = b3;
+		equipment[i].b3 = localStorage.getItem(JSON.stringify("b3"+i));
 		if(equipment[i].b3 == null)
 		{
 			equipment[i].b3 = "";
 		}
-		var d1 = localStorage.getItem(JSON.stringify("d1"+i));
-		equipment[i].d1 = d1;
+		equipment[i].d1 = localStorage.getItem(JSON.stringify("d1"+i));
 		if(equipment[i].d1 == null)
 		{
 			equipment[i].d1 = "";
 		}
-		var d2 = localStorage.getItem(JSON.stringify("d2"+i));
-		equipment[i].d2 = d2;
+		equipment[i].d2 = localStorage.getItem(JSON.stringify("d2"+i));
 		if(equipment[i].d2 == null)
 		{
 			equipment[i].d2 = "";
 		}
-		var d3 = localStorage.getItem(JSON.stringify("d3"+i));
-		equipment[i].d3 = d3;
+		equipment[i].d3 = localStorage.getItem(JSON.stringify("d3"+i));
 		if(equipment[i].d3 == null)
 		{
 			equipment[i].d3 = "";
 		}
-		var details = localStorage.getItem(JSON.stringify("details"+i));
-		equipment[i].details = details;
+		equipment[i].details = localStorage.getItem(JSON.stringify("details"+i));
 		if(equipment[i].details == null)
 		{
 			equipment[i].details = "";
 		}
-		var tHitDice = localStorage.getItem(JSON.stringify("tHitDice"+i));
-		characters[i].tHitDice = tHitDice;
+		characters[i].tHitDice = localStorage.getItem(JSON.stringify("tHitDice"+i));
 		if(characters[i].tHitDice == null)
 		{
 			characters[i].tHitDice = "";
 		}
-		var cHitDice = localStorage.getItem(JSON.stringify("cHitDice"+i));
-		characters[i].cHitDice = cHitDice;
+		characters[i].cHitDice = localStorage.getItem(JSON.stringify("cHitDice"+i));
 		if(characters[i].cHitDice == null)
 		{
 			characters[i].cHitDice = "";
@@ -3747,6 +3682,7 @@ function useLocalStorage()
 	}
 }
 
+//this is just a reminder for me on how to open PDFs
 //window.open("pdf url here", '_blank');
 
 function draw() {
