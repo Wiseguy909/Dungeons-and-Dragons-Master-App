@@ -8,6 +8,7 @@ var button6 = false;
 var button7 = false;
 var button8 = false;
 var button9 = false;
+
 var qButton = false;
 var wButton = false;
 var eButton = false;
@@ -67,58 +68,149 @@ var spaceBar = false;
 var enterButton = false;
 var backButton = false;
 
+var ePoint = false;		//!
+var at = false;			//@
+var hashtag = false;    //#
+var dollar = false;		//$
+var divide = false;		//%
+var caret = false;		//^
+var and = false;		//&
+var asterisk = false;	//*
+var oParenth = false;	//(
+var cParenth = false;	//)
+var minus = false;		//-
+var apostraphe = false;	//'
+var quote = false;		//"
+var semiColon = false;	//;
+var colon = false;		//:
+var fSlash = false;		///
+var question = false;	//?
+var comma = false;		//,
+var period = false;		//.
+var lessThan = false;	//<
+var greaterThan = false;//>
+var oBracket = false;	//[
+var cBracket = false;	//]
+var oCBracket = false;  //{
+var cCBracket = false;  //}
+var vBar = false;       //|
+var backTick = false;   //`
+var tilde = false;   	//~
+var equal = false;   	//=
+var underScore = false; //_
+var plus = false;		//+
+
+
 
 function keyDownHandler(e){
-	if(e.keyCode == 16)
+	
+	if(shiftKey == true && e.keyCode == 49)
+	{
+	ePoint = true;
+	word.push("!");
+	}
+	else if(shiftKey == true && e.keyCode == 50)
+	{
+	at = true;
+	word.push("@");
+	}
+	else if(shiftKey == true && e.keyCode == 51)
+	{
+	hashtag = true;
+	word.push("#");
+	}
+	else if(shiftKey == true && e.keyCode == 52)
+	{
+	dollar = true;
+	word.push("$");
+	}
+	else if(shiftKey == true && e.keyCode == 53)
+	{
+	divide = true;
+	word.push("%");
+	}
+	else if(shiftKey == true && e.keyCode == 54)
+	{
+	caret = true;
+	word.push("^");
+	}
+	else if(shiftKey == true && e.keyCode == 55)
+	{
+	and = true;
+	word.push("&");
+	}
+	else if(shiftKey == true && e.keyCode == 56)
+	{
+	asterisk = true;
+	word.push("*");
+	}
+	else if(shiftKey == true && e.keyCode == 57)
+	{
+	oParenth = true;
+	word.push("(");
+	}
+	else if(shiftKey == true && e.keyCode == 48)
+	{
+	cParenth = true;
+	word.push(")");
+	}
+	else if(shiftKey == true && e.keyCode == 189)
+	{
+	underscore = true;
+	word.push("_");
+	}
+	
+	
+	else if(shiftKey == false && e.keyCode == 16)
 	{
 		shiftKey = true;
 	}
-	if(e.keyCode == 48)
+	else if(shiftKey == false && e.keyCode == 48)
 	{
 		button0 = true;
 		word.push("0");
 	}
-	else if(e.keyCode == 49)
+	else if(shiftKey == false && e.keyCode == 49)
 	{
 		button1 = true;
 		word.push("1");
 	}
-	else if(e.keyCode == 50)
+	else if(shiftKey == false && e.keyCode == 50)
 	{
 		button2 = true;
 		word.push("2");
 	}
-	else if(e.keyCode == 51)
+	else if(shiftKey == false && e.keyCode == 51)
 	{
 		button3 = true;
 		word.push("3");
 	}
-	else if(e.keyCode == 52)
+	else if(shiftKey == false && e.keyCode == 52)
 	{
 		button4 = true;
 		word.push("4");
 	}
-	else if(e.keyCode == 53)
+	else if(shiftKey == false && e.keyCode == 53)
 	{
 		button5 = true;
 		word.push("5");
 	}
-	else if(e.keyCode == 54)
+	else if(shiftKey == false && e.keyCode == 54)
 	{
 		button6 = true;
 		word.push("6");
 	}
-	else if(e.keyCode == 55)
+	else if(shiftKey == false && e.keyCode == 55)
 	{
 		button7 = true;
 		word.push("7");
 	}
-	else if(e.keyCode == 56)
+	else if(shiftKey == false && e.keyCode == 56)
 	{
 		button8 = true;
 		word.push("8");
 	}
-	else if(e.keyCode == 57)
+	else if(shiftKey == false && e.keyCode == 57)
 	{
 		button9 = true;
 		word.push("9");
@@ -452,8 +544,109 @@ else if(shiftKey == true && e.keyCode == 87)
 	word.pop();
 	
 	}
-
+	
+	else if(shiftKey == false && e.keyCode == 189)
+	{
+	minus = true;
+	word.push("-");
+	}
+	else if(shiftKey == true && e.keyCode == 187)
+	{
+	plus = true;
+	word.push("+");
+	}
+	else if(shiftKey == false && e.keyCode == 187)
+	{
+	equals = true;
+	word.push("=");
+	}
+	else if(shiftKey == true && e.keyCode == 219)
+	{
+	oCBracket = true;
+	word.push("{");
+	}
+	else if(shiftKey == false && e.keyCode == 219)
+	{
+	oBracket = true;
+	word.push("[");
+	}
+	else if(shiftKey == true && e.keyCode == 221)
+	{
+	cCBracket = true;
+	word.push("}");
+	}
+	else if(shiftKey == false && e.keyCode == 221)
+	{
+	cBracket = true;
+	word.push("]");
+	}
+	else if(shiftKey == true && e.keyCode == 220)
+	{
+	vBar = true;
+	word.push("|");
+	}
+	else if(shiftKey == true && e.keyCode == 186)
+	{
+	colon = true;
+	word.push(":");
+	}
+	else if(shiftKey == false && e.keyCode == 186)
+	{
+	semiColon = true;
+	word.push(";");
+	}
+	else if(shiftKey == true && e.keyCode == 222)
+	{
+	quote = true;
+	word.push('"');
+	}
+	else if(shiftKey == false && e.keyCode == 222)
+	{
+	apostraphe = true;
+	word.push("'");
+	}
+	else if(shiftKey == true && e.keyCode == 188)
+	{
+	lessThan = true;
+	word.push("<");
+	}
+	else if(shiftKey == false && e.keyCode == 188)
+	{
+	comma = true;
+	word.push(",");
+	}
+	else if(shiftKey == true && e.keyCode == 190)
+	{
+	greaterThan = true;
+	word.push(">");
+	}
+	else if(shiftKey == false && e.keyCode == 190)
+	{
+	period = true;
+	word.push(".");
+	}
+	else if(shiftKey == true && e.keyCode == 191)
+	{
+	question = true;
+	word.push("?");
+	}
+	else if(shiftKey == false && e.keyCode == 191)
+	{
+	fSlash = true;
+	word.push("/");
+	}
+	else if(shiftKey == true && e.keyCode == 192)
+	{
+	tilde = true;
+	word.push("~");
+	}
+	else if(shiftKey == false && e.keyCode == 192)
+	{
+	backTick = true;
+	word.push("`");
+	}
 }
+
 function keyUpHandler(e){
 	if(e.keyCode == 16)
 	{
@@ -789,5 +982,131 @@ else if(e.keyCode == 87 && e.keyCode == 16)
 	///backspace
 	backButton = false;
 	
+	}
+	
+	
+	else if(shiftKey == true && e.keyCode == 49)
+	{
+	ePoint = false;
+	}
+	else if(shiftKey == true && e.keyCode == 50)
+	{
+	at = false;
+	}
+	else if(shiftKey == true && e.keyCode == 51)
+	{
+	hashtag = false;
+	}
+	else if(shiftKey == true && e.keyCode == 52)
+	{
+	dollar = false;
+	}
+	else if(shiftKey == true && e.keyCode == 53)
+	{
+	divide = false;
+	}
+	else if(shiftKey == true && e.keyCode == 54)
+	{
+	caret = false;
+	}
+	else if(shiftKey == true && e.keyCode == 55)
+	{
+	and = false;
+	}
+	else if(shiftKey == true && e.keyCode == 56)
+	{
+	asterisk = false;
+	}
+	else if(shiftKey == true && e.keyCode == 57)
+	{
+	oParenth = false;
+	}
+	else if(shiftKey == true && e.keyCode == 48)
+	{
+	cParenth = false;
+	}
+	else if(e.keyCode == 189)
+	{
+	minus = false;
+	}
+	else if(shiftKey == true && e.keyCode == 189)
+	{
+	underscore = false;
+	}
+	else if(e.keyCode == 187)
+	{
+	equals = false;
+	}
+	else if(shiftKey == true && e.keyCode == 187)
+	{
+	plus = false;
+	}
+	else if(e.keyCode == 219)
+	{
+	oBracket = false;
+	}
+	else if(shiftKey == true && e.keyCode == 219)
+	{
+	oCBracket = false;
+	}
+	else if(e.keyCode == 221)
+	{
+	cBracket = false;
+	}
+	else if(shiftKey == true && e.keyCode == 221)
+	{
+	cCBracket = false;
+	}
+	else if(shiftKey == true && e.keyCode == 220)
+	{
+	vBar = false;
+	}
+	else if(e.keyCode == 186)
+	{
+	semiColon = false;
+	}
+	else if(shiftKey == true && e.keyCode == 186)
+	{
+	colon = false;
+	}
+	else if(e.keyCode == 222)
+	{
+	apostraphe = false;
+	}
+	else if(shiftKey == true && e.keyCode == 222)
+	{
+	quote = false;
+	}
+	else if(e.keyCode == 188)
+	{
+	comma = false;
+	}
+	else if(shiftKey == true && e.keyCode == 188)
+	{
+	lessThan = false;
+	}
+	else if(e.keyCode == 190)
+	{
+	period = false;
+	}
+	else if(shiftKey == true && e.keyCode == 190)
+	{
+	greaterThan = false;
+	}
+	else if(e.keyCode == 191)
+	{
+	fSlash = false;
+	}
+	else if(shiftKey == true && e.keyCode == 191)
+	{
+	question = false;
+	}
+	else if(e.keyCode == 192)
+	{
+	backTick = false;
+	}
+	else if(shiftKey == true && e.keyCode == 192)
+	{
+	tilde = false;
 	}
 }
