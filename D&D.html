@@ -306,7 +306,7 @@ function drawWindows()
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(windows[i].name, windows[i].x + 15, windows[i].y -6);
 		//this line is for drawing an image, probably as a background
-		<!-- ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h); -->
+		//ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h);
 		if(mouseX >= windows[i].x + windows[i].w - 28 && mouseX <= windows[i].x + windows[i].w + 3 &&
 			mouseY >= windows[i].y - 30 && mouseY <= windows[i].y)
 		{

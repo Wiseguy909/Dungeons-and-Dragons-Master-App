@@ -215,7 +215,7 @@ function drawWindows()
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(windows[i].name, windows[i].x + 15, windows[i].y -6);
 		//this line is for drawing an image, probably as a background
-		<!-- ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h); -->
+		//ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h);
 		if(mouseX >= windows[i].x + windows[i].w - 28 && mouseX <= windows[i].x + windows[i].w + 3 &&
 			mouseY >= windows[i].y - 30 && mouseY <= windows[i].y)
 		{
@@ -1036,32 +1036,32 @@ function characterCreator(slot)
 			}
 		}
 		localStorage.setItem(JSON.stringify("pName"+slot), characters[slot].pName);
-	<!-- function characterInfo(type,x1,x2,y1,y2,xw,yw,opacity) -->
-	<!-- { -->
-		<!-- if(oldMouseX >= x1 && oldMouseX <= x2 && oldMouseY >= y1 && oldMouseY <= y2) -->
-		<!-- { -->
-			<!-- if(mouseIsDown) -->
-			<!-- { -->
-				<!-- word = type.split(""); -->
-			<!-- } -->
-			<!-- else -->
-			<!-- { -->
-				<!-- type = word1.join(""); -->
-				<!-- ctx.fillStyle = "rgba(220,220,220,"+opacity+")"; -->
-				<!-- ctx.fillRect(x1,y1,xw,yw); -->
-			<!-- } -->
-		<!-- } -->
-		<!-- if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) -->
-		<!-- { -->
-			<!-- ctx.fillStyle = "rgba(220,220,220,"+opacity+")"; -->
-			<!-- ctx.fillRect(x1,y1,xw,yw); -->
-		<!-- } -->
-		<!-- makeSame = type; -->
-	<!-- } -->
-	<!-- //name -->
-	<!-- characterInfo(characters[slot].name,60,250,50,80,190,30,.6); -->
-	<!-- characters[slot].name = makeSame; -->
-	<!-- localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name); -->
+	/* function characterInfo(type,x1,x2,y1,y2,xw,yw,opacity)
+	{
+		if(oldMouseX >= x1 && oldMouseX <= x2 && oldMouseY >= y1 && oldMouseY <= y2)
+		{
+			if(mouseIsDown)
+			{
+				word = type.split("");
+			}
+			else
+			{
+				type = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+				ctx.fillRect(x1,y1,xw,yw);
+			}
+		}
+		if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
+		{
+			ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+			ctx.fillRect(x1,y1,xw,yw);
+		}
+		makeSame = type;
+	}
+	//name
+	characterInfo(characters[slot].name,60,250,50,80,190,30,.6);
+	characters[slot].name = makeSame;
+	localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name); */
 	}
 	
 	ctx.textAlign = "start";
