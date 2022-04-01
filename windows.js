@@ -1,44 +1,4 @@
-<html>
-<head>
-	<style>
-	*{padding: 0; margin:0;}
-	canvas{ background: #eee; display: block; margin: 0 auto;}
-	</style>
-</head>
-<body>
-<canvas id= "myCanvas" width="800" height="600"></canvas>
-<script src="keyboard.js"></script>
-<script type="text/javascript">
-let canvas = document.getElementById("myCanvas");
-let ctx = canvas.getContext("2d");
-canvas.addEventListener("mousemove", getPosition, false);
-canvas.addEventListener("mouseup", getMouseUp, false);
-canvas.addEventListener("mousedown", getMouseDown, false);
-document.addEventListener("keydown",keyDownHandler, false);
-document.addEventListener("keyup",keyUpHandler,false);
-ctx.canvas.width  = window.innerWidth;
-ctx.canvas.height = window.innerHeight;
-
-//lines 23 - 76: defining any needed variables
-let fps = 100;
-const wW = window.innerWidth;
-const wH = window.innerHeight;
-let icons = [];
-let windows = [];
-let characters = [];
-let proficiencies = [];
-let equipment = [];
-let mouseIsDown = false;
-let firstClick = false;
-let doubleClick = false;
-let mouseX = -1;
-let mouseY = -1;
-let oldMouseX = -1;
-let oldMouseY = -1;
-let mouseTimer = 0;
-let openTimer = 0;
-let menu = true;
-let windowOn = false;
+//dice roller
 let d20 = false;
 let d12 = false;
 let d10 = false;
@@ -48,12 +8,23 @@ let d4 = false;
 let num = 1;
 let diceNum = "1";
 let result = 0;
-
-let character1On = false;
-let character2On = false;
-let character3On = false;
-let character4On = false;
-
+let res1 = 0;
+let res2 = 0;
+let res3 = 0;
+let res4 = 0;
+let res5 = 0;
+let res6 = 0;
+//character creator
+let step = 0;
+let classBox = false;
+let subclassBox = false;
+let raceBox = false;
+let subraceBox = false;
+let alignmentBox = false;
+let makeBoxSame = false;
+let makeListSame = "";
+let drawDice = false;
+//sheet paper images
 let sheet1 = new Image();
 sheet1.src = "images/sheet1.png";
 let sheet2 = new Image();
@@ -73,400 +44,515 @@ sheet8.src = "images/sheet8.png";
 let sheet9 = new Image();
 sheet9.src = "images/sheet9.png";
 
-let word = [];
-
-function getPosition(event)
+//character creator
+function characterCreator(slot)
 {
-	mouseX = event.x - canvas.offsetLeft;
-	mouseY = event.y - canvas.offsetTop;
-}
-
-function getMouseDown(e)
-{
-	mouseIsDown = true;
-	let oldMouseX = mouseX;
-	let oldMouseY = mouseY;
-	if(doubleClick == true)
+	ctx.textAlign = "start";
+	ctx.fillStyle ="rgb(240,240,240)";
+	ctx.fillRect(0,0,wW,wH);
+	//exit
+	if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
 	{
-		firstClick = true;
-		mouseTimer = 0;
-	}
-	if(firstClick == true && mouseTimer < 60)
-	{
-		doubleClick = true;
-	}
-	if(firstClick == true && mouseTimer >= 60)
-	{
-		firstClick = true;
-		mouseTimer = 0;
+		ctx.fillStyle = "rgb(255,0,0)";
+		ctx.fillRect(0,0,30,30);
+		if(mouseIsDown)
+		{
+			char1Create = false;
+			char2Create = false;
+			char3Create = false;
+			char4Create = false;
+			windowOn = true;
+			firstClick = false;
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "32px Ariel";
+		ctx.fillText("X", 3, 26);
 	}
 	else
 	{
-		firstClick = true;
-		mouseTimer = 0;
-	}
-}
-
-function getMouseUp(e)
-{
-	mouseIsDown = false;
-	//oldMouseX = -1;
-	//oldMouseY = -1;
-}
-
-//lines 119 - 248: defining and creating Objects
-
-function Icon(x1, y1, type, address, width, height, name)
-{
-	this.x = x1;
-	this.y = y1;
-	this.type = type;
-	this.address = address;
-	this.w = width;
-	this.h = height;
-	this.name = name;
-	this.isActive = false;
-}
-
-function Window(x1, y1, type, address, width, height, name)
-{
-	this.x = x1;
-	this.y = y1;
-	this.type = type;
-	this.address = address;
-	this.w = width;
-	this.h = height;
-	this.name = name;
-}
-
-function character(slot,name,cClass,level,maxHp,currentHp,race,background,alignment,pName,xp,ac,str,dex,con,wis,intelligence,
-					cha,proficiency,equipment,cp,sp,gp,ep,pp,pTraits,ideals,bonds,flaws,traits,inspiration,deathSaveS1,
-					deathSaveS2,deathSaveS3,deathSaveF1,deathSaveF2,deathSaveF3,tHP,speed,tHitDice,cHitDice)
-{
-	this.slot = slot;
-	this.name = name;
-	this.cClass = cClass;
-	this.level = level;
-	this.maxHp = maxHp;
-	this.currentHp = currentHp;
-	this.race = race;
-	this.background = background;
-	this.alignment = alignment;
-	this.pName = pName;
-	this.xp = xp;
-	this.ac = ac;
-	this.str = str;
-	this.dex = dex;
-	this.con = con;
-	this.wis = wis;
-	this.intelligence = intelligence;
-	this.cha = cha;
-	this.prof = proficiency;
-	this.equipment = equipment;
-	this.cp = cp;
-	this.sp = sp;
-	this.gp = gp;
-	this.ep = ep;
-	this.pp = pp;
-	this.pTraits = pTraits;
-	this.ideals = ideals;
-	this.flaws = flaws;
-	this.bonds = bonds;
-	this.traits = traits;
-	this.inspiration = inspiration;
-	this.deathSaveS1 = deathSaveS1;
-	this.deathSaveS2 = deathSaveS2;
-	this.deathSaveS3 = deathSaveS3;
-	this.deathSaveF1 = deathSaveF1;
-	this.deathSaveF2 = deathSaveF2;
-	this.deathSaveF3 = deathSaveF3;
-	this.tHP = tHP;
-	this.speed = speed;
-	
-}
-
-function proficiency(strProf,dexProf,conProf,intProf,wisProf,chaProf,acrobaticsProf,animalProf,arcanaProf,athleticsProf,
-					deceptionProf,historyProf,insightProf,intimidationProf,investigationProf,natureProf,perceptionProf,
-					performanceProf,persuasionProf,religionProf,sleightProf,stealthProf,survivalProf,other)
-{
-	this.strProf = strProf;
-	this.dexProf = dexProf;
-	this.conProf = conProf;
-	this.intProf = intProf;
-	this.wisProf = wisProf;
-	this.chaProf = chaProf;
-	this.acrobaticsProf = acrobaticsProf;
-	this.animalProf = animalProf;
-	this.arcanaProf = arcanaProf;
-	this.athleticsProf = athleticsProf;
-	this.deceptionProf = deceptionProf;
-	this.historyProf = historyProf;
-	this.insightProf = insightProf;
-	this.intimidationProf = intimidationProf;
-	this.investigationProf = investigationProf;
-	this.natureProf = natureProf;
-	this.perceptionProf = perceptionProf;
-	this.performanceProf = performanceProf;
-	this.persuasionProf = persuasionProf;
-	this.religionProf = religionProf;
-	this.sleightProf = sleightProf;
-	this.stealthProf = stealthProf;
-	this.survivalProf = survivalProf;
-	this.other = other;
-}
-
-function weapon(name1,name2,name3,bonus1,bonus2,bonus3,damage1,damage2,damage3,details)
-{
-	this.n1 = name1;
-	this.n2 = name2;
-	this.n3 = name3;
-	this.b1 = bonus1;
-	this.b2 = bonus2;
-	this.b3 = bonus3;
-	this.d1 = damage1;
-	this.d2 = damage2;
-	this.d3 = damage3;
-	this.details = details;
-}
-
-equipment.push(new weapon("","","","","","","","","",""));
-equipment.push(new weapon("","","","","","","","","",""));
-equipment.push(new weapon("","","","","","","","","",""));
-equipment.push(new weapon("","","","","","","","","",""));
-
-characters.push(new character(1,"Name","Class",1,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
-characters.push(new character(2,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
-characters.push(new character(3,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
-characters.push(new character(4,"Name","Class",0,0,0,"Race","Background","Alignment","Player Name","0","10","10","10","10","10","10","10","2","equipment","0","0","0","0","0","personality traits","Ideals","Bonds","Flaws","Traits",false,false,false,false,false,false,false,"0","30 ft","0","0"));
-
-proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
-proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
-proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
-proficiencies.push(new proficiency(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false));
-
-icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
-icons.push(new Icon(300,100,2,"images/img1.png",100,100,"        Spells"));
-
-
-//draws icons to open different applications
-
-function drawIcons()
-{
-	for(let i = 0; i < icons.length; i++)
-	{
-		let img = new Image();
-		img.src = icons[i].address;
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "15px Ariel";
-		ctx.drawImage(img, icons[i].x, icons[i].y,
-					icons[i].w, icons[i].h * (5/6));
-		ctx.fillText(icons[i].name, icons[i].x,
-					icons[i].y +(icons[i].h * (5/6)) + 15);
-		if(mouseX >= icons[i].x && mouseX <= icons[i].x + icons[i].w &&
-			mouseY >= icons[i].y && mouseY <= icons[i].y + icons[i].h &&
-			doubleClick == true && menu == true)
-		{
-			doubleClick = false;
-			firstClick = false;
-			mouseTimer = 0;
-			let winX = 0 + (10 * windows.length);
-			let winY = 30 + (10 * windows.length);
-			windows.push(new Window(winX,winY,icons[i].type,
-			icons[i].address,wW,wH,icons[i].name));
-			windowOn = true;
-		}
-		if(mouseX >= icons[i].x && mouseX <= icons[i].x + icons[i].w &&
-			mouseY >= icons[i].y && mouseY <= icons[i].y + icons[i].h &&
-			menu == true)
-		{
-			ctx.fillStyle = "rgb(210,210,210)";
-			ctx.fillRect(icons[i].x,icons[i].y - 2,icons[i].w,icons[i].h + 2);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.drawImage(img, icons[i].x, icons[i].y, icons[i].w, icons[i].h * (5/6));
-			ctx.fillText(icons[i].name, icons[i].x, icons[i].y +(icons[i].h * (5/6)) + 15);
-		}
-	}
-}
-
-//draws windows that are opened from icons
-function drawWindows()
-{
-	for(let i = 0; i < windows.length; i++)
-	{
-		menu = false;
-		openTimer++;
-		let img = new Image();
-		img.src = windows[i].address;
-		//closing the window
+		ctx.fillStyle = "rgb(210,210,210)";
+		ctx.fillRect(0,0,30,30);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "32px Ariel";
-		ctx.fillStyle = "rgb(150,150,150)";
-		ctx.fillRect(windows[i].x, windows[i].y,
-					windows[i].w, windows[i].h);
-		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.fillText(windows[i].name, windows[i].x + 15, windows[i].y -6);
-		//this line is for drawing an image, probably as a background
-		//ctx.drawImage(img, windows[i].x, windows[i].y, windows[i].w, windows[i].h);
-		if(mouseX >= windows[i].x + windows[i].w - 28 && mouseX <= windows[i].x + windows[i].w + 3 &&
-			mouseY >= windows[i].y - 30 && mouseY <= windows[i].y)
+		ctx.fillText("X", 3, 26);
+	}
+	//swap parts
+	ctx.fillStyle = "rgb(200,200,200)";
+	ctx.fillRect((wW/2)-90,wH-50,80,40);
+	ctx.fillRect((wW/2)+10,wH-50,80,40);
+	if(step  == 1)
+	{
+		ctx.fillStyle = "rgb(220,220,220)";
+		ctx.fillRect((wW/2)-90,wH-50,80,40);
+	}
+	if(step  == 5)
+	{
+		ctx.fillStyle = "rgb(220,220,220)";
+		ctx.fillRect((wW/2)+10,wH-50,80,40);
+	}
+	if(mouseX >= (wW/2)-90 && mouseX <= (wW/2)-10 && mouseY >= wH-50 && mouseY <= wH-10 && step > 1)
+	{
+		ctx.fillStyle = "rgb(180,180,180)";
+		ctx.fillRect((wW/2)-90,wH-50,80,40);
+		if(mouseIsDown && firstClick)
 		{
-			ctx.fillStyle = "rgb(255,0,0)";
-			ctx.fillRect(windows[i].x + windows[i].w - 28, 
-			windows[i].y - 30, 30, 30);
-			if(mouseIsDown && openTimer >= 15)
+			firstClick = false;
+			step--;
+		}
+	}
+	if(mouseX >= (wW/2)+10 && mouseX <= (wW/2)+90 && mouseY >= wH-50 && mouseY <= wH-10 && step < 5)
+	{
+		ctx.fillStyle = "rgb(180,180,180)";
+		ctx.fillRect((wW/2)+10,wH-50,80,40);
+		if(mouseIsDown && firstClick)
+		{
+			firstClick = false;
+			step++;
+		}
+	}
+	ctx.textAlign = "center";
+	ctx.font = "25px Ariel";
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillText("Prev.",(wW/2)-50,wH-20);
+	ctx.fillText("Next",(wW/2)+50,wH-20);
+	if(step == 1) //race
+	{
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "center";
+		ctx.fillText("1. Choose Race",wW/2,50);
+		
+		//choose race
+		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillRect(wW/2 - 150,75,300,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].race,wW/2,120);
+		if(mouseX >= wW/2 - 150 && mouseX <= wW/2 + 150 && mouseY >= 75 && mouseY <= 150)
+		{
+			ctx.fillStyle = "rgb(180,180,180)";
+			ctx.fillRect(wW/2 - 150,75,300,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText(characters[slot].race,wW/2,120);
+			if(mouseIsDown && firstClick)
 			{
-				windows.splice(i,1);
 				firstClick = false;
-				doubleClick = false;
-				menu = true;
-				openTimer = 0;
+				raceBox = true;
+			}
+		}
+		if(raceBox)
+		{
+			dropDownBox(200,200,200,wW/2+155,75,250,400,9,races,false);
+			raceBox = makeBoxSame;
+			characters[slot].race = makeListSame;
+			characters[slot].subrace = "";
+			localStorage.setItem(JSON.stringify("race"+slot), characters[slot].race);
+			localStorage.setItem(JSON.stringify("subrace"+slot), characters[slot].subrace);
+		}
+		
+		//choose subrace
+		for(let i = 0; i < races.length; i++)
+		{
+			if(races[i].name == characters[slot].race && races[i].sub.length != 0)
+			{
+				ctx.fillStyle = "rgb(200,200,200)";
+				ctx.fillRect(wW/2 - 150,175,300,75);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(characters[slot].subrace,wW/2,220);
+				if(mouseX >= wW/2 - 150 && mouseX <= wW/2 + 150 && mouseY >= 175 && mouseY <= 250)
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(wW/2 - 150,175,300,75);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.fillText(characters[slot].subrace,wW/2,220);
+					if(mouseIsDown && firstClick)
+					{
+						firstClick = false;
+						subraceBox = true;
+					}
+				}
+				if(subraceBox)
+				{
+					if(races[i].name == characters[slot].race)
+					{
+						loc = i;
+					}
+					dropDownBox(200,200,200,wW/2+155,75,250,races[loc].sub.length*50,races[loc].sub.length,races[loc].sub,true);
+					subraceBox = makeBoxSame;
+					characters[slot].subrace = makeListSame;
+					localStorage.setItem(JSON.stringify("subrace"+slot), characters[slot].subrace);
+				}
+			}
+		}
+	}
+	
+	if(step == 2) //class
+	{
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "center";
+		ctx.fillText("2. Choose Class",wW/2,50);
+		
+		//choose class
+		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillRect(wW/2 - 150,75,300,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].cClass,wW/2,120);
+		if(mouseX >= wW/2 - 150 && mouseX <= wW/2 + 150 && mouseY >= 75 && mouseY <= 150)
+		{
+			ctx.fillStyle = "rgb(180,180,180)";
+			ctx.fillRect(wW/2 - 150,75,300,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText(characters[slot].cClass,wW/2,120);
+			if(mouseIsDown && firstClick)
+			{
+				firstClick = false;
+				classBox = true;
+			}
+		}
+		if(classBox)
+		{
+			dropDownBox(200,200,200,wW/2+155,75,250,525,13,classes,false);
+			classBox = makeBoxSame;
+			characters[slot].cClass = makeListSame;
+			characters[slot].subclass = "";
+			localStorage.setItem(JSON.stringify("cClass"+slot), characters[slot].cClass);
+			localStorage.setItem(JSON.stringify("subclass"+slot), characters[slot].subclass);
+		}
+		
+		//choose subclass
+		for(let i = 0; i < classes.length; i++)
+		{
+			if(classes[i].name == characters[slot].cClass && classes[i].sub.length != 0)
+			{
+				ctx.fillStyle = "rgb(200,200,200)";
+				ctx.fillRect(wW/2 - 150,175,300,75);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(characters[slot].subclass,wW/2,220);
+				if(mouseX >= wW/2 - 150 && mouseX <= wW/2 + 150 && mouseY >= 175 && mouseY <= 250)
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(wW/2 - 150,175,300,75);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.fillText(characters[slot].subclass,wW/2,220);
+					if(mouseIsDown && firstClick)
+					{
+						firstClick = false;
+						subclassBox = true;
+					}
+				}
+				if(subclassBox)
+				{
+					if(classes[i].name == characters[slot].cClass)
+					{
+						loc = i;
+					}
+					dropDownBox(200,200,200,wW/2+155,75,250,classes[loc].sub.length*50,classes[loc].sub.length,classes[loc].sub,true);
+					subclassBox = makeBoxSame;
+					characters[slot].subclass = makeListSame;
+					localStorage.setItem(JSON.stringify("subclass"+slot), characters[slot].subclass);
+				}
+			}
+		}
+		
+	}
+	
+	if(step == 3) //abilities
+	{
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "center";
+		ctx.fillText("3. Choose Ability Scores",wW/2,50);
+		
+		//ctx.rect(0,0,50,50);
+		//ctx.stroke();
+		function abilityScore(type,x1,y1,opacity,name)
+		{
+			let xw = 75;
+			let yw = 75;
+			let x2 = x1 + xw;
+			let y2 = y1 + yw;
+			ctx.fillText(name,xw/2+x1,y2+20);
+			if(oldMouseX >= x1 && oldMouseX <= x2 && oldMouseY >= y1 && oldMouseY <= y2)
+			{
+				if(mouseIsDown)
+				{
+					word = type.split("");
+				}
+				else
+				{
+					type = word.join("");
+					ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+					ctx.fillRect(x1,y1,xw,yw);
+				}
+			}
+			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
+			{
+				ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+				ctx.fillRect(x1,y1,xw,yw);
 			}
 			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", windows[i].x + windows[i].w - 25,
-			windows[i].y - 4);
+			ctx.textAlign = "center";
+			ctx.fillText(type,x1+(xw/2),y1+(yw/2)+8);
+			ctx.rect(x1,y1,xw,yw);
+			ctx.stroke();
+			return type;
+		}
+		
+		characters[slot].str = abilityScore(characters[slot].str,(wW/2)-412,75,.6,"Strength");
+		localStorage.setItem(JSON.stringify("str"+slot), characters[slot].str);
+		characters[slot].dex = abilityScore(characters[slot].dex,(wW/2)-262,75,.6,"Dexterity");
+		localStorage.setItem(JSON.stringify("dex"+slot), characters[slot].dex);
+		characters[slot].con = abilityScore(characters[slot].con,(wW/2)-112,75,.6,"Constitution");
+		localStorage.setItem(JSON.stringify("con"+slot), characters[slot].con);
+		characters[slot].intelligence = abilityScore(characters[slot].intelligence,(wW/2)+38,75,.6,"Intelligence");
+		localStorage.setItem(JSON.stringify("intelligence"+slot), characters[slot].intelligence);
+		characters[slot].wis = abilityScore(characters[slot].wis,(wW/2)+188,75,.6,"Wisdom");
+		localStorage.setItem(JSON.stringify("wis"+slot), characters[slot].wis);
+		characters[slot].cha = abilityScore(characters[slot].cha,(wW/2)+338,75,.6,"Charisma");
+		localStorage.setItem(JSON.stringify("cha"+slot), characters[slot].cha);
+		
+		let dice = 5;
+		ctx.font = "30px Ariel";
+		ctx.fillText("Roll numbers?",wW/2,225);
+		if(mouseX >= (wW/2-50) && mouseX <= (wW/2+50) && mouseY >= 250 && mouseY <= 310)
+		{
+			ctx.fillStyle = "rgb(220,40,40)";
+			ctx.fillRect(wW/2-50,250,100,60);
+			if(mouseIsDown && firstClick)
+			{
+				firstClick = false;
+				drawDice = true;
+				for(let i = 0; i < 6; i++)
+				{
+					let d6 = [];
+					let result = [];
+					for(let j = 0; j < dice; j++)
+					{
+						d6.push(Math.floor(Math.random()*6)+1);
+					}
+					d6.sort((a, b) => b - a);
+					console.log("d6: " + d6);
+					if(i == 0)
+					{
+						res1 = d6[0] + d6[1] + d6[2];
+					}
+					if(i == 1)
+					{
+						res2 = d6[0] + d6[1] + d6[2];
+					}
+					if(i == 2)
+					{
+						res3 = d6[0] + d6[1] + d6[2];
+					}
+					if(i == 3)
+					{
+						res4 = d6[0] + d6[1] + d6[2];
+					}
+					if(i == 4)
+					{
+						res5 = d6[0] + d6[1] + d6[2];
+					}
+					if(i == 5)
+					{
+						res6 = d6[0] + d6[1] + d6[2];
+					}
+				}
+			}
 		}
 		else
 		{
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
-			ctx.fillText("X", windows[i].x + windows[i].w - 25,
-			windows[i].y - 4);
+			ctx.fillStyle = "rgb(255,40,40)";
+			ctx.fillRect(wW/2-50,250,100,60);
 		}
-				
-		//if window is for character sheets
-		if(windows[i].type == 1)
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText("Roll",wW/2,290);
+		if(drawDice)
 		{
-			//fill in character select screen
-			ctx.fillStyle = "rgb(100,100,100)";
-			ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //1
-			ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //2
-			ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50); //3
-			ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50); //4
 			ctx.fillStyle = "rgb(0,0,0)";
-			
-			ctx.font = "40px Ariel";
-			ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
-			ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
-			ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
-			ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
-			
-			ctx.font = "30px Ariel";
-			ctx.fillText(characters[0].name,windows[i].x + 75, windows[i].y + 100);
-			ctx.fillText(characters[1].name,windows[i].w/2 + 75, windows[i].y + 100);
-			ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
-			ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
-			
-			ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
-			ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
-			ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
-			ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
-			
-			ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
-			ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
-			ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
-			ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
-			//open character sheets
-			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //1
-			{
-				ctx.fillStyle = "rgb(80,80,80)";
-				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
-				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
-				ctx.font = "30px Ariel";
-				ctx.fillText(characters[0].name,windows[i].x + 75, windows[i].y + 100);
-				ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
-				ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
-				if(mouseIsDown && openTimer >= 15 && windowOn == true)
-				{
-					character1On = true;
-					windowOn = false;
-				}
-			}
-			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= windows[i].y + 25 && mouseY <= (windows[i].h/2)+5) //2
-			{
-				ctx.fillStyle = "rgb(80,80,80)";
-				ctx.fillRect((windows[i].w/2) + 25, windows[i].y + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
-				ctx.fillText("Character 2", (windows[i].w/2) + 75, windows[i].y + 75);
-				ctx.font = "30px Ariel";
-				ctx.fillText(characters[1].name,windows[i].w/2 + 75, windows[i].y + 100);
-				ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
-				ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
-				if(mouseIsDown && openTimer >= 15 && windowOn == true)
-				{
-					character2On = true;
-					windowOn = false;
-				}
-			}
-			if(mouseX >= windows[i].x + 25 && mouseX <= (windows[i].w/2) && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //3
-			{
-				ctx.fillStyle = "rgb(80,80,80)";
-				ctx.fillRect(windows[i].x + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 25, (windows[i].h/2) - 50);
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
-				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h/2) + 75);
-				ctx.font = "30px Ariel";
-				ctx.fillText(characters[2].name,windows[i].x + 75, windows[i].h/2 + 100);
-				ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
-				ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
-				if(mouseIsDown && openTimer >= 15 && windowOn == true)
-				{
-					character3On = true;
-					windowOn = false;
-				}
-			}
-			if(mouseX >= (windows[i].w/2) + 25 && mouseX <= windows[i].w - 25 && mouseY >= (windows[i].h/2) + 25 && mouseY <= windows[i].h - 25) //4
-			{
-				ctx.fillStyle = "rgb(80,80,80)";
-				ctx.fillRect((windows[i].w/2) + 25, (windows[i].h/2) + 25, (windows[i].w/2) - 50, (windows[i].h/2) - 50);
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
-				ctx.fillText("Character 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
-				ctx.font = "30px Ariel";
-				ctx.fillText(characters[3].name,windows[i].w/2 + 75, windows[i].h/2 + 100);
-				ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
-				ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
-				if(mouseIsDown && openTimer >= 15 && windowOn == true)
-				{
-					character4On = true;
-					windowOn = false;
-				}
-			}
+			ctx.font = "25px Ariel";
+			ctx.fillText(res1,wW/2-125,375);
+			ctx.fillText(res2,wW/2-75,375);
+			ctx.fillText(res3,wW/2-25,375);
+			ctx.fillText(res4,wW/2+25,375);
+			ctx.fillText(res5,wW/2+75,375);
+			ctx.fillText(res6,wW/2+125,375);
 		}
 	}
+	
+	if(step == 4) //equipment
+	{
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "center";
+		ctx.fillText("4. Choose Equipment",wW/2,50);
+	}
+	
+	if(step == 5) //description
+	{
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.textAlign = "center";
+		ctx.fillText("5. Describe Character",wW/2,50);
+		
+		//choose alignment
+		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillRect(wW/2 - 150,75,300,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].alignment,wW/2,120);
+		if(mouseX >= wW/2 - 150 && mouseX <= wW/2 + 150 && mouseY >= 75 && mouseY <= 150)
+		{
+			ctx.fillStyle = "rgb(180,180,180)";
+			ctx.fillRect(wW/2 - 150,75,300,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText(characters[slot].alignment,wW/2,120);
+			if(mouseIsDown && firstClick)
+			{
+				firstClick = false;
+				alignmentBox = true;
+			}
+		}
+		if(alignmentBox)
+		{
+			dropDownBox(200,200,200,wW/2+155,75,250,400,9,alignments,false);
+			alignmentBox = makeBoxSame;
+			characters[slot].alignment = makeListSame;
+			localStorage.setItem(JSON.stringify("alignment"+slot), characters[slot].alignment);
+			//(cR,cG,cB,rectX,rectY,rectL,rectH,listAmount,text)
+		}
+		
+		//select character and player names
+		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillRect(wW/2 - 450,75,250,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].name,wW/2 - 325,120);
+		let word1 = word.slice();
+		let makeSame = "";
+		if(mouseX >= wW/2 - 450 && mouseX <= wW/2 - 200 && mouseY >= 75 && mouseY <= 150)
+		{
+			ctx.fillStyle = "rgb(180,180,180)";
+			ctx.fillRect(wW/2 - 450,75,250,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText(characters[slot].name,wW/2 - 325,120);
+			if(mouseIsDown && firstClick)
+			{
+				firstClick = false;
+			}
+		}
+		if(oldMouseX >= wW/2 - 450 && oldMouseX <= wW/2 - 200 && oldMouseY >= 75 && oldMouseY <= 150)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].name.split("");
+			}
+			else
+			{
+				characters[slot].name = word1.join("");
+				ctx.fillStyle = "rgb(175,175,175)";
+				ctx.fillRect(wW/2 - 450,75,250,75);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(characters[slot].name,wW/2 - 325,120);
+			}
+		}
+		localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name);
+		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillRect(wW/2 - 450,200,250,75);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillText(characters[slot].pName,wW/2 - 325,245);
+		if(mouseX >= wW/2 - 450 && mouseX <= wW/2 - 200 && mouseY >= 200 && mouseY <= 275)
+		{
+			ctx.fillStyle = "rgb(180,180,180)";
+			ctx.fillRect(wW/2 - 450,200,250,75);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillText(characters[slot].pName,wW/2 - 325,245);
+			if(mouseIsDown && firstClick)
+			{
+				firstClick = false;
+			}
+		}
+		if(oldMouseX >= wW/2 - 450 && oldMouseX <= wW/2 - 200 && oldMouseY >= 200 && oldMouseY <= 275)
+		{
+			if(mouseIsDown)
+			{
+				word = characters[slot].pName.split("");
+			}
+			else
+			{
+				characters[slot].pName = word1.join("");
+				ctx.fillStyle = "rgb(175,175,175)";
+				ctx.fillRect(wW/2 - 450,200,250,75);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(characters[slot].pName,wW/2 - 325,245);
+			}
+		}
+		localStorage.setItem(JSON.stringify("pName"+slot), characters[slot].pName);
+	/* function characterInfo(type,x1,x2,y1,y2,xw,yw,opacity)
+	{
+		if(oldMouseX >= x1 && oldMouseX <= x2 && oldMouseY >= y1 && oldMouseY <= y2)
+		{
+			if(mouseIsDown)
+			{
+				word = type.split("");
+			}
+			else
+			{
+				type = word1.join("");
+				ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+				ctx.fillRect(x1,y1,xw,yw);
+			}
+		}
+		if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
+		{
+			ctx.fillStyle = "rgba(220,220,220,"+opacity+")";
+			ctx.fillRect(x1,y1,xw,yw);
+		}
+		makeSame = type;
+	}
+	//name
+	characterInfo(characters[slot].name,60,250,50,80,190,30,.6);
+	characters[slot].name = makeSame;
+	localStorage.setItem(JSON.stringify("name"+slot), characters[slot].name); */
+	}
+	
+	ctx.textAlign = "start";
 }
 
-//opens character sheets when clicked on in the window
-function characterSheets()
+//spells
+function drawSpells(slot)
 {
-	if(character1On)
+	ctx.fillStyle = "rgb(240,240,240)";
+	ctx.fillRect(0,0,wW,wH);
+	//exit
+	if(mouseX >= 0 && mouseX <= 30 && mouseY >= 0 && mouseY <= 30)
 	{
-		drawSheet(0);
+		ctx.fillStyle = "rgb(255,0,0)";
+		ctx.fillRect(0,0,30,30);
+		if(mouseIsDown)
+		{
+			spells1On = false;
+			spells2On = false;
+			spells3On = false;
+			spells4On = false;
+			windowOn = true;
+			openTimer = 0;
+		}
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "32px Ariel";
+		ctx.fillText("X", 3, 26);
 	}
-	if(character2On)
+	else
 	{
-		drawSheet(1);
+		ctx.fillStyle = "rgb(210,210,210)";
+		ctx.fillRect(0,0,30,30);
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.font = "32px Ariel";
+		ctx.fillText("X", 3, 26);
 	}
-	if(character3On)
-	{
-		drawSheet(2);
-	}
-	if(character4On)
-	{
-		drawSheet(3);
-	}
+	
+	//character select
+	
 }
 
 //draws the actual character sheets
 function drawSheet(slot)
 {
 	//draws the background
-	ctx.canvas.height = 700;
-	ctx.fillStyle ="rgb(230,230,230)";
-	ctx.fillRect(0,0,wW,789);
+	ctx.canvas.height = 690;
+	ctx.canvas.width = 1230;
 	ctx.fillStyle = "rgb(255,255,255)";
 	ctx.fillRect(0,-10,1230,700);
 	ctx.drawImage(sheet1, 0, 75-85, 700, 140);
@@ -484,15 +570,17 @@ function drawSheet(slot)
 	{
 		ctx.fillStyle = "rgb(255,0,0)";
 		ctx.fillRect(0,0,30,30);
-		if(mouseIsDown)
+		if(mouseIsDown && firstClick)
 		{
+			firstClick = false;
 			character1On = false;
 			character2On = false;
 			character3On = false;
 			character4On = false;
 			windowOn = true;
 			ctx.canvas.height = wH;
-			openTimer = 0;
+			ctx.canvas.width = wW;
+			firstClick = false;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "32px Ariel";
@@ -1299,315 +1387,3 @@ function dice()
 	ctx.fillText(result, 600, 655);
 	ctx.textAlign = "start";
 }
-
-//allows for text boxes to work properly
-function wrapText(ctx, text, x, y, maxWidth, lineHeight)
-{
-	if(text != null)
-	{
-		var words = text.split(' ');
-		var line = '';
-
-		for(var n = 0; n < words.length; n++)
-		{
-			var testLine = line + words[n] + ' ';
-			var metrics = ctx.measureText(testLine);
-			var testWidth = metrics.width;
-			if (testWidth > maxWidth && n > 0)
-			{
-				ctx.fillText(line, x, y);
-				line = words[n] + ' ';
-				y += lineHeight;
-			}
-			else
-			{
-				line = testLine;
-			}
-		}
-		ctx.fillText(line, x, y);
-	}
-}
-
-
-//saves everything to local storage and sets presets to any null values
-function useLocalStorage()
-{
-	for(let i = 0; i <= 3; i++)
-	{
-		characters[i].name = localStorage.getItem(JSON.stringify("name"+i));	
-		if(characters[i].name == null)
-		{
-			characters[i].name = "Name";
-		}
-		characters[i].cClass = localStorage.getItem(JSON.stringify("cClass"+i));
-		if(characters[i].cClass == null)
-		{
-			characters[i].cClass = "Class";
-		}
-		characters[i].race = localStorage.getItem(JSON.stringify("race"+i));
-		if(characters[i].race == null)
-		{
-			characters[i].race = "Race";
-		}
-		characters[i].background = localStorage.getItem(JSON.stringify("background"+i));
-		if(characters[i].background == null)
-		{
-			characters[i].background = "Background";
-		}
-		characters[i].alignment = localStorage.getItem(JSON.stringify("alignment"+i));
-		if(characters[i].alignment == null)
-		{
-			characters[i].alignment = "Alignment";
-		}
-		characters[i].pName = localStorage.getItem(JSON.stringify("pName"+i));
-		if(characters[i].pName == null)
-		{
-			characters[i].pName = "Player Name";
-		}
-		characters[i].xp = localStorage.getItem(JSON.stringify("XP"+i));
-		if(characters[i].xp == null)
-		{
-			characters[i].xp = "0";
-		}
-		characters[i].maxHp = localStorage.getItem(JSON.stringify("maxHP"+i));
-		if(characters[i].maxHp == null)
-		{
-			characters[i].maxHp = "0";
-		}
-		characters[i].currentHp = localStorage.getItem(JSON.stringify("currentHP"+i));
-		if(characters[i].currentHp == null)
-		{
-			characters[i].currentHp = "0";
-		}
-		characters[i].ac = localStorage.getItem(JSON.stringify("ac"+i));
-		if(characters[i].ac == null)
-		{
-			characters[i].ac = "10";
-		}
-		characters[i].str = localStorage.getItem(JSON.stringify("str"+i));
-		if(characters[i].str == null)
-		{
-			characters[i].str = "10";
-		}
-		characters[i].dex = localStorage.getItem(JSON.stringify("dex"+i));
-		if(characters[i].dex == null)
-		{
-			characters[i].dex = "10";
-		}
-		characters[i].con = localStorage.getItem(JSON.stringify("con"+i));
-		if(characters[i].con == null)
-		{
-			characters[i].con = "10";
-		}
-		characters[i].intelligence = localStorage.getItem(JSON.stringify("intelligence"+i));
-		if(characters[i].intelligence == null)
-		{
-			characters[i].intelligence = "10";
-		}
-		characters[i].wis = localStorage.getItem(JSON.stringify("wis"+i));
-		if(characters[i].wis == null)
-		{
-			characters[i].wis = "10";
-		}
-		characters[i].cha = localStorage.getItem(JSON.stringify("cha"+i));
-		if(characters[i].cha == null)
-		{
-			characters[i].cha = "10";
-		}
-		characters[i].prof = localStorage.getItem(JSON.stringify("prof"+i));
-		if(characters[i].prof == null)
-		{
-			characters[i].prof = "2";
-		}
-		characters[i].inspiration = localStorage.getItem(JSON.stringify("inspiration"+i));
-		characters[i].deathSaveS1 = localStorage.getItem(JSON.stringify("deathSaveS1"+i));
-		characters[i].deathSaveS2 = localStorage.getItem(JSON.stringify("deathSaveS2"+i));
-		characters[i].deathSaveS3 = localStorage.getItem(JSON.stringify("deathSaveS3"+i));
-		characters[i].deathSaveF1 = localStorage.getItem(JSON.stringify("deathSaveF1"+i));
-		characters[i].deathSaveF2 = localStorage.getItem(JSON.stringify("deathSaveF2"+i));
-		characters[i].deathSaveF3 = localStorage.getItem(JSON.stringify("deathSaveF3"+i));
-		proficiencies[i].strProf = localStorage.getItem(JSON.stringify("strProf"+i));
-		proficiencies[i].dexProf = localStorage.getItem(JSON.stringify("dexProf"+i));
-		proficiencies[i].conProf = localStorage.getItem(JSON.stringify("conProf"+i));
-		proficiencies[i].intProf = localStorage.getItem(JSON.stringify("intProf"+i));
-		proficiencies[i].wisProf = localStorage.getItem(JSON.stringify("wisProf"+i));
-		proficiencies[i].chaProf = localStorage.getItem(JSON.stringify("chaProf"+i));
-		proficiencies[i].acrobaticsProf = localStorage.getItem(JSON.stringify("acrobaticsProf"+i));
-		proficiencies[i].animalProf = localStorage.getItem(JSON.stringify("animalProf"+i));
-		proficiencies[i].arcanaProf = localStorage.getItem(JSON.stringify("arcanaProf"+i));
-		proficiencies[i].athleticsProf = localStorage.getItem(JSON.stringify("athleticsProf"+i));
-		proficiencies[i].deceptionProf = localStorage.getItem(JSON.stringify("deceptionProf"+i));
-		proficiencies[i].historyProf = localStorage.getItem(JSON.stringify("historyProf"+i));
-		proficiencies[i].insightProf = localStorage.getItem(JSON.stringify("insightProf"+i));
-		proficiencies[i].intimidationProf = localStorage.getItem(JSON.stringify("intimidationProf"+i));
-		proficiencies[i].investigationProf = localStorage.getItem(JSON.stringify("investigationProf"+i));
-		proficiencies[i].medicineProf = localStorage.getItem(JSON.stringify("medicineProf"+i));
-		proficiencies[i].natureProf = localStorage.getItem(JSON.stringify("natureProf"+i));
-		proficiencies[i].perceptionProf = localStorage.getItem(JSON.stringify("perceptionProf"+i));
-		proficiencies[i].performanceProf = localStorage.getItem(JSON.stringify("performanceProf"+i));
-		proficiencies[i].persuasionProf = localStorage.getItem(JSON.stringify("persuasionProf"+i));
-		proficiencies[i].religionProf = localStorage.getItem(JSON.stringify("religionProf"+i));
-		proficiencies[i].sleightProf = localStorage.getItem(JSON.stringify("sleightProf"+i));
-		proficiencies[i].stealthProf = localStorage.getItem(JSON.stringify("stealthProf"+i));
-		proficiencies[i].survivalProf = localStorage.getItem(JSON.stringify("survivalProf"+i));
-		proficiencies[i].other = localStorage.getItem(JSON.stringify("otherProf"+i));
-		if(characters[i].other == null)
-		{
-			characters[i].other = "";
-		}
-		characters[i].equipment = localStorage.getItem(JSON.stringify("equipment"+i));
-		if(characters[i].equipment == null)
-		{
-			characters[i].equipment = "";
-		}
-		characters[i].cp = localStorage.getItem(JSON.stringify("cp"+i));
-		if(characters[i].cp == null)
-		{
-			characters[i].cp = "0";
-		}
-		characters[i].sp = localStorage.getItem(JSON.stringify("sp"+i));
-		if(characters[i].sp == null)
-		{
-			characters[i].sp = "0";
-		}
-		characters[i].gp = localStorage.getItem(JSON.stringify("gp"+i));
-		if(characters[i].gp == null)
-		{
-			characters[i].gp = "0";
-		}
-		characters[i].ep = localStorage.getItem(JSON.stringify("ep"+i));
-		if(characters[i].ep == null)
-		{
-			characters[i].ep = "0";
-		}
-		characters[i].pp = localStorage.getItem(JSON.stringify("pp"+i));
-		if(characters[i].pp == null)
-		{
-			characters[i].pp = "0";
-		}
-		characters[i].pTraits = localStorage.getItem(JSON.stringify("pTraits"+i));
-		if(characters[i].pTraits == null)
-		{
-			characters[i].pTraits = "";
-		}
-		characters[i].ideals = localStorage.getItem(JSON.stringify("ideals"+i));
-		if(characters[i].ideals == null)
-		{
-			characters[i].ideals = "";
-		}
-		characters[i].bonds = localStorage.getItem(JSON.stringify("bonds"+i));
-		if(characters[i].bonds == null)
-		{
-			characters[i].bonds = "";
-		}
-		characters[i].flaws = localStorage.getItem(JSON.stringify("flaws"+i));
-		if(characters[i].flaws == null)
-		{
-			characters[i].flaws = "";
-		}
-		characters[i].traits = localStorage.getItem(JSON.stringify("traits"+i));
-		if(characters[i].traits == null)
-		{
-			characters[i].traits = "";
-		}
-		characters[i].tHP = localStorage.getItem(JSON.stringify("tHP"+i));
-		if(characters[i].tHP == null)
-		{
-			characters[i].tHP = "0";
-		}
-		characters[i].speed = localStorage.getItem(JSON.stringify("speed"+i));
-		if(characters[i].speed == null)
-		{
-			characters[i].speed = "30 ft";
-		}
-		equipment[i].n1 = localStorage.getItem(JSON.stringify("n1"+i));
-		if(equipment[i].n1 == null)
-		{
-			equipment[i].n1 = "";
-		}
-		equipment[i].n2 = localStorage.getItem(JSON.stringify("n2"+i));
-		if(equipment[i].n2 == null)
-		{
-			equipment[i].n2 = "";
-		}
-		equipment[i].n3 = localStorage.getItem(JSON.stringify("n3"+i));
-		if(equipment[i].n3 == null)
-		{
-			equipment[i].n3 = "";
-		}
-		equipment[i].b1 = localStorage.getItem(JSON.stringify("b1"+i));
-		if(equipment[i].b1 == null)
-		{
-			equipment[i].b1 = "";
-		}
-		equipment[i].b2 = localStorage.getItem(JSON.stringify("b2"+i));
-		if(equipment[i].b2 == null)
-		{
-			equipment[i].b2 = "";
-		}
-		equipment[i].b3 = localStorage.getItem(JSON.stringify("b3"+i));
-		if(equipment[i].b3 == null)
-		{
-			equipment[i].b3 = "";
-		}
-		equipment[i].d1 = localStorage.getItem(JSON.stringify("d1"+i));
-		if(equipment[i].d1 == null)
-		{
-			equipment[i].d1 = "";
-		}
-		equipment[i].d2 = localStorage.getItem(JSON.stringify("d2"+i));
-		if(equipment[i].d2 == null)
-		{
-			equipment[i].d2 = "";
-		}
-		equipment[i].d3 = localStorage.getItem(JSON.stringify("d3"+i));
-		if(equipment[i].d3 == null)
-		{
-			equipment[i].d3 = "";
-		}
-		equipment[i].details = localStorage.getItem(JSON.stringify("details"+i));
-		if(equipment[i].details == null)
-		{
-			equipment[i].details = "";
-		}
-		characters[i].tHitDice = localStorage.getItem(JSON.stringify("tHitDice"+i));
-		if(characters[i].tHitDice == null)
-		{
-			characters[i].tHitDice = "";
-		}
-		characters[i].cHitDice = localStorage.getItem(JSON.stringify("cHitDice"+i));
-		if(characters[i].cHitDice == null)
-		{
-			characters[i].cHitDice = "";
-		}
-	}
-}
-
-//draws all other functions
-function draw()
-{
-	setTimeout(function()
-	{
-		requestAnimationFrame(draw);
-		ctx.clearRect(0,0,wW,wH);
-		///all code goes here
-		mouseTimer++;
-		drawIcons();
-		drawWindows();
-		characterSheets();
-		useLocalStorage();
-		if(mouseIsDown)
-		{
-			oldMouseX = mouseX;
-			oldMouseY = mouseY;
-		}
-	}, 1000/fps);
-}
-draw();
-
-//this is just a reminder for me on how to open PDFs
-//window.open("pdf url here", '_blank');
-
-</script>
-</body>
-</html>
