@@ -25,32 +25,12 @@ let fps = 100;
 const wW = window.innerWidth;
 const wH = window.innerHeight;
 let word = [];
-let icons = [];
-let windows = [];
 let mouseIsDown = false;
-let firstClick = false;
 let doubleClick = false;
 let mouseX = -1;
 let mouseY = -1;
 let oldMouseX = -1;
 let oldMouseY = -1;
-let mouseTimer = 0;
-let menu = true;
-let windowOn = false;
-let loc = 0;
-//opened subwindows
-let character1On = false;
-let character2On = false;
-let character3On = false;
-let character4On = false;
-let char1Create = false;
-let char2Create = false;
-let char3Create = false;
-let char4Create = false;
-let spells1On = false;
-let spells2On = false;
-let spells3On = false;
-let spells4On = false;
 
 //mouse handler functions
 function getPosition(e)
@@ -64,59 +44,12 @@ function getMouseDown(e)
 	mouseIsDown = true;
 	let oldMouseX = mouseX;
 	let oldMouseY = mouseY;
-	if(doubleClick == true)
-	{
-		firstClick = true;
-		mouseTimer = 0;
-	}
-	if(firstClick == true && mouseTimer < 60)
-	{
-		doubleClick = true;
-	}
-	if(firstClick == true && mouseTimer >= 60)
-	{
-		firstClick = true;
-		mouseTimer = 0;
-	}
-	else
-	{
-		firstClick = true;
-		mouseTimer = 0;
-	}
 }
 
 function getMouseUp(e)
 {
 	mouseIsDown = false;
 }
-
-function Icon(x1, y1, type, address, width, height, name)
-{
-	this.x = x1;
-	this.y = y1;
-	this.type = type;
-	this.address = address;
-	this.w = width;
-	this.h = height;
-	this.name = name;
-	this.isActive = false;
-}
-
-function Window(x1, y1, type, address, width, height, name)
-{
-	this.x = x1;
-	this.y = y1;
-	this.type = type;
-	this.address = address;
-	this.w = width;
-	this.h = height;
-	this.name = name;
-}
-
-icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
-icons.push(new Icon(300,100,2,"images/img1.png",100,100,"Spells"));
-
-//draws icons to open different applications
 
 //allows for text boxes to work properly
 function wrapText(ctx, text, x, y, maxWidth, lineHeight)
@@ -168,9 +101,9 @@ function dropDownBox(cR,cG,cB,rectX,rectY,rectL,rectH,listAmount,text,sub)
 				ctx.fillRect(rectX,rectY+listPart,rectL,tabSize);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText(text[i].name,rectX+(rectL/2),rectY+listPart+(tabSize/2));
-				if(mouseIsDown && firstClick)
+				if(mouseIsDown)
 				{
-					firstClick = false;
+					mouseIsDown = false;
 					makeListSame = text[i].name;
 					makeBoxSame = false;
 				}
@@ -185,9 +118,9 @@ function dropDownBox(cR,cG,cB,rectX,rectY,rectL,rectH,listAmount,text,sub)
 				ctx.fillRect(rectX,rectY+listPart,rectL,tabSize);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText(text[i],rectX+(rectL/2),rectY+listPart+(tabSize/2));
-				if(mouseIsDown && firstClick)
+				if(mouseIsDown)
 				{
-					firstClick = false;
+					mouseIsDown = false;
 					makeListSame = text[i];
 					makeBoxSame = false;
 				}
@@ -199,9 +132,9 @@ function dropDownBox(cR,cG,cB,rectX,rectY,rectL,rectH,listAmount,text,sub)
 	if(mouseX <= rectX || mouseX >= rectX + rectL || mouseY <= rectY || mouseY >= rectY + rectH)
 	{
 		makeListSame = "";
-		if(mouseIsDown && firstClick)
+		if(mouseIsDown)
 		{
-			firstClick = false;
+			mouseIsDown = false;
 			makeBoxSame = false;
 		}
 	}

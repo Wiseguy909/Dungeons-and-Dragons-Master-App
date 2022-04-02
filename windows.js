@@ -1,3 +1,21 @@
+let icons = [];
+let windows = [];
+let menu = true;
+let windowOn = false;
+let loc = 0;
+//opened subwindows
+let character1On = false;
+let character2On = false;
+let character3On = false;
+let character4On = false;
+let char1Create = false;
+let char2Create = false;
+let char3Create = false;
+let char4Create = false;
+let spells1On = false;
+let spells2On = false;
+let spells3On = false;
+let spells4On = false;
 //dice roller
 let d20 = false;
 let d12 = false;
@@ -44,6 +62,33 @@ sheet8.src = "images/sheet8.png";
 let sheet9 = new Image();
 sheet9.src = "images/sheet9.png";
 
+function Icon(x1, y1, type, address, width, height, name)
+{
+	this.x = x1;
+	this.y = y1;
+	this.type = type;
+	this.address = address;
+	this.w = width;
+	this.h = height;
+	this.name = name;
+	this.isActive = false;
+}
+
+function Window(x1, y1, type, address, width, height, name)
+{
+	this.x = x1;
+	this.y = y1;
+	this.type = type;
+	this.address = address;
+	this.w = width;
+	this.h = height;
+	this.name = name;
+}
+
+icons.push(new Icon(100,100,1,"images/img2.png",100,100,"Character Sheets"));
+icons.push(new Icon(300,100,2,"images/img1.png",100,100,"Spells"));
+
+//draws icons to open different applications
 function drawIcons()
 {
 	for(let i = 0; i < icons.length; i++)
@@ -67,9 +112,9 @@ function drawIcons()
 			ctx.textAlign = "center";
 			ctx.fillText(icons[i].name, icons[i].x + (icons[i].w/2), icons[i].y +(icons[i].h * (5/6)) + 15);
 			ctx.textAlign = "start";
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 				mouseTimer = 0;
 				let winX = 0 + (10 * windows.length);
 				let winY = 30 + (10 * windows.length);
@@ -104,10 +149,10 @@ function drawWindows()
 			ctx.fillStyle = "rgb(255,0,0)";
 			ctx.fillRect(windows[i].x + windows[i].w - 28, 
 			windows[i].y - 30, 30, 30);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
 				windows.splice(i,1);
-				firstClick = false;
+				mouseIsDown = false;
 				doubleClick = false;
 				menu = true;
 			}
@@ -232,20 +277,20 @@ function drawWindows()
 					ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
 					ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP",windows[i].x + 75, windows[i].y + 150);
 				}
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					if(characters[0].name == "Name")
 					{
 						char1Create = true;
 						step = 1;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 					else
 					{
 						character1On = true;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 				}
 			}
@@ -268,20 +313,20 @@ function drawWindows()
 					ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w/2 + 75, windows[i].y + 125);
 					ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP",windows[i].w/2 + 75, windows[i].y + 150);
 				}
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					if(characters[1].name == "Name")
 					{
 						char2Create = true;
 						step = 1;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 					else
 					{
 						character2On = true;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 				}
 			}
@@ -304,20 +349,20 @@ function drawWindows()
 					ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h/2 + 125);
 					ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP",windows[i].x + 75, windows[i].h/2 + 150);
 				}
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					if(characters[2].name == "Name")
 					{
 						char3Create = true;
 						step = 1;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 					else
 					{
 						character3On = true;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 				}
 			}
@@ -340,20 +385,20 @@ function drawWindows()
 					ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w/2 + 75, windows[i].h/2 + 125);
 					ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP",windows[i].w/2 + 75, windows[i].h/2 + 150);
 				}
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					if(characters[3].name == "Name")
 					{
 						char4Create = true;
 						step = 1;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 					else
 					{
 						character4On = true;
 						windowOn = false;
-						firstClick = false;
+						mouseIsDown = false;
 					}
 				}
 			}
@@ -380,7 +425,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.font = "40px Ariel";
 				ctx.fillText("Preset 1", windows[i].x + 75, windows[i].y + 75);
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					spells1On = true;
 					windowOn = false;
@@ -393,7 +438,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.font = "40px Ariel";
 				ctx.fillText("Preset 2", (windows[i].w/2) + 75, windows[i].y + 75);
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					spells2On = true;
 					windowOn = false;
@@ -406,7 +451,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.font = "40px Ariel";
 				ctx.fillText("Preset 3", windows[i].x + 75, (windows[i].h/2) + 75);
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					spells3On = true;
 					windowOn = false;
@@ -419,7 +464,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.font = "40px Ariel";
 				ctx.fillText("Preset 4", (windows[i].w/2) + 75, (windows[i].h/2) + 75);
-				if(mouseIsDown && firstClick && windowOn == true)
+				if(mouseIsDown && windowOn == true)
 				{
 					spells4On = true;
 					windowOn = false;
@@ -500,7 +545,7 @@ function characterCreator(slot)
 			char3Create = false;
 			char4Create = false;
 			windowOn = true;
-			firstClick = false;
+			mouseIsDown = false;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "32px Ariel";
@@ -532,9 +577,9 @@ function characterCreator(slot)
 	{
 		ctx.fillStyle = "rgb(180,180,180)";
 		ctx.fillRect((wW/2)-90,wH-50,80,40);
-		if(mouseIsDown && firstClick)
+		if(mouseIsDown)
 		{
-			firstClick = false;
+			mouseIsDown = false;
 			step--;
 		}
 	}
@@ -542,9 +587,9 @@ function characterCreator(slot)
 	{
 		ctx.fillStyle = "rgb(180,180,180)";
 		ctx.fillRect((wW/2)+10,wH-50,80,40);
-		if(mouseIsDown && firstClick)
+		if(mouseIsDown)
 		{
-			firstClick = false;
+			mouseIsDown = false;
 			step++;
 		}
 	}
@@ -570,9 +615,9 @@ function characterCreator(slot)
 			ctx.fillRect(wW/2 - 150,75,300,75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].race,wW/2,120);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 				raceBox = true;
 			}
 		}
@@ -601,9 +646,9 @@ function characterCreator(slot)
 					ctx.fillRect(wW/2 - 150,175,300,75);
 					ctx.fillStyle = "rgb(0,0,0)";
 					ctx.fillText(characters[slot].subrace,wW/2,220);
-					if(mouseIsDown && firstClick)
+					if(mouseIsDown)
 					{
-						firstClick = false;
+						mouseIsDown = false;
 						subraceBox = true;
 					}
 				}
@@ -639,9 +684,9 @@ function characterCreator(slot)
 			ctx.fillRect(wW/2 - 150,75,300,75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].cClass,wW/2,120);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 				classBox = true;
 			}
 		}
@@ -670,9 +715,9 @@ function characterCreator(slot)
 					ctx.fillRect(wW/2 - 150,175,300,75);
 					ctx.fillStyle = "rgb(0,0,0)";
 					ctx.fillText(characters[slot].subclass,wW/2,220);
-					if(mouseIsDown && firstClick)
+					if(mouseIsDown)
 					{
-						firstClick = false;
+						mouseIsDown = false;
 						subclassBox = true;
 					}
 				}
@@ -753,9 +798,9 @@ function characterCreator(slot)
 		{
 			ctx.fillStyle = "rgb(220,40,40)";
 			ctx.fillRect(wW/2-50,250,100,60);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 				drawDice = true;
 				for(let i = 0; i < 6; i++)
 				{
@@ -838,9 +883,9 @@ function characterCreator(slot)
 			ctx.fillRect(wW/2 - 150,75,300,75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].alignment,wW/2,120);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 				alignmentBox = true;
 			}
 		}
@@ -866,9 +911,9 @@ function characterCreator(slot)
 			ctx.fillRect(wW/2 - 450,75,250,75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].name,wW/2 - 325,120);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 		if(oldMouseX >= wW/2 - 450 && oldMouseX <= wW/2 - 200 && oldMouseY >= 75 && oldMouseY <= 150)
@@ -897,9 +942,9 @@ function characterCreator(slot)
 			ctx.fillRect(wW/2 - 450,200,250,75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].pName,wW/2 - 325,245);
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 		if(oldMouseX >= wW/2 - 450 && oldMouseX <= wW/2 - 200 && oldMouseY >= 200 && oldMouseY <= 275)
@@ -1008,9 +1053,9 @@ function drawSheet(slot)
 	{
 		ctx.fillStyle = "rgb(255,0,0)";
 		ctx.fillRect(0,0,30,30);
-		if(mouseIsDown && firstClick)
+		if(mouseIsDown)
 		{
-			firstClick = false;
+			mouseIsDown = false;
 			character1On = false;
 			character2On = false;
 			character3On = false;
@@ -1018,7 +1063,6 @@ function drawSheet(slot)
 			windowOn = true;
 			ctx.canvas.height = wH;
 			ctx.canvas.width = wW;
-			firstClick = false;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "32px Ariel";
@@ -1178,10 +1222,10 @@ function drawSheet(slot)
 			ctx.closePath();
 			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
 			{
-				if(mouseIsDown && firstClick)
+				if(mouseIsDown)
 				{
 					type = "false";
-					firstClick = false;
+					mouseIsDown = false;
 				}
 			}
 		}
@@ -1189,10 +1233,10 @@ function drawSheet(slot)
 		{
 			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
 			{
-				if(mouseIsDown && firstClick)
+				if(mouseIsDown)
 				{
 					type = "true";
-					firstClick = false;
+					mouseIsDown = false;
 				}
 			}
 		}
@@ -1232,10 +1276,10 @@ function drawSheet(slot)
 		ctx.fill();
 		if(mouseX >= 807 && mouseX <= 842 && mouseY >= 7 && mouseY <= 43)
 		{
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
 				characters[slot].inspiration = "false";
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 	}
@@ -1243,10 +1287,10 @@ function drawSheet(slot)
 	{
 		if(mouseX >= 807 && mouseX <= 842 && mouseY >= 7 && mouseY <= 43)
 		{
-			if(mouseIsDown && firstClick)
+			if(mouseIsDown)
 			{
 				characters[slot].inspiration = "true";
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 	}
@@ -1330,10 +1374,10 @@ function drawSheet(slot)
 			{
 				ctx.fillText((Math.floor((statType-10)/2)+parseInt(profBonus)), textX, textY);
 			}
-			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2 && mouseIsDown && firstClick)
+			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2 && mouseIsDown)
 			{
 				profType = "false";
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 		else
@@ -1346,10 +1390,10 @@ function drawSheet(slot)
 			{
 				ctx.fillText(Math.floor((statType-10)/2), textX, textY);
 			}
-			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2 && mouseIsDown && firstClick)
+			if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2 && mouseIsDown)
 			{
 				profType = "true";
-				firstClick = false;
+				mouseIsDown = false;
 			}
 		}
 		makeSame = profType;
@@ -1602,9 +1646,9 @@ function dice()
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.font = "30px Ariel";
 		ctx.fillText("Roll Dice", 535, 600-85);
-		if(mouseIsDown && firstClick)
+		if(mouseIsDown)
 		{
-			firstClick = false;
+			mouseIsDown = false;
 			result = 0;
 			for(let i = 0; i < num; i++)
 			{
