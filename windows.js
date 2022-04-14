@@ -1870,6 +1870,67 @@ function dice()
 	ctx.textAlign = "start";
 }
 
+//creates drop down boxes when called
+function dropDownBox(cR,cG,cB,rectX,rectY,rectL,rectH,listAmount,text,sub)
+{
+	makeBoxSame = true;
+	ctx.fillStyle = "rgb(" + cR + "," + cG + "," + cB + ")";
+	ctx.fillRect(rectX,rectY,rectL,rectH);
+	let listPart = 0;
+	let tabSize = (rectH / listAmount);
+	for(let i = 0; i < listAmount; i++)
+	{
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		ctx.fillStyle = "rgb(0,0,0)";
+		if(sub == false)
+		{
+			ctx.fillText(text[i].name,rectX+(rectL/2),rectY+listPart+(tabSize/2));
+			if(mouseX >= rectX && mouseX <= rectX + rectL && mouseY >= rectY + listPart && mouseY <= rectY + listPart + tabSize)
+			{
+				ctx.fillStyle = "rgb(" + (cR-20) + "," + (cG-20) + "," + (cB-20) + ")";
+				ctx.fillRect(rectX,rectY+listPart,rectL,tabSize);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(text[i].name,rectX+(rectL/2),rectY+listPart+(tabSize/2));
+				if(mouseIsDown)
+				{
+					mouseIsDown = false;
+					makeListSame = text[i].name;
+					makeBoxSame = false;
+				}
+			}
+		}
+		if(sub == true)
+		{
+			ctx.fillText(text[i],rectX+(rectL/2),rectY+listPart+(tabSize/2));
+			if(mouseX >= rectX && mouseX <= rectX + rectL && mouseY >= rectY + listPart && mouseY <= rectY + listPart + tabSize)
+			{
+				ctx.fillStyle = "rgb(" + (cR-20) + "," + (cG-20) + "," + (cB-20) + ")";
+				ctx.fillRect(rectX,rectY+listPart,rectL,tabSize);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(text[i],rectX+(rectL/2),rectY+listPart+(tabSize/2));
+				if(mouseIsDown)
+				{
+					mouseIsDown = false;
+					makeListSame = text[i];
+					makeBoxSame = false;
+				}
+			}
+		}
+		ctx.textBaseline = "alphabetic"
+		listPart += tabSize;
+	}
+	if(mouseX <= rectX || mouseX >= rectX + rectL || mouseY <= rectY || mouseY >= rectY + rectH)
+	{
+		makeListSame = "";
+		if(mouseIsDown)
+		{
+			mouseIsDown = false;
+			makeBoxSame = false;
+		}
+	}
+}
+
 //saves everything to local storage and sets presets to any null values
 function useLocalStorage()
 {

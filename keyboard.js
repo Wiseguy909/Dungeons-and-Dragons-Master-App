@@ -101,1012 +101,894 @@ var underScore = false; //_
 var plus = false;		//+
 
 
+function keyDownHandler(e)
+{
+	if (shiftKey == true && e.keyCode == 49)
+	{
+		ePoint = true;
+		word.push("!");
+	}
+	else if (shiftKey == true && e.keyCode == 50)
+	{
+		at = true;
+		word.push("@");
+	}
+	else if (shiftKey == true && e.keyCode == 51)
+	{
+		hashtag = true;
+		word.push("#");
+	}
+	else if (shiftKey == true && e.keyCode == 52)
+	{
+		dollar = true;
+		word.push("$");
+	}
+	else if (shiftKey == true && e.keyCode == 53)
+	{
+		divide = true;
+		word.push("%");
+	}
+	else if (shiftKey == true && e.keyCode == 54)
+	{
+		caret = true;
+		word.push("^");
+	}
+	else if (shiftKey == true && e.keyCode == 55)
+	{
+		and = true;
+		word.push("&");
+	}
+	else if (shiftKey == true && e.keyCode == 56)
+	{
+		asterisk = true;
+		word.push("*");
+	}
+	else if (shiftKey == true && e.keyCode == 57)
+	{
+		oParenth = true;
+		word.push("(");
+	}
+	else if (shiftKey == true && e.keyCode == 48)
+	{
+		cParenth = true;
+		word.push(")");
+	}
+	else if (shiftKey == true && e.keyCode == 189)
+	{
+		underscore = true;
+		word.push("_");
+	}
 
-function keyDownHandler(e){
-	
-	if(shiftKey == true && e.keyCode == 49)
-	{
-	ePoint = true;
-	word.push("!");
-	}
-	else if(shiftKey == true && e.keyCode == 50)
-	{
-	at = true;
-	word.push("@");
-	}
-	else if(shiftKey == true && e.keyCode == 51)
-	{
-	hashtag = true;
-	word.push("#");
-	}
-	else if(shiftKey == true && e.keyCode == 52)
-	{
-	dollar = true;
-	word.push("$");
-	}
-	else if(shiftKey == true && e.keyCode == 53)
-	{
-	divide = true;
-	word.push("%");
-	}
-	else if(shiftKey == true && e.keyCode == 54)
-	{
-	caret = true;
-	word.push("^");
-	}
-	else if(shiftKey == true && e.keyCode == 55)
-	{
-	and = true;
-	word.push("&");
-	}
-	else if(shiftKey == true && e.keyCode == 56)
-	{
-	asterisk = true;
-	word.push("*");
-	}
-	else if(shiftKey == true && e.keyCode == 57)
-	{
-	oParenth = true;
-	word.push("(");
-	}
-	else if(shiftKey == true && e.keyCode == 48)
-	{
-	cParenth = true;
-	word.push(")");
-	}
-	else if(shiftKey == true && e.keyCode == 189)
-	{
-	underscore = true;
-	word.push("_");
-	}
-	
-	
-	else if(shiftKey == false && e.keyCode == 16)
+	else if (shiftKey == false && e.keyCode == 16)
 	{
 		shiftKey = true;
 	}
-	else if(shiftKey == false && e.keyCode == 48)
+	else if (shiftKey == false && e.keyCode == 48)
 	{
 		button0 = true;
 		word.push("0");
 	}
-	else if(shiftKey == false && e.keyCode == 49)
+	else if (shiftKey == false && e.keyCode == 49)
 	{
 		button1 = true;
 		word.push("1");
 	}
-	else if(shiftKey == false && e.keyCode == 50)
+	else if (shiftKey == false && e.keyCode == 50)
 	{
 		button2 = true;
 		word.push("2");
 	}
-	else if(shiftKey == false && e.keyCode == 51)
+	else if (shiftKey == false && e.keyCode == 51)
 	{
 		button3 = true;
 		word.push("3");
 	}
-	else if(shiftKey == false && e.keyCode == 52)
+	else if (shiftKey == false && e.keyCode == 52)
 	{
 		button4 = true;
 		word.push("4");
 	}
-	else if(shiftKey == false && e.keyCode == 53)
+	else if (shiftKey == false && e.keyCode == 53)
 	{
 		button5 = true;
 		word.push("5");
 	}
-	else if(shiftKey == false && e.keyCode == 54)
+	else if (shiftKey == false && e.keyCode == 54)
 	{
 		button6 = true;
 		word.push("6");
 	}
-	else if(shiftKey == false && e.keyCode == 55)
+	else if (shiftKey == false && e.keyCode == 55)
 	{
 		button7 = true;
 		word.push("7");
 	}
-	else if(shiftKey == false && e.keyCode == 56)
+	else if (shiftKey == false && e.keyCode == 56)
 	{
 		button8 = true;
 		word.push("8");
 	}
-	else if(shiftKey == false && e.keyCode == 57)
+	else if (shiftKey == false && e.keyCode == 57)
 	{
 		button9 = true;
 		word.push("9");
 	}
-	
-	
-	else if(shiftKey == false && e.keyCode == 65)
+
+	else if (shiftKey == false && e.keyCode == 65)
 	{
 		aButton = true;
 		word.push("a");
 	}
-	else if(shiftKey == false && e.keyCode == 66)
+	else if (shiftKey == false && e.keyCode == 66)
 	{
 		bButton = true;
 		word.push("b");
 	}
-	else if(shiftKey == false && e.keyCode == 67)
+	else if (shiftKey == false && e.keyCode == 67)
 	{
 		cButton = true;
 		word.push("c");
 	}
-	else if(shiftKey == false && e.keyCode == 68)
+	else if (shiftKey == false && e.keyCode == 68)
 	{
 		dButton = true;
 		word.push("d");
 	}
-	else if(shiftKey == false && e.keyCode == 69)
+	else if (shiftKey == false && e.keyCode == 69)
 	{
 		eButton = true;
 		word.push("e");
 	}
-	else if(shiftKey == false && e.keyCode == 70)
+	else if (shiftKey == false && e.keyCode == 70)
 	{
 		fButton = true;
 		word.push("f");
 	}
-	else if(shiftKey == false && e.keyCode == 71)
+	else if (shiftKey == false && e.keyCode == 71)
 	{
-	gButton = true;
-	word.push("g");
-	
+		gButton = true;
+		word.push("g");
 	}
-	else if(shiftKey == false && e.keyCode == 72)
+	else if (shiftKey == false && e.keyCode == 72)
 	{
-	hButton = true;
-	word.push("h");
-	
+		hButton = true;
+		word.push("h");
 	}
-	else if(shiftKey == false && e.keyCode == 73)
+	else if (shiftKey == false && e.keyCode == 73)
 	{
-	iButton = true;
-	word.push("i");
-	
+		iButton = true;
+		word.push("i");
 	}
-	else if(shiftKey == false && e.keyCode == 74)
+	else if (shiftKey == false && e.keyCode == 74)
 	{
-	jButton = true;
-	word.push("j");
-	
+		jButton = true;
+		word.push("j");
 	}
-else if(shiftKey == false && e.keyCode == 75)
+	else if (shiftKey == false && e.keyCode == 75)
 	{
-	kButton = true;
-	word.push("k");
-	
+		kButton = true;
+		word.push("k");
 	}
-	else if(shiftKey == false && e.keyCode == 76)
+	else if (shiftKey == false && e.keyCode == 76)
 	{
-	lButton = true;
-	word.push("l");
-	
+		lButton = true;
+		word.push("l");
 	}
-	else if(shiftKey == false && e.keyCode == 77)
+	else if (shiftKey == false && e.keyCode == 77)
 	{
-	mButton = true;
-	word.push("m");
-	
+		mButton = true;
+		word.push("m");
 	}
-	else if(shiftKey == false && e.keyCode == 78)
+	else if (shiftKey == false && e.keyCode == 78)
 	{
-	nButton = true;
-	word.push("n");
-	
-	}	
-else if(shiftKey == false && e.keyCode == 79)
-	{
-	oButton = true;
-	word.push("o");
-	
+		nButton = true;
+		word.push("n");
 	}
-	else if(shiftKey == false && e.keyCode == 80)
+	else if (shiftKey == false && e.keyCode == 79)
 	{
-	pButton = true;
-	word.push("p");
-	
+		oButton = true;
+		word.push("o");
 	}
-	else if(shiftKey == false && e.keyCode == 81)
+	else if (shiftKey == false && e.keyCode == 80)
 	{
-	qButton = true;
-	word.push("q");
-	
+		pButton = true;
+		word.push("p");
 	}
-	else if(shiftKey == false && e.keyCode == 82)
+	else if (shiftKey == false && e.keyCode == 81)
 	{
-	rButton = true;
-	word.push("r");
-	
-	}	
-else if(shiftKey == false && e.keyCode == 83)
-	{
-	sButton = true;
-	word.push("s");
-	
+		qButton = true;
+		word.push("q");
 	}
-	else if(shiftKey == false && e.keyCode == 84)
+	else if (shiftKey == false && e.keyCode == 82)
 	{
-	tButton = true;
-	word.push("t");
-	
+		rButton = true;
+		word.push("r");
 	}
-	else if(shiftKey == false && e.keyCode == 85)
+	else if (shiftKey == false && e.keyCode == 83)
 	{
-	uButton = true;
-	word.push("u");
-	
+		sButton = true;
+		word.push("s");
 	}
-	else if(shiftKey == false && e.keyCode == 86)
+	else if (shiftKey == false && e.keyCode == 84)
 	{
-	vButton = true;
-	word.push("v");
-	
-	}	
-else if(shiftKey == false && e.keyCode == 87)
-	{
-	wButton = true;
-	word.push("w");
-	
+		tButton = true;
+		word.push("t");
 	}
-	else if(shiftKey == false && e.keyCode == 88)
+	else if (shiftKey == false && e.keyCode == 85)
 	{
-	xButton = true;
-	word.push("x");
-	
+		uButton = true;
+		word.push("u");
 	}
-	else if(shiftKey == false && e.keyCode == 89)
+	else if (shiftKey == false && e.keyCode == 86)
 	{
-	yButton = true;
-	word.push("y");
-	
+		vButton = true;
+		word.push("v");
 	}
-	else if(shiftKey == false && e.keyCode == 90)
+	else if (shiftKey == false && e.keyCode == 87)
 	{
-	zButton = true;
-	word.push("z");
-	
+		wButton = true;
+		word.push("w");
 	}
-	
-	else if(shiftKey == true && e.keyCode == 65)
+	else if (shiftKey == false && e.keyCode == 88)
 	{
-	AButton = true;
-	word.push("A");
-	
+		xButton = true;
+		word.push("x");
 	}
-	else if(shiftKey == true && e.keyCode == 66)
+	else if (shiftKey == false && e.keyCode == 89)
 	{
-	BButton = true;
-	word.push("B");
-	
+		yButton = true;
+		word.push("y");
 	}
-	else if(shiftKey == true && e.keyCode == 67)
+	else if (shiftKey == false && e.keyCode == 90)
 	{
-	CButton = true;
-	word.push("C");
-	
+		zButton = true;
+		word.push("z");
 	}
-	else if(shiftKey == true && e.keyCode == 68)
+
+	else if (shiftKey == true && e.keyCode == 65)
 	{
-	DButton = true;
-	word.push("D");
-	
+		AButton = true;
+		word.push("A");
 	}
-	else if(shiftKey == true && e.keyCode == 69)
+	else if (shiftKey == true && e.keyCode == 66)
 	{
-	EButton = true;
-	word.push("E");
-	
+		BButton = true;
+		word.push("B");
 	}
-	else if(shiftKey == true && e.keyCode == 70)
+	else if (shiftKey == true && e.keyCode == 67)
 	{
-	FButton = true;
-	word.push("F");
-	
+		CButton = true;
+		word.push("C");
 	}
-	else if(shiftKey == true && e.keyCode == 71)
+	else if (shiftKey == true && e.keyCode == 68)
 	{
-	GButton = true;
-	word.push("G");
-	
+		DButton = true;
+		word.push("D");
 	}
-	else if(shiftKey == true && e.keyCode == 72)
+	else if (shiftKey == true && e.keyCode == 69)
 	{
-	HButton = true;
-	word.push("H");
-	
+		EButton = true;
+		word.push("E");
 	}
-	else if(shiftKey == true && e.keyCode == 73)
+	else if (shiftKey == true && e.keyCode == 70)
 	{
-	IButton = true;
-	word.push("I");
-	
+		FButton = true;
+		word.push("F");
 	}
-	else if(shiftKey == true && e.keyCode == 74)
+	else if (shiftKey == true && e.keyCode == 71)
 	{
-	JButton = true;
-	word.push("J");
-	
+		GButton = true;
+		word.push("G");
 	}
-else if(shiftKey == true && e.keyCode == 75)
+	else if (shiftKey == true && e.keyCode == 72)
 	{
-	KButton = true;
-	word.push("K");
-	
+		HButton = true;
+		word.push("H");
 	}
-	else if(shiftKey == true && e.keyCode == 76)
+	else if (shiftKey == true && e.keyCode == 73)
 	{
-	LButton = true;
-	word.push("L");
-	
+		IButton = true;
+		word.push("I");
 	}
-	else if(shiftKey == true && e.keyCode == 77)
+	else if (shiftKey == true && e.keyCode == 74)
 	{
-	MButton = true;
-	word.push("M");
-	
+		JButton = true;
+		word.push("J");
 	}
-	else if(shiftKey == true && e.keyCode == 78)
+	else if (shiftKey == true && e.keyCode == 75)
 	{
-	NButton = true;
-	word.push("N");
-	
-	}	
-else if(shiftKey == true && e.keyCode == 79)
-	{
-	OButton = true;
-	word.push("O");
-	
+		KButton = true;
+		word.push("K");
 	}
-	else if(shiftKey == true && e.keyCode == 80)
+	else if (shiftKey == true && e.keyCode == 76)
 	{
-	PButton = true;
-	word.push("P");
-	
+		LButton = true;
+		word.push("L");
 	}
-	else if(shiftKey == true && e.keyCode == 81)
+	else if (shiftKey == true && e.keyCode == 77)
 	{
-	QButton = true;
-	word.push("Q");
-	
+		MButton = true;
+		word.push("M");
 	}
-	else if(shiftKey == true && e.keyCode == 82)
+	else if (shiftKey == true && e.keyCode == 78)
 	{
-	RButton = true;
-	word.push("R");
-	
-	}	
-else if(shiftKey == true && e.keyCode == 83)
-	{
-	SButton = true;
-	word.push("S");
-	
+		NButton = true;
+		word.push("N");
 	}
-	else if(shiftKey == true && e.keyCode == 84)
+	else if (shiftKey == true && e.keyCode == 79)
 	{
-	TButton = true;
-	word.push("T");
-	
+		OButton = true;
+		word.push("O");
 	}
-	else if(shiftKey == true && e.keyCode == 85)
+	else if (shiftKey == true && e.keyCode == 80)
 	{
-	UButton = true;
-	word.push("U");
-	
+		PButton = true;
+		word.push("P");
 	}
-	else if(shiftKey == true && e.keyCode == 86)
+	else if (shiftKey == true && e.keyCode == 81)
 	{
-	VButton = true;
-	word.push("V");
-	
-	}	
-else if(shiftKey == true && e.keyCode == 87)
-	{
-	WButton = true;
-	word.push("W");
-	
+		QButton = true;
+		word.push("Q");
 	}
-	else if(shiftKey == true && e.keyCode == 88)
+	else if (shiftKey == true && e.keyCode == 82)
 	{
-	XButton = true;
-	word.push("X");
-	
+		RButton = true;
+		word.push("R");
 	}
-	else if(shiftKey == true && e.keyCode == 89)
+	else if (shiftKey == true && e.keyCode == 83)
 	{
-	YButton = true;
-	word.push("Y");
-	
+		SButton = true;
+		word.push("S");
 	}
-	else if(shiftKey == true && e.keyCode == 90)
+	else if (shiftKey == true && e.keyCode == 84)
 	{
-	ZButton = true;
-	word.push("Z");
-	
+		TButton = true;
+		word.push("T");
 	}
-	
-	else if(e.keyCode == 32)
+	else if (shiftKey == true && e.keyCode == 85)
+	{
+		UButton = true;
+		word.push("U");
+	}
+	else if (shiftKey == true && e.keyCode == 86)
+	{
+		VButton = true;
+		word.push("V");
+	}
+	else if (shiftKey == true && e.keyCode == 87)
+	{
+		WButton = true;
+		word.push("W");
+	}
+	else if (shiftKey == true && e.keyCode == 88)
+	{
+		XButton = true;
+		word.push("X");
+	}
+	else if (shiftKey == true && e.keyCode == 89)
+	{
+		YButton = true;
+		word.push("Y");
+	}
+	else if (shiftKey == true && e.keyCode == 90)
+	{
+		ZButton = true;
+		word.push("Z");
+	}
+
+	else if (e.keyCode == 32)
 	{
 		spaceBar = true;
 		word.push(" ");
-		
 	}
-	else if(e.keyCode == 13)
+	else if (e.keyCode == 13)
 	{
-	///enter
-	enterButton = true;
-	
+		///enter
+		enterButton = true;
 	}
-	else if(e.keyCode == 8)
+	else if (e.keyCode == 8)
 	{
-	///backspace
-	backButton = true;
-	word.pop();
-	
+		///backspace
+		backButton = true;
+		word.pop();
 	}
-	
-	else if(shiftKey == false && e.keyCode == 189)
+
+	else if (shiftKey == false && e.keyCode == 189)
 	{
-	minus = true;
-	word.push("-");
+		minus = true;
+		word.push("-");
 	}
-	else if(shiftKey == true && e.keyCode == 187)
+	else if (shiftKey == true && e.keyCode == 187)
 	{
-	plus = true;
-	word.push("+");
+		plus = true;
+		word.push("+");
 	}
-	else if(shiftKey == false && e.keyCode == 187)
+	else if (shiftKey == false && e.keyCode == 187)
 	{
-	equals = true;
-	word.push("=");
+		equals = true;
+		word.push("=");
 	}
-	else if(shiftKey == true && e.keyCode == 219)
+	else if (shiftKey == true && e.keyCode == 219)
 	{
-	oCBracket = true;
-	word.push("{");
+		oCBracket = true;
+		word.push("{");
 	}
-	else if(shiftKey == false && e.keyCode == 219)
+	else if (shiftKey == false && e.keyCode == 219)
 	{
-	oBracket = true;
-	word.push("[");
+		oBracket = true;
+		word.push("[");
 	}
-	else if(shiftKey == true && e.keyCode == 221)
+	else if (shiftKey == true && e.keyCode == 221)
 	{
-	cCBracket = true;
-	word.push("}");
+		cCBracket = true;
+		word.push("}");
 	}
-	else if(shiftKey == false && e.keyCode == 221)
+	else if (shiftKey == false && e.keyCode == 221)
 	{
-	cBracket = true;
-	word.push("]");
+		cBracket = true;
+		word.push("]");
 	}
-	else if(shiftKey == true && e.keyCode == 220)
+	else if (shiftKey == true && e.keyCode == 220)
 	{
-	vBar = true;
-	word.push("|");
+		vBar = true;
+		word.push("|");
 	}
-	else if(shiftKey == true && e.keyCode == 186)
+	else if (shiftKey == true && e.keyCode == 186)
 	{
-	colon = true;
-	word.push(":");
+		colon = true;
+		word.push(":");
 	}
-	else if(shiftKey == false && e.keyCode == 186)
+	else if (shiftKey == false && e.keyCode == 186)
 	{
-	semiColon = true;
-	word.push(";");
+		semiColon = true;
+		word.push(";");
 	}
-	else if(shiftKey == true && e.keyCode == 222)
+	else if (shiftKey == true && e.keyCode == 222)
 	{
-	quote = true;
-	word.push('"');
+		quote = true;
+		word.push('"');
 	}
-	else if(shiftKey == false && e.keyCode == 222)
+	else if (shiftKey == false && e.keyCode == 222)
 	{
-	apostraphe = true;
-	word.push("'");
+		apostraphe = true;
+		word.push("'");
 	}
-	else if(shiftKey == true && e.keyCode == 188)
+	else if (shiftKey == true && e.keyCode == 188)
 	{
-	lessThan = true;
-	word.push("<");
+		lessThan = true;
+		word.push("<");
 	}
-	else if(shiftKey == false && e.keyCode == 188)
+	else if (shiftKey == false && e.keyCode == 188)
 	{
-	comma = true;
-	word.push(",");
+		comma = true;
+		word.push(",");
 	}
-	else if(shiftKey == true && e.keyCode == 190)
+	else if (shiftKey == true && e.keyCode == 190)
 	{
-	greaterThan = true;
-	word.push(">");
+		greaterThan = true;
+		word.push(">");
 	}
-	else if(shiftKey == false && e.keyCode == 190)
+	else if (shiftKey == false && e.keyCode == 190)
 	{
-	period = true;
-	word.push(".");
+		period = true;
+		word.push(".");
 	}
-	else if(shiftKey == true && e.keyCode == 191)
+	else if (shiftKey == true && e.keyCode == 191)
 	{
-	question = true;
-	word.push("?");
+		question = true;
+		word.push("?");
 	}
-	else if(shiftKey == false && e.keyCode == 191)
+	else if (shiftKey == false && e.keyCode == 191)
 	{
-	fSlash = true;
-	word.push("/");
+		fSlash = true;
+		word.push("/");
 	}
-	else if(shiftKey == true && e.keyCode == 192)
+	else if (shiftKey == true && e.keyCode == 192)
 	{
-	tilde = true;
-	word.push("~");
+		tilde = true;
+		word.push("~");
 	}
-	else if(shiftKey == false && e.keyCode == 192)
+	else if (shiftKey == false && e.keyCode == 192)
 	{
-	backTick = true;
-	word.push("`");
+		backTick = true;
+		word.push("`");
 	}
 }
 
-function keyUpHandler(e){
-	if(e.keyCode == 16)
+function keyUpHandler(e)
+{
+	if (e.keyCode == 16)
 	{
 		shiftKey = false;
 	}
-	if(e.keycode == 48)
+	if (e.keycode == 48)
 	{
 		button0 = false;
-		
 	}
-	if(e.keycode == 49)
+	if (e.keycode == 49)
 	{
 		button1 = false;
-		
 	}
-	if(e.keycode == 50)
+	if (e.keycode == 50)
 	{
 		button2 = false;
-		
 	}
-	if(e.keycode == 51)
+	if (e.keycode == 51)
 	{
 		button3 = false;
-		
 	}
-	if(e.keycode == 52)
+	if (e.keycode == 52)
 	{
 		button4 = false;
-		
 	}
-	if(e.keycode == 53)
+	if (e.keycode == 53)
 	{
 		button5 = false;
-		
 	}
-	if(e.keycode == 54)
+	if (e.keycode == 54)
 	{
 		button6 = false;
-		
 	}
-	if(e.keycode == 55)
+	if (e.keycode == 55)
 	{
 		button7 = false;
-		
 	}
-	if(e.keycode == 56)
+	if (e.keycode == 56)
 	{
 		button8 = false;
-		
 	}
-	if(e.keycode == 57)
+	if (e.keycode == 57)
 	{
 		button9 = false;
-		
 	}
-	
-	
-	if(e.keyCode == 65)
+
+	if (e.keyCode == 65)
 	{
-	aButton = false;
-	
+		aButton = false;
 	}
-	else if(e.keyCode == 66)
+	else if (e.keyCode == 66)
 	{
-	bButton = false;
-	
+		bButton = false;
 	}
-	else if(e.keyCode == 67)
+	else if (e.keyCode == 67)
 	{
-	cButton = false;
-	
+		cButton = false;
 	}
-	else if(e.keyCode == 68)
+	else if (e.keyCode == 68)
 	{
-	dButton = false;
-	
+		dButton = false;
 	}
-	else if(e.keyCode == 69)
+	else if (e.keyCode == 69)
 	{
-	eButton = false;
-	
+		eButton = false;
 	}
-	else if(e.keyCode == 70)
+	else if (e.keyCode == 70)
 	{
-	fButton = false;
-	
+		fButton = false;
 	}
-	else if(e.keyCode == 71)
+	else if (e.keyCode == 71)
 	{
-	gButton = false;
-	
+		gButton = false;
 	}
-	else if(e.keyCode == 72)
+	else if (e.keyCode == 72)
 	{
-	hButton = false;
-	
+		hButton = false;
 	}
-	else if(e.keyCode == 73)
+	else if (e.keyCode == 73)
 	{
-	iButton = false;
-	
+		iButton = false;
 	}
-	else if(e.keyCode == 74)
+	else if (e.keyCode == 74)
 	{
-	jButton = false;
-	
+		jButton = false;
 	}
-else if(e.keyCode == 75)
+	else if (e.keyCode == 75)
 	{
-	kButton = false;
-	
+		kButton = false;
 	}
-	else if(e.keyCode == 76)
+	else if (e.keyCode == 76)
 	{
-	lButton = false;
-	
+		lButton = false;
 	}
-	else if(e.keyCode == 77)
+	else if (e.keyCode == 77)
 	{
-	mButton = false;
-	
+		mButton = false;
 	}
-	else if(e.keyCode == 78)
+	else if (e.keyCode == 78)
 	{
-	nButton = false;
-	
-	}	
-else if(e.keyCode == 79)
-	{
-	oButton = false;
-	
+		nButton = false;
 	}
-	else if(e.keyCode == 80)
+	else if (e.keyCode == 79)
 	{
-	pButton = false;
-	
+		oButton = false;
 	}
-	else if(e.keyCode == 81)
+	else if (e.keyCode == 80)
 	{
-	qButton = false;
-	
+		pButton = false;
 	}
-	else if(e.keyCode == 82)
+	else if (e.keyCode == 81)
 	{
-	rButton = false;
-	
-	}	
-else if(e.keyCode == 83)
-	{
-	sButton = false;
-	
+		qButton = false;
 	}
-	else if(e.keyCode == 84)
+	else if (e.keyCode == 82)
 	{
-	tButton = false;
-	
+		rButton = false;
 	}
-	else if(e.keyCode == 85)
+	else if (e.keyCode == 83)
 	{
-	uButton = false;
-	
+		sButton = false;
 	}
-	else if(e.keyCode == 86)
+	else if (e.keyCode == 84)
 	{
-	vButton = false;
-	
-	}	
-else if(e.keyCode == 87)
-	{
-	wButton = false;
-	
+		tButton = false;
 	}
-	else if(e.keyCode == 88)
+	else if (e.keyCode == 85)
 	{
-	xButton = false;
-	
+		uButton = false;
 	}
-	else if(e.keyCode == 89)
+	else if (e.keyCode == 86)
 	{
-	yButton = false;
-	
+		vButton = false;
 	}
-	else if(e.keyCode == 90)
+	else if (e.keyCode == 87)
 	{
-	zButton = false;
-	
+		wButton = false;
 	}
-	
-	if(e.keyCode == 65 && e.keyCode == 16)
+	else if (e.keyCode == 88)
 	{
-	AButton = false;
-	
+		xButton = false;
 	}
-	else if(e.keyCode == 66 && e.keyCode == 16)
+	else if (e.keyCode == 89)
 	{
-	BButton = false;
-	
+		yButton = false;
 	}
-	else if(e.keyCode == 67 && e.keyCode == 16)
+	else if (e.keyCode == 90)
 	{
-	CButton = false;
-	
+		zButton = false;
 	}
-	else if(e.keyCode == 68 && e.keyCode == 16)
+
+	if (e.keyCode == 65 && e.keyCode == 16)
 	{
-	DButton = false;
-	
+		AButton = false;
 	}
-	else if(e.keyCode == 69 && e.keyCode == 16)
+	else if (e.keyCode == 66 && e.keyCode == 16)
 	{
-	EButton = false;
-	
+		BButton = false;
 	}
-	else if(e.keyCode == 70 && e.keyCode == 16)
+	else if (e.keyCode == 67 && e.keyCode == 16)
 	{
-	FButton = false;
-	
+		CButton = false;
 	}
-	else if(e.keyCode == 71 && e.keyCode == 16)
+	else if (e.keyCode == 68 && e.keyCode == 16)
 	{
-	GButton = false;
-	
+		DButton = false;
 	}
-	else if(e.keyCode == 72 && e.keyCode == 16)
+	else if (e.keyCode == 69 && e.keyCode == 16)
 	{
-	HButton = false;
-	
+		EButton = false;
 	}
-	else if(e.keyCode == 73 && e.keyCode == 16)
+	else if (e.keyCode == 70 && e.keyCode == 16)
 	{
-	IButton = false;
-	
+		FButton = false;
 	}
-	else if(e.keyCode == 74 && e.keyCode == 16)
+	else if (e.keyCode == 71 && e.keyCode == 16)
 	{
-	JButton = false;
-	
+		GButton = false;
 	}
-else if(e.keyCode == 75 && e.keyCode == 16)
+	else if (e.keyCode == 72 && e.keyCode == 16)
 	{
-	KButton = false;
-	
+		HButton = false;
 	}
-	else if(e.keyCode == 76 && e.keyCode == 16)
+	else if (e.keyCode == 73 && e.keyCode == 16)
 	{
-	LButton = false;
-	
+		IButton = false;
 	}
-	else if(e.keyCode == 77 && e.keyCode == 16)
+	else if (e.keyCode == 74 && e.keyCode == 16)
 	{
-	MButton = false;
-	
+		JButton = false;
 	}
-	else if(e.keyCode == 78 && e.keyCode == 16)
+	else if (e.keyCode == 75 && e.keyCode == 16)
 	{
-	NButton = false;
-	
-	}	
-else if(e.keyCode == 79 && e.keyCode == 16)
-	{
-	OButton = false;
-	
+		KButton = false;
 	}
-	else if(e.keyCode == 80 && e.keyCode == 16)
+	else if (e.keyCode == 76 && e.keyCode == 16)
 	{
-	PButton = false;
-	
+		LButton = false;
 	}
-	else if(e.keyCode == 81 && e.keyCode == 16)
+	else if (e.keyCode == 77 && e.keyCode == 16)
 	{
-	QButton = false;
-	
+		MButton = false;
 	}
-	else if(e.keyCode == 82 && e.keyCode == 16)
+	else if (e.keyCode == 78 && e.keyCode == 16)
 	{
-	RButton = false;
-	
-	}	
-else if(e.keyCode == 83 && e.keyCode == 16)
-	{
-	SButton = false;
-	
+		NButton = false;
 	}
-	else if(e.keyCode == 84 && e.keyCode == 16)
+	else if (e.keyCode == 79 && e.keyCode == 16)
 	{
-	TButton = false;
-	
+		OButton = false;
 	}
-	else if(e.keyCode == 85 && e.keyCode == 16)
+	else if (e.keyCode == 80 && e.keyCode == 16)
 	{
-	UButton = false;
-	
+		PButton = false;
 	}
-	else if(e.keyCode == 86 && e.keyCode == 16)
+	else if (e.keyCode == 81 && e.keyCode == 16)
 	{
-	VButton = false;
-	
-	}	
-else if(e.keyCode == 87 && e.keyCode == 16)
-	{
-	WButton = false;
-	
+		QButton = false;
 	}
-	else if(e.keyCode == 88 && e.keyCode == 16)
+	else if (e.keyCode == 82 && e.keyCode == 16)
 	{
-	XButton = false;
-	
+		RButton = false;
 	}
-	else if(e.keyCode == 89 && e.keyCode == 16)
+	else if (e.keyCode == 83 && e.keyCode == 16)
 	{
-	YButton = false;
-	
+		SButton = false;
 	}
-	else if(e.keyCode == 90 && e.keyCode == 16)
+	else if (e.keyCode == 84 && e.keyCode == 16)
 	{
-	ZButton = false;
-	
+		TButton = false;
 	}
-	
-	else if(e.keyCode == 32)
+	else if (e.keyCode == 85 && e.keyCode == 16)
+	{
+		UButton = false;
+	}
+	else if (e.keyCode == 86 && e.keyCode == 16)
+	{
+		VButton = false;
+	}
+	else if (e.keyCode == 87 && e.keyCode == 16)
+	{
+		WButton = false;
+	}
+	else if (e.keyCode == 88 && e.keyCode == 16)
+	{
+		XButton = false;
+	}
+	else if (e.keyCode == 89 && e.keyCode == 16)
+	{
+		YButton = false;
+	}
+	else if (e.keyCode == 90 && e.keyCode == 16)
+	{
+		ZButton = false;
+	}
+
+	else if (e.keyCode == 32)
 	{
 		spaceBar = false;
-		
 	}
-	else if(e.keyCode == 13)
+	else if (e.keyCode == 13)
 	{
-	///enter
-	enterButton = false;
-	
+		///enter
+		enterButton = false;
 	}
-	else if(e.keyCode == 8)
+	else if (e.keyCode == 8)
 	{
-	///backspace
-	backButton = false;
-	
+		///backspace
+		backButton = false;
 	}
-	
-	
-	else if(shiftKey == true && e.keyCode == 49)
+
+	else if (shiftKey == true && e.keyCode == 49)
 	{
-	ePoint = false;
+		ePoint = false;
 	}
-	else if(shiftKey == true && e.keyCode == 50)
+	else if (shiftKey == true && e.keyCode == 50)
 	{
-	at = false;
+		at = false;
 	}
-	else if(shiftKey == true && e.keyCode == 51)
+	else if (shiftKey == true && e.keyCode == 51)
 	{
-	hashtag = false;
+		hashtag = false;
 	}
-	else if(shiftKey == true && e.keyCode == 52)
+	else if (shiftKey == true && e.keyCode == 52)
 	{
-	dollar = false;
+		dollar = false;
 	}
-	else if(shiftKey == true && e.keyCode == 53)
+	else if (shiftKey == true && e.keyCode == 53)
 	{
-	divide = false;
+		divide = false;
 	}
-	else if(shiftKey == true && e.keyCode == 54)
+	else if (shiftKey == true && e.keyCode == 54)
 	{
-	caret = false;
+		caret = false;
 	}
-	else if(shiftKey == true && e.keyCode == 55)
+	else if (shiftKey == true && e.keyCode == 55)
 	{
-	and = false;
+		and = false;
 	}
-	else if(shiftKey == true && e.keyCode == 56)
+	else if (shiftKey == true && e.keyCode == 56)
 	{
-	asterisk = false;
+		asterisk = false;
 	}
-	else if(shiftKey == true && e.keyCode == 57)
+	else if (shiftKey == true && e.keyCode == 57)
 	{
-	oParenth = false;
+		oParenth = false;
 	}
-	else if(shiftKey == true && e.keyCode == 48)
+	else if (shiftKey == true && e.keyCode == 48)
 	{
-	cParenth = false;
+		cParenth = false;
 	}
-	else if(e.keyCode == 189)
+	else if (e.keyCode == 189)
 	{
-	minus = false;
+		minus = false;
 	}
-	else if(shiftKey == true && e.keyCode == 189)
+	else if (shiftKey == true && e.keyCode == 189)
 	{
-	underscore = false;
+		underscore = false;
 	}
-	else if(e.keyCode == 187)
+	else if (e.keyCode == 187)
 	{
-	equals = false;
+		equals = false;
 	}
-	else if(shiftKey == true && e.keyCode == 187)
+	else if (shiftKey == true && e.keyCode == 187)
 	{
-	plus = false;
+		plus = false;
 	}
-	else if(e.keyCode == 219)
+	else if (e.keyCode == 219)
 	{
-	oBracket = false;
+		oBracket = false;
 	}
-	else if(shiftKey == true && e.keyCode == 219)
+	else if (shiftKey == true && e.keyCode == 219)
 	{
-	oCBracket = false;
+		oCBracket = false;
 	}
-	else if(e.keyCode == 221)
+	else if (e.keyCode == 221)
 	{
-	cBracket = false;
+		cBracket = false;
 	}
-	else if(shiftKey == true && e.keyCode == 221)
+	else if (shiftKey == true && e.keyCode == 221)
 	{
-	cCBracket = false;
+		cCBracket = false;
 	}
-	else if(shiftKey == true && e.keyCode == 220)
+	else if (shiftKey == true && e.keyCode == 220)
 	{
-	vBar = false;
+		vBar = false;
 	}
-	else if(e.keyCode == 186)
+	else if (e.keyCode == 186)
 	{
-	semiColon = false;
+		semiColon = false;
 	}
-	else if(shiftKey == true && e.keyCode == 186)
+	else if (shiftKey == true && e.keyCode == 186)
 	{
-	colon = false;
+		colon = false;
 	}
-	else if(e.keyCode == 222)
+	else if (e.keyCode == 222)
 	{
-	apostraphe = false;
+		apostraphe = false;
 	}
-	else if(shiftKey == true && e.keyCode == 222)
+	else if (shiftKey == true && e.keyCode == 222)
 	{
-	quote = false;
+		quote = false;
 	}
-	else if(e.keyCode == 188)
+	else if (e.keyCode == 188)
 	{
-	comma = false;
+		comma = false;
 	}
-	else if(shiftKey == true && e.keyCode == 188)
+	else if (shiftKey == true && e.keyCode == 188)
 	{
-	lessThan = false;
+		lessThan = false;
 	}
-	else if(e.keyCode == 190)
+	else if (e.keyCode == 190)
 	{
-	period = false;
+		period = false;
 	}
-	else if(shiftKey == true && e.keyCode == 190)
+	else if (shiftKey == true && e.keyCode == 190)
 	{
-	greaterThan = false;
+		greaterThan = false;
 	}
-	else if(e.keyCode == 191)
+	else if (e.keyCode == 191)
 	{
-	fSlash = false;
+		fSlash = false;
 	}
-	else if(shiftKey == true && e.keyCode == 191)
+	else if (shiftKey == true && e.keyCode == 191)
 	{
-	question = false;
+		question = false;
 	}
-	else if(e.keyCode == 192)
+	else if (e.keyCode == 192)
 	{
-	backTick = false;
+		backTick = false;
 	}
-	else if(shiftKey == true && e.keyCode == 192)
+	else if (shiftKey == true && e.keyCode == 192)
 	{
-	tilde = false;
+		tilde = false;
 	}
 }
