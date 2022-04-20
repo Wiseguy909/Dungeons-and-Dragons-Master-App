@@ -6,7 +6,7 @@
 	</style>
 </head>
 <body>
-<canvas id= "myCanvas" width="800" height="600"></canvas>
+<canvas id="myCanvas" width="800" height="600"></canvas>
 <script src="keyboard.js"></script>
 <script src="characterLibrary.js"></script>
 <script src="windows.js"></script>
@@ -16,9 +16,9 @@ let ctx = canvas.getContext("2d");
 canvas.addEventListener("mousemove", getPosition, false);
 canvas.addEventListener("mouseup", getMouseUp, false);
 canvas.addEventListener("mousedown", getMouseDown, false);
-document.addEventListener("keydown",keyDownHandler, false);
-document.addEventListener("keyup",keyUpHandler,false);
-ctx.canvas.width  = window.innerWidth;
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 //defining any needed variables
 let fps = 100;
@@ -58,13 +58,12 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight)
 	{
 		var words = text.split(' ');
 		var line = '';
-
 		for(var n = 0; n < words.length; n++)
 		{
 			var testLine = line + words[n] + ' ';
 			var metrics = ctx.measureText(testLine);
 			var testWidth = metrics.width;
-			if (testWidth > maxWidth && n > 0)
+			if(testWidth > maxWidth && n > 0)
 			{
 				ctx.fillText(line, x, y);
 				line = words[n] + ' ';
@@ -85,7 +84,7 @@ function draw()
 	setTimeout(function()
 	{
 		requestAnimationFrame(draw);
-		ctx.clearRect(0,0,wW,wH);
+		ctx.clearRect(0, 0, wW, wH);
 		///all code goes here
 		drawIcons();
 		drawWindows();
@@ -96,13 +95,9 @@ function draw()
 			oldMouseX = mouseX;
 			oldMouseY = mouseY;
 		}
-	}, 1000/fps);
+	}, 1000 / fps);
 }
 draw();
-
-
-//this is just a reminder for me on how to open PDFs
-//window.open("pdf url here", '_blank');
 
 </script>
 </body>

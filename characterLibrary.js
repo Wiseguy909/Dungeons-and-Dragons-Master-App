@@ -5,7 +5,7 @@ let classes = [];
 let races = [];
 let alignments = [];
 
-function character(slot,subrace)
+function character(slot, subrace)
 {
 	this.slot = slot;
 	this.name = "Name";
@@ -47,7 +47,6 @@ function character(slot,subrace)
 	this.tHP = "0";
 	this.speed = "30 Ft";
 	this.subrace = subrace;
-	
 }
 
 function proficiency(other)
@@ -92,13 +91,13 @@ function weapon()
 	this.details = "";
 }
 
-function race(races,subraces)
+function race(races, subraces)
 {
 	this.name = races;
 	this.sub = subraces;
 }
 
-function Class(classes,subclasses)
+function Class(classes, subclasses)
 {
 	this.name = classes;
 	this.sub = subclasses;
@@ -109,29 +108,29 @@ function alignment(alignments)
 	this.name = alignments;
 }
 
-races.push(new race("Dragonborn",["Black","Blue","Brass","Bronze","Copper","Gold","Green","Red","Silver","White"]));
-races.push(new race("Dwarf",["Hill","Mountain"]));
-races.push(new race("Elf",["High","Wood","Drow"]));
-races.push(new race("Gnome",["Deep","Rock"]));
-races.push(new race("Half-Elf",[]));
-races.push(new race("Halfling",["Lightfoot","Stout"]));
-races.push(new race("Half-Orc",[]));
-races.push(new race("Human",[]));
-races.push(new race("Tiefling",[]));
+races.push(new race("Dragonborn", ["Black", "Blue", "Brass", "Bronze", "Copper", "Gold", "Green", "Red", "Silver", "White"]));
+races.push(new race("Dwarf", ["Hill", "Mountain"]));
+races.push(new race("Elf", ["High", "Wood", "Drow"]));
+races.push(new race("Gnome", ["Deep", "Rock"]));
+races.push(new race("Half-Elf", []));
+races.push(new race("Halfling", ["Lightfoot", "Stout"]));
+races.push(new race("Half-Orc", []));
+races.push(new race("Human", []));
+races.push(new race("Tiefling", []));
 
-classes.push(new Class("Artificer",[]));
-classes.push(new Class("Barbarian",[]));
-classes.push(new Class("Bard",[]));
-classes.push(new Class("Cleric",[]));
-classes.push(new Class("Druid",[]));
-classes.push(new Class("Fighter",[]));
-classes.push(new Class("Monk",[]));
-classes.push(new Class("Paladin",[]));
-classes.push(new Class("Ranger",[]));
-classes.push(new Class("Rogue",[]));
-classes.push(new Class("Sorcerer",[]));
-classes.push(new Class("Warlock",[]));
-classes.push(new Class("Wizard",[]));
+classes.push(new Class("Artificer", []));
+classes.push(new Class("Barbarian", []));
+classes.push(new Class("Bard", []));
+classes.push(new Class("Cleric", []));
+classes.push(new Class("Druid", []));
+classes.push(new Class("Fighter", []));
+classes.push(new Class("Monk", []));
+classes.push(new Class("Paladin", []));
+classes.push(new Class("Ranger", []));
+classes.push(new Class("Rogue", []));
+classes.push(new Class("Sorcerer", []));
+classes.push(new Class("Warlock", []));
+classes.push(new Class("Wizard", []));
 
 alignments.push(new alignment("Lawful Good"));
 alignments.push(new alignment("Neutral Good"));
@@ -143,17 +142,12 @@ alignments.push(new alignment("Lawful Evil"));
 alignments.push(new alignment("Neutral Evil"));
 alignments.push(new alignment("Chaotic Evil"));
 
+for(let i = 0; i < 4; i++)
+{
+	equipment.push(new weapon());
+	proficiencies.push(new proficiency());
+}
 characters.push(new character(1));
 characters.push(new character(2));
 characters.push(new character(3));
 characters.push(new character(4));
-
-equipment.push(new weapon());
-equipment.push(new weapon());
-equipment.push(new weapon());
-equipment.push(new weapon());
-
-proficiencies.push(new proficiency());
-proficiencies.push(new proficiency());
-proficiencies.push(new proficiency());
-proficiencies.push(new proficiency());
