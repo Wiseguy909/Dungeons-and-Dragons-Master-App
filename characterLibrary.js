@@ -108,6 +108,90 @@ function alignment(alignments)
 	this.name = alignments;
 }
 
+//create classes in space below
+
+function template(subClasses)
+{
+	this.lvl = 1;
+	this.subClasses = subClasses;
+	this.features = ["Put features here","Multiple separated by commas"];
+	this.hd = "d4";
+	this.profI = ["Proficiencies for items, like tools, weapons, and vehicles. Languages go here, despite not being items."];
+	this.skA = ["Skills granted to every person in the class","If not applicable, leave this as blank brackets, like []"];
+	this.skC = ["Skills that you choose from","Number of skills goes on the line below"];
+	this.skCNum = 2;
+	this.e1 = ["Equipment you choose between.","The 'or' will be automatically placed in the creator"];
+	this.e2 = ["Leather Armor","Plate Armor"];
+	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
+	this.e4 = ["More equipment","More equipment"];
+	this.g = "Amount of gold present if you choose to buy equipment instead. Example: 12d8";
+	this.sp = //I'll figure this out later
+	this.spSlots //I'll figure this out later
+}
+
+function subclassTemplate()
+{
+	this.features = ["Subclass features go here"];
+}
+
+
+//Push this as an actual class with the following line, replacing the word "template" with the name of the function for your class.
+//classes.push(new template(["subclass names go here"]));
+
+/*     EXAMPLE - CHICKEN CLASS - Should probably be a race, but oh well, I guess I made a class
+function chicken(subClasses)
+{
+	this.lvl = 1;
+	this.subClasses = subClasses;
+	this.features = ["You have featherfalling at will", "You are short"];
+	this.hd = "d4";
+	this.profI = ["Land Vehicles", "Thief's tools"];
+	this.skA = ["Stealth"];
+	this.skC = ["Sleight of Hand","Acrobatics"];
+	this.skCNum = 2;
+	this.e1 = ["Longbow","Greatsword"];
+	this.e2 = ["Leather Armor","Plate Armor"];
+	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
+	this.e4 = ["200 gp","3 sp"];
+	this.g = "12d8";
+	this.sp = "wizard";
+	this.spSlots //I'll figure this out later
+}
+
+function badChicken()
+{
+	this.features = ["You have a movement speed of 2 ft", "Your ac is reduced by 5"]
+}
+
+function goodChicken()
+{
+	this.features = ["You have a flying speed of 200 ft", "You get 3 extra attacks"]
+}
+
+classes.push(new chicken(["badChicken","goodChicken"]);
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//create classes in space above
+
 races.push(new race("Dragonborn", ["Black", "Blue", "Brass", "Bronze", "Copper", "Gold", "Green", "Red", "Silver", "White"]));
 races.push(new race("Dwarf", ["Hill", "Mountain"]));
 races.push(new race("Elf", ["High", "Wood", "Drow"]));
