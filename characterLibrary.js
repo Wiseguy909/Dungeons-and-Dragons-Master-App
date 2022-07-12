@@ -131,7 +131,7 @@ function template(subClasses)
 
 function subclassTemplate()
 {
-	this.features = ["Subclass features go here"];
+	this.features = ["Subclass features go here", "More Features"];
 }
 
 
@@ -171,9 +171,31 @@ function goodChicken()
 classes.push(new chicken(["badChicken","goodChicken"]);
 */
 
+function Fighter(subClasses)
+{
+	this.lvl = 1;
+	this.subClasses = subClasses;
+	this.features = ["Put features here","Multiple separated by commas"];
+	this.hd = "d4";
+	this.profI = ["Proficiencies for items, like tools, weapons, and vehicles. Languages go here, despite not being items."];
+	this.skA = ["Skills granted to every person in the class","If not applicable, leave this as blank brackets, like []"];
+	this.skC = ["Skills that you choose from","Number of skills goes on the line below"];
+	this.skCNum = 2;
+	this.e1 = ["Equipment you choose between.","The 'or' will be automatically placed in the creator"];
+	this.e2 = ["Leather Armor","Plate Armor"];
+	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
+	this.e4 = ["More equipment","More equipment"];
+	this.g = "Amount of gold present if you choose to buy equipment instead. Example: 12d8";
+	this.sp = //I'll figure this out later
+	this.spSlots //I'll figure this out later
+}
 
+function Battlemaster()
+{
+	this.features = ["Subclass features go here","another feature"];
+}
 
-
+classes.push(new Fighter(["Arcane Archer","Battlemaster","Cavalier","Champion","Eldritch Knight","Gunslinger","Psi Warrier","Rune Knight",""]));
 
 
 
@@ -198,7 +220,7 @@ classes.push(new Class("Barbarian", []));
 classes.push(new Class("Bard", []));
 classes.push(new Class("Cleric", []));
 classes.push(new Class("Druid", []));
-classes.push(new Class("Fighter", []));
+//classes.push(new Class("Fighter", []));
 classes.push(new Class("Monk", []));
 classes.push(new Class("Paladin", []));
 classes.push(new Class("Ranger", []));
