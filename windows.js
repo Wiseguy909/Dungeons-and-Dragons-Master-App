@@ -791,7 +791,7 @@ function characterCreator(slot)
 		characters[slot].cha = abilityScore(characters[slot].cha, (wW / 2) + 338, 75, .6, "Charisma");
 		localStorage.setItem(JSON.stringify("cha" + slot), characters[slot].cha);
 
-		let dice = 5;
+		let dice = 4;
 		ctx.font = "30px Ariel";
 		ctx.fillText("Roll numbers?", wW / 2, 225);
 		if(mouseX >= (wW / 2 - 50) && mouseX <= (wW / 2 + 50) && mouseY >= 250 && mouseY <= 310)

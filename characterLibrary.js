@@ -181,15 +181,6 @@ classes.push(new chicken(["badChicken","goodChicken"]);
 
 
 
-
-
-
-
-
-
-
-
-
 //create classes in space above
 
 races.push(new race("Dragonborn", ["Black", "Blue", "Brass", "Bronze", "Copper", "Gold", "Green", "Red", "Silver", "White"]));
@@ -226,12 +217,9 @@ alignments.push(new alignment("Lawful Evil"));
 alignments.push(new alignment("Neutral Evil"));
 alignments.push(new alignment("Chaotic Evil"));
 
-for(let i = 0; i < 4; i++)
+for(let i = 1; i <= 4; i++)
 {
 	equipment.push(new weapon());
 	proficiencies.push(new proficiency());
+	characters.push(new character(i));
 }
-characters.push(new character(1));
-characters.push(new character(2));
-characters.push(new character(3));
-characters.push(new character(4));
