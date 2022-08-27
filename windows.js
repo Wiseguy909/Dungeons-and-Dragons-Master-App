@@ -42,6 +42,8 @@ let alignmentBox = false;
 let makeBoxSame = false;
 let makeListSame = "";
 let drawDice = false;
+let openFeature = -1;
+let openFeatureS = -1;
 //sheet paper images
 let sheet1 = new Image();
 sheet1.src = "images/sheet1.png";
@@ -665,6 +667,128 @@ function characterCreator(slot)
 				}
 			}
 		}
+		//display race features
+
+		for(let i = 0; i < races.length; i++)
+		{
+			if(characters[slot].race == races[i].name)
+			{
+				for(let j = 0; j < races[i].featureNames.length; j++)
+				{
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.font = "25px Ariel";
+					ctx.textAlign = "start";
+					let text = races[i].featureNames[j];
+					let textWidth = ctx.measureText(text);
+					ctx.fillText(races[i].featureNames[j],50,150 + (j*50));;
+					ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+					if(mouseX >= 50 && mouseX <= textWidth.width + 50 && mouseY >= (130 + (j*50)) && mouseY <= (155 + (j*50)))
+					{
+						ctx.fillStyle = "rgb(150,150,150)";
+						if(openFeature == -1)
+						{
+							ctx.fillText(races[i].featureNames[j],50,150 + (j*50));;
+							ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+						}
+						if(mouseIsDown)
+						{
+							mouseIsDown = false;
+							openFeature = j;
+							openFeatureS = -1;
+						}
+					}
+					if(openFeature != -1 && (mouseX < 50 || mouseX > textWidth.width || mouseY < (130 + (openFeature*50)) || mouseY > (155 + (openFeature*50))))
+					{
+						if(mouseIsDown)
+						{
+							mouseIsDown = false;
+							openFeature = -1;
+						}
+					}
+				}
+				if(openFeature < 7)
+				{
+					let height = wrapTextCount(ctx,races[i].features[openFeature],70,195 + (openFeature*50),560,28);
+					ctx.fillStyle = "rgb(200,200,200)";
+					ctx.fillRect(50, 160 + (openFeature*50),600,35 + height*(28));
+					ctx.fillStyle = "rgb(0,0,0)";
+					wrapText(ctx,races[i].features[openFeature],70,195 + (openFeature*50),560,28);
+					ctx.strokeRect(50, 160 + (openFeature*50),600,35 + height*(28));
+				}
+				else
+				{
+					let height = wrapTextCount(ctx,races[i].features[openFeature],270,50 + (openFeature*50),560,28);
+					ctx.fillStyle = "rgb(200,200,200)";
+					ctx.fillRect(250, 15 + (openFeature*50),600,35 + height*(28));
+					ctx.fillStyle = "rgb(0,0,0)";
+					wrapText(ctx,races[i].features[openFeature],270,50 + (openFeature*50),560,28);
+					ctx.strokeRect(250, 15 + (openFeature*50),600,35 + height*(28));
+				}
+			}
+		}
+		
+		//display subrace features
+		for(let i = 0; i < races.length; i++)
+		{
+			for(let j = 0; j < races[i].sub.length; j++)
+			{
+				if(characters[slot].race == races[i].name && characters[slot].subrace == races[i].sub[j].name)
+				{
+					for(let k = 0; k < races[i].sub[j].featureNames.length; k++)
+					{
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.font = "25px Ariel";
+						ctx.textAlign = "end";
+						let text = races[i].sub[j].featureNames[k];
+						let textWidth = ctx.measureText(text);
+						ctx.fillText(races[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
+						ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+						if(mouseX >= wW - 50 - textWidth.width && mouseX <= wW - 50 && mouseY >= (130 + (k*50)) && mouseY <= (155 + (k*50)))
+						{
+							ctx.fillStyle = "rgb(150,150,150)";
+							if(openFeatureS == -1)
+							{
+								ctx.fillText(races[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
+								ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+							}
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								openFeatureS = k;
+								openFeature = -1;
+							}
+						}
+						if(openFeatureS != -1 && (mouseX < wW - 50 - textWidth.width || mouseX > wW - 50 || mouseY < (130 + (openFeatureS*50)) || mouseY > (155 + (openFeatureS*50))))
+						{
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								openFeatureS = -1;
+							}
+						}
+						ctx.textAlign = "start";
+						if(openFeatureS < 7)
+						{
+							let height = wrapTextCount(ctx,races[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+							ctx.fillStyle = "rgb(0,0,0)";
+							wrapText(ctx,races[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
+							ctx.strokeRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+						}
+						else
+						{
+							let height = wrapTextCount(ctx,races[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+							ctx.fillStyle = "rgb(0,0,0)";
+							wrapText(ctx,races[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
+							ctx.strokeRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	if(step == 2) //class
@@ -695,9 +819,9 @@ function characterCreator(slot)
 			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 525, 13, classes, false);
 			classBox = makeBoxSame;
 			characters[slot].cClass = makeListSame;
-			characters[slot].subclass = "";
+			characters[slot].sClass = "";
 			localStorage.setItem(JSON.stringify("cClass" + slot), characters[slot].cClass);
-			localStorage.setItem(JSON.stringify("subclass" + slot), characters[slot].subclass);
+			localStorage.setItem(JSON.stringify("sClass" + slot), characters[slot].sClass);
 		}
 
 		//choose subclass
@@ -708,13 +832,13 @@ function characterCreator(slot)
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.fillText(characters[slot].subclass, wW / 2, 220);
+				ctx.fillText(characters[slot].sClass, wW / 2, 220);
 				if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 175 && mouseY <= 250)
 				{
 					ctx.fillStyle = "rgb(180,180,180)";
 					ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 					ctx.fillStyle = "rgb(0,0,0)";
-					ctx.fillText(characters[slot].subclass, wW / 2, 220);
+					ctx.fillText(characters[slot].sClass, wW / 2, 220);
 					if(mouseIsDown)
 					{
 						mouseIsDown = false;
@@ -729,12 +853,134 @@ function characterCreator(slot)
 					}
 					dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, classes[loc].sub.length * 50, classes[loc].sub.length, classes[loc].sub, true);
 					subclassBox = makeBoxSame;
-					characters[slot].subclass = makeListSame;
-					localStorage.setItem(JSON.stringify("subclass" + slot), characters[slot].subclass);
+					characters[slot].sClass = makeListSame;
+					localStorage.setItem(JSON.stringify("sClass" + slot), characters[slot].sClass);
 				}
 			}
 		}
 
+		//display class features
+
+		for(let i = 0; i < classes.length; i++)
+		{
+			if(characters[slot].cClass == classes[i].name)
+			{
+				for(let j = 0; j < classes[i].featureNames.length; j++)
+				{
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.font = "25px Ariel";
+					ctx.textAlign = "start";
+					let text = classes[i].featureNames[j];
+					let textWidth = ctx.measureText(text);
+					ctx.fillText(classes[i].featureNames[j],50,150 + (j*50));;
+					ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+					if(mouseX >= 50 && mouseX <= textWidth.width + 50 && mouseY >= (130 + (j*50)) && mouseY <= (155 + (j*50)))
+					{
+						if(openFeature == -1)
+						{
+							ctx.fillStyle = "rgb(150,150,150)";
+							ctx.fillText(classes[i].featureNames[j],50,150 + (j*50));
+							ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+						}
+						if(mouseIsDown)
+						{
+							mouseIsDown = false;
+							openFeature = j;
+							openFeatureS = -1;
+						}
+					}
+					if(openFeature != -1 && (mouseX < 50 || mouseX > textWidth.width || mouseY < (130 + (openFeature*50)) || mouseY > (155 + (openFeature*50))))
+					{
+						if(mouseIsDown)
+						{
+							mouseIsDown = false;
+							openFeature = -1;
+						}
+					}
+				}
+				if(openFeature < 7)
+				{
+					let height = wrapTextCount(ctx,classes[i].features[openFeature],70,50 + (openFeature*50),560,28);
+					ctx.fillStyle = "rgb(200,200,200)";
+					ctx.fillRect(50, 160 + (openFeature*50),600,35 + height*(28));
+					ctx.fillStyle = "rgb(0,0,0)";
+					wrapText(ctx,classes[i].features[openFeature],70,195 + (openFeature*50),560,28);
+					ctx.strokeRect(50, 160 + (openFeature*50),600,35 + height*(28));
+				}
+				else
+				{
+					let height = wrapTextCount(ctx,classes[i].features[openFeature],270,50 + (openFeature*50),560,28);
+					ctx.fillStyle = "rgb(200,200,200)";
+					ctx.fillRect(250, 15 + (openFeature*50),600,35 + height*(28));
+					ctx.fillStyle = "rgb(0,0,0)";
+					wrapText(ctx,classes[i].features[openFeature],270,50 + (openFeature*50),560,28);
+					ctx.strokeRect(250, 15 + (openFeature*50),600,35 + height*(28));
+				}
+			}
+		}
+		
+		//display subclass features
+		for(let i = 0; i < classes.length; i++)
+		{
+			for(let j = 0; j < classes[i].sub.length; j++)
+			{
+				if(characters[slot].cClass == classes[i].name && characters[slot].sClass == classes[i].sub[j].name)
+				{
+					for(let k = 0; k < classes[i].sub[j].featureNames.length; k++)
+					{
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.font = "25px Ariel";
+						ctx.textAlign = "end";
+						let text = classes[i].sub[j].featureNames[k];
+						let textWidth = ctx.measureText(text);
+						ctx.fillText(classes[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
+						ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+						if(mouseX >= wW - 50 - textWidth.width && mouseX <= wW - 50 && mouseY >= (130 + (k*50)) && mouseY <= (155 + (k*50)))
+						{
+							ctx.fillStyle = "rgb(150,150,150)";
+							if(openFeatureS == -1)
+							{
+								ctx.fillText(classes[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
+								ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+							}
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								openFeatureS = k;
+								openFeature = -1;
+							}
+						}
+						if(openFeatureS != -1 && (mouseX < wW - 50 - textWidth.width || mouseX > wW - 50 || mouseY < (130 + (openFeatureS*50)) || mouseY > (155 + (openFeatureS*50))))
+						{
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								openFeatureS = -1;
+							}
+						}
+					}
+					ctx.textAlign = "start";
+					if(openFeatureS < 7)
+					{
+						let height = wrapTextCount(ctx,classes[i].sub[j].features[openFeatureS],wW - 630,50 + (openFeatureS*50),560,28);
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+						ctx.fillStyle = "rgb(0,0,0)";
+						wrapText(ctx,classes[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
+						ctx.strokeRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+					}
+					else
+					{
+						let height = wrapTextCount(ctx,classes[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+						ctx.fillStyle = "rgb(0,0,0)";
+						wrapText(ctx,classes[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
+						ctx.strokeRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+					}
+				}
+			}
+		}
 	}
 
 	if(step == 3) //abilities
@@ -914,6 +1160,8 @@ function characterCreator(slot)
 			if(mouseIsDown)
 			{
 				mouseIsDown = false;
+				oldMouseX = mouseX;
+				oldMouseY = mouseY;
 			}
 		}
 		if(oldMouseX >= wW / 2 - 450 && oldMouseX <= wW / 2 - 200 && oldMouseY >= 75 && oldMouseY <= 150)
@@ -945,6 +1193,8 @@ function characterCreator(slot)
 			if(mouseIsDown)
 			{
 				mouseIsDown = false;
+				oldMouseX = mouseX;
+				oldMouseY = mouseY;
 			}
 		}
 		if(oldMouseX >= wW / 2 - 450 && oldMouseX <= wW / 2 - 200 && oldMouseY >= 200 && oldMouseY <= 275)
@@ -1901,17 +2151,17 @@ function dropDownBox(cR, cG, cB, rectX, rectY, rectL, rectH, listAmount, text, s
 		}
 		if(sub == true)
 		{
-			ctx.fillText(text[i], rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
+			ctx.fillText(text[i].name, rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
 			if(mouseX >= rectX && mouseX <= rectX + rectL && mouseY >= rectY + listPart && mouseY <= rectY + listPart + tabSize)
 			{
 				ctx.fillStyle = "rgb(" + (cR - 20) + "," + (cG - 20) + "," + (cB - 20) + ")";
 				ctx.fillRect(rectX, rectY + listPart, rectL, tabSize);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.fillText(text[i], rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
+				ctx.fillText(text[i].name, rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
 				if(mouseIsDown)
 				{
 					mouseIsDown = false;
-					makeListSame = text[i];
+					makeListSame = text[i].name;
 					makeBoxSame = false;
 				}
 			}
@@ -2186,10 +2436,10 @@ function useLocalStorage()
 		{
 			characters[i].subrace = "Subrace";
 		}
-		characters[i].subclass = localStorage.getItem(JSON.stringify("subclass" + i));
-		if(characters[i].subclass == null)
+		characters[i].sClass = localStorage.getItem(JSON.stringify("sClass" + i));
+		if(characters[i].sClass == null)
 		{
-			characters[i].subclass = "Subclass";
+			characters[i].sClass = "Subclass";
 		}
 	}
 }

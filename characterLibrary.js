@@ -5,11 +5,12 @@ let classes = [];
 let races = [];
 let alignments = [];
 
-function character(slot, subrace)
+function character(slot)
 {
 	this.slot = slot;
 	this.name = "Name";
 	this.cClass = "Class";
+	this.sClass = "Subclass";
 	this.level = 1;
 	this.maxHp = 0;
 	this.currentHp = 0;
@@ -46,7 +47,7 @@ function character(slot, subrace)
 	this.deathSaveF3 = false;
 	this.tHP = "0";
 	this.speed = "30 Ft";
-	this.subrace = subrace;
+	this.subrace = "Subrace";
 }
 
 function proficiency(other)
@@ -108,12 +109,13 @@ function alignment(alignments)
 	this.name = alignments;
 }
 
-//create classes in space below
+//templates
 
 function template(subClasses)
 {
 	this.lvl = 1;
-	this.subClasses = subClasses;
+	this.sub = subClasses
+	this.featureNames = ["Name 1","Name 2"];;
 	this.features = ["Put features here","Multiple separated by commas"];
 	this.hd = "d4";
 	this.profI = ["Proficiencies for items, like tools, weapons, and vehicles. Languages go here, despite not being items."];
@@ -135,51 +137,44 @@ function subclassTemplate()
 }
 
 
-//Push this as an actual class with the following line, replacing the word "template" with the name of the function for your class.
-//classes.push(new template(["subclass names go here"]));
 
-/*     EXAMPLE - CHICKEN CLASS - Should probably be a race, but oh well, I guess I made a class
-function chicken(subClasses)
+function raceTemplate(subRaces)
 {
+	this.name = "Name";
+	this.sub = subRaces;
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function subraceTemplate()
+{
+	this.name = "Name";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+
+//Create classes
+
+function Fighter(subclasses)
+{
+	this.name = "Fighter";
 	this.lvl = 1;
-	this.subClasses = subClasses;
-	this.features = ["You have featherfalling at will", "You are short"];
-	this.hd = "d4";
-	this.profI = ["Land Vehicles", "Thief's tools"];
-	this.skA = ["Stealth"];
-	this.skC = ["Sleight of Hand","Acrobatics"];
-	this.skCNum = 2;
-	this.e1 = ["Longbow","Greatsword"];
-	this.e2 = ["Leather Armor","Plate Armor"];
-	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
-	this.e4 = ["200 gp","3 sp"];
-	this.g = "12d8";
-	this.sp = "wizard";
-	this.spSlots //I'll figure this out later
-}
-
-function badChicken()
-{
-	this.features = ["You have a movement speed of 2 ft", "Your ac is reduced by 5"]
-}
-
-function goodChicken()
-{
-	this.features = ["You have a flying speed of 200 ft", "You get 3 extra attacks"]
-}
-
-classes.push(new chicken(["badChicken","goodChicken"]);
-*/
-
-function Fighter(subClasses)
-{
-	this.lvl = 1;
-	this.subClasses = subClasses;
-	this.features = ["Put features here","Multiple separated by commas"];
-	this.hd = "d4";
-	this.profI = ["Proficiencies for items, like tools, weapons, and vehicles. Languages go here, despite not being items."];
-	this.skA = ["Skills granted to every person in the class","If not applicable, leave this as blank brackets, like []"];
-	this.skC = ["Skills that you choose from","Number of skills goes on the line below"];
+	this.sub = subclasses;
+	this.featureNames = ["Fighting Style","Second Wind","Action Surge","Martial Archetype","Extra Attack","Indomitable","Ability Score Improvement","Proficiencies","Hit Points"];
+	this.features = ["You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a fighting style option more than once, even if you later get to choose again.",
+					"You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can choose a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.",
+					"Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a long or short rest before you can use it again. Starting at 17th level, you can use it twice before a rest, but only once on the same turn.",
+					"At 3rd level, you can choose an archetype that you strive to emulate in your combat styles and techniques. Choose a subclass. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.",
+					"Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn. The number of attacks increases to three when you reach 11th level in this class and to four when you reach 20th level in this class.",
+					"Beginning at 9th level, you can reroll a saving throw that you fail. If you do so, you must use the new roll, and you can't use this feature again until you finish a long rest. You can use this feature twice between long rests starting at 13th level and three times between long rests starting at 17th level.",
+					"When you reach 4th level, and again at 6th, 8th, 12th, 14th, 16th, and 19th level, you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature. Using the optional feats rule, you can forgo taking this feature to take a feature of your choice instead.",
+					"Armor: All armor, shields      Weapons: Simple weapons, martial weapons      Tools: None      Saving throws: Strength, Constitution      Skills: Choose two skills from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival",
+					"Hit Dice: 1d10 per fighter level      Hit Points at 1st Level: 10 + your constitution Modifier      Hit Points at Higher Levels: 1d10 (or 6) + your constitution modifier per fighter level after 1st"];
+	this.hd = "d10";
+	this.profI = ["All Armor","Shields","Simple Weapons","Martial Weapons"];
+	this.skA = ["Strength Saving Throws","Constitution Saving Throws"];
+	this.skC = ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"];
 	this.skCNum = 2;
 	this.e1 = ["Equipment you choose between.","The 'or' will be automatically placed in the creator"];
 	this.e2 = ["Leather Armor","Plate Armor"];
@@ -190,20 +185,111 @@ function Fighter(subClasses)
 	this.spSlots //I'll figure this out later
 }
 
-function Battlemaster()
+function ArcaneArcher()
 {
+	this.name = "Arcane Archer";
+	this.featureNames = ["Test 1","Test 2"];
 	this.features = ["Subclass features go here","another feature"];
 }
 
-classes.push(new Fighter(["Arcane Archer","Battlemaster","Cavalier","Champion","Eldritch Knight","Gunslinger","Psi Warrier","Rune Knight",""]));
+function Battlemaster()
+{
+	this.name = "Battlemaster";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function Cavalier()
+{
+	this.name = "Cavalier";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function Champion()
+{
+	this.name = "Champion";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function EldritchKnight()
+{
+	this.name = "Eldritch Knight";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function Gunslinger()
+{
+	this.name = "Gunslinger";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function PsiWarrier()
+{
+	this.name = "Psi Warrier";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+function RuneKnight()
+{
+	this.name = "Rune Knight";
+	this.featureNames = ["Test 1","Test 2"];
+	this.features = ["Subclass features go here","another feature"];
+}
+
+let fighterSub = [];
+fighterSub.push(new ArcaneArcher());
+fighterSub.push(new Battlemaster());
+fighterSub.push(new Cavalier());
+fighterSub.push(new Champion());
+fighterSub.push(new EldritchKnight());
+fighterSub.push(new Gunslinger());
+fighterSub.push(new PsiWarrier());
+fighterSub.push(new RuneKnight());
+classes.push(new Fighter(fighterSub));
 
 
 
+//create races
+
+function Human(subRaces)
+{
+	this.name = "Human";
+	this.sub = subRaces;
+	this.featureNames = ["Age","Size","Speed","Languages"];
+	this.features = ["Humans reach adulthood in their late teens and live less than a century.",
+					"Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is medium.",
+					"Your base walking speed is 30 feet.",
+					"You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on."];
+
+}
+
+function NormalHuman()
+{
+	this.name = "Normal Human";
+	this.featureNames = ["Ability Score Increase"];
+	this.features = ["Your ability scores each increase by 1."];
+}
+
+function VariantHuman()
+{
+	this.name = "Variant Human";
+	this.featureNames = ["Ability Score Increase","Skills","Feat"];
+	this.features = ["Two different ablility scores of your choice increase by 1.",
+					"You gain proficiency in one skill of your choice.",
+					"You gain one feat of your choice."];
+}
+
+let humanSub = [];
+humanSub.push(new NormalHuman());
+humanSub.push(new VariantHuman());
+races.push(new Human(humanSub));
 
 
-
-
-//create classes in space above
 
 races.push(new race("Dragonborn", ["Black", "Blue", "Brass", "Bronze", "Copper", "Gold", "Green", "Red", "Silver", "White"]));
 races.push(new race("Dwarf", ["Hill", "Mountain"]));
@@ -212,7 +298,7 @@ races.push(new race("Gnome", ["Deep", "Rock"]));
 races.push(new race("Half-Elf", []));
 races.push(new race("Halfling", ["Lightfoot", "Stout"]));
 races.push(new race("Half-Orc", []));
-races.push(new race("Human", []));
+//races.push(new race("Human", []));
 races.push(new race("Tiefling", []));
 
 classes.push(new Class("Artificer", []));
