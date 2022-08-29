@@ -44,6 +44,7 @@ let makeListSame = "";
 let drawDice = false;
 let openFeature = -1;
 let openFeatureS = -1;
+let goldRoll = 0;
 //sheet paper images
 let sheet1 = new Image();
 sheet1.src = "images/sheet1.png";
@@ -98,7 +99,7 @@ function drawIcons()
 		let img = new Image();
 		img.src = icons[i].address;
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.drawImage(img, icons[i].x, icons[i].y, icons[i].w, icons[i].h * (5 / 6));
 		ctx.textAlign = "center";
 		ctx.fillText(icons[i].name, icons[i].x + (icons[i].w / 2), icons[i].y + (icons[i].h * (5 / 6)) + 15);
@@ -138,7 +139,7 @@ function drawWindows()
 		img.src = windows[i].address;
 		//closing the window
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillStyle = "rgb(200,50,50)";
 		ctx.fillRect(windows[i].x, windows[i].y, windows[i].w, windows[i].h);
 		ctx.fillStyle = "rgb(0,0,0)";
@@ -159,14 +160,14 @@ function drawWindows()
 				menu = true;
 			}
 			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
+			ctx.font = "32px Arial";
 			ctx.fillText("X", windows[i].x + windows[i].w - 25,
 				windows[i].y - 4);
 		}
 		else
 		{
 			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "32px Ariel";
+			ctx.font = "32px Arial";
 			ctx.fillText("X", windows[i].x + windows[i].w - 25,
 				windows[i].y - 4);
 		}
@@ -180,7 +181,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
 				ctx.fillText("Create", windows[i].x + 75, windows[i].y + 120);
 			}
@@ -188,10 +189,10 @@ function drawWindows()
 			{
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
-				ctx.font = "30px Ariel";
+				ctx.font = "30px Arial";
 				ctx.fillText(characters[0].name, windows[i].x + 75, windows[i].y + 100);
 				ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP", windows[i].x + 75, windows[i].y + 150);
 				ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
@@ -201,7 +202,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect((windows[i].w / 2) + 25, windows[i].y + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 2", (windows[i].w / 2) + 75, windows[i].y + 75);
 				ctx.fillText("Create", (windows[i].w / 2) + 75, windows[i].y + 120);
 			}
@@ -209,10 +210,10 @@ function drawWindows()
 			{
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect((windows[i].w / 2) + 25, windows[i].y + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 2", (windows[i].w / 2) + 75, windows[i].y + 75);
-				ctx.font = "30px Ariel";
+				ctx.font = "30px Arial";
 				ctx.fillText(characters[1].name, windows[i].w / 2 + 75, windows[i].y + 100);
 				ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP", windows[i].w / 2 + 75, windows[i].y + 150);
 				ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w / 2 + 75, windows[i].y + 125);
@@ -222,7 +223,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect(windows[i].x + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h / 2) + 75);
 				ctx.fillText("Create", windows[i].x + 75, (windows[i].h / 2) + 120);
 			}
@@ -230,10 +231,10 @@ function drawWindows()
 			{
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect(windows[i].x + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h / 2) + 75);
-				ctx.font = "30px Ariel";
+				ctx.font = "30px Arial";
 				ctx.fillText(characters[2].name, windows[i].x + 75, windows[i].h / 2 + 100);
 				ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP", windows[i].x + 75, windows[i].h / 2 + 150);
 				ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h / 2 + 125);
@@ -243,7 +244,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect((windows[i].w / 2) + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 4", (windows[i].w / 2) + 75, (windows[i].h / 2) + 75);
 				ctx.fillText("Create", (windows[i].w / 2) + 75, (windows[i].h / 2) + 120);
 			}
@@ -251,10 +252,10 @@ function drawWindows()
 			{
 				ctx.fillStyle = "rgb(220,220,220)";
 				ctx.fillRect((windows[i].w / 2) + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText("Character 4", (windows[i].w / 2) + 75, (windows[i].h / 2) + 75);
-				ctx.font = "30px Ariel";
+				ctx.font = "30px Arial";
 				ctx.fillText(characters[3].name, windows[i].w / 2 + 75, windows[i].h / 2 + 100);
 				ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP", windows[i].w / 2 + 75, windows[i].h / 2 + 150);
 				ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w / 2 + 75, windows[i].h / 2 + 125);
@@ -265,16 +266,16 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 1", windows[i].x + 75, windows[i].y + 75);
 				if(characters[0].name == "Name")
 				{
-					ctx.font = "40px Ariel";
+					ctx.font = "40px Arial";
 					ctx.fillText("Create", windows[i].x + 75, windows[i].y + 120);
 				}
 				else
 				{
-					ctx.font = "30px Ariel";
+					ctx.font = "30px Arial";
 					ctx.fillText(characters[0].name, windows[i].x + 75, windows[i].y + 100);
 					ctx.fillText("Level " + characters[0].level + " " + characters[0].race + " " + characters[0].cClass, windows[i].x + 75, windows[i].y + 125);
 					ctx.fillText(characters[0].currentHp + "/" + characters[0].maxHp + " HP", windows[i].x + 75, windows[i].y + 150);
@@ -301,16 +302,16 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect((windows[i].w / 2) + 25, windows[i].y + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 2", (windows[i].w / 2) + 75, windows[i].y + 75);
 				if(characters[1].name == "Name")
 				{
-					ctx.font = "40px Ariel";
+					ctx.font = "40px Arial";
 					ctx.fillText("Create", (windows[i].w / 2) + 75, windows[i].y + 120);
 				}
 				else
 				{
-					ctx.font = "30px Ariel";
+					ctx.font = "30px Arial";
 					ctx.fillText(characters[1].name, windows[i].w / 2 + 75, windows[i].y + 100);
 					ctx.fillText("Level " + characters[1].level + " " + characters[1].race + " " + characters[1].cClass, windows[i].w / 2 + 75, windows[i].y + 125);
 					ctx.fillText(characters[1].currentHp + "/" + characters[1].maxHp + " HP", windows[i].w / 2 + 75, windows[i].y + 150);
@@ -337,16 +338,16 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect(windows[i].x + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 3", windows[i].x + 75, (windows[i].h / 2) + 75);
 				if(characters[2].name == "Name")
 				{
-					ctx.font = "40px Ariel";
+					ctx.font = "40px Arial";
 					ctx.fillText("Create", windows[i].x + 75, (windows[i].h / 2) + 120);
 				}
 				else
 				{
-					ctx.font = "30px Ariel";
+					ctx.font = "30px Arial";
 					ctx.fillText(characters[2].name, windows[i].x + 75, windows[i].h / 2 + 100);
 					ctx.fillText("Level " + characters[2].level + " " + characters[2].race + " " + characters[2].cClass, windows[i].x + 75, windows[i].h / 2 + 125);
 					ctx.fillText(characters[2].currentHp + "/" + characters[2].maxHp + " HP", windows[i].x + 75, windows[i].h / 2 + 150);
@@ -373,16 +374,16 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect((windows[i].w / 2) + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Character 4", (windows[i].w / 2) + 75, (windows[i].h / 2) + 75);
 				if(characters[3].name == "Name")
 				{
-					ctx.font = "40px Ariel";
+					ctx.font = "40px Arial";
 					ctx.fillText("Create", (windows[i].w / 2) + 75, (windows[i].h / 2) + 120);
 				}
 				else
 				{
-					ctx.font = "30px Ariel";
+					ctx.font = "30px Arial";
 					ctx.fillText(characters[3].name, windows[i].w / 2 + 75, windows[i].h / 2 + 100);
 					ctx.fillText("Level " + characters[3].level + " " + characters[3].race + " " + characters[3].cClass, windows[i].w / 2 + 75, windows[i].h / 2 + 125);
 					ctx.fillText(characters[3].currentHp + "/" + characters[3].maxHp + " HP", windows[i].w / 2 + 75, windows[i].h / 2 + 150);
@@ -415,7 +416,7 @@ function drawWindows()
 			ctx.fillRect((windows[i].w / 2) + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50); //4
 			ctx.fillStyle = "rgb(0,0,0)";
 
-			ctx.font = "40px Ariel";
+			ctx.font = "40px Arial";
 			ctx.fillText("Preset 1", windows[i].x + 75, windows[i].y + 75);
 			ctx.fillText("Preset 2", (windows[i].w / 2) + 75, windows[i].y + 75);
 			ctx.fillText("Preset 3", windows[i].x + 75, (windows[i].h / 2) + 75);
@@ -425,7 +426,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect(windows[i].x + 25, windows[i].y + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Preset 1", windows[i].x + 75, windows[i].y + 75);
 				if(mouseIsDown && windowOn == true)
 				{
@@ -438,7 +439,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect((windows[i].w / 2) + 25, windows[i].y + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Preset 2", (windows[i].w / 2) + 75, windows[i].y + 75);
 				if(mouseIsDown && windowOn == true)
 				{
@@ -451,7 +452,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect(windows[i].x + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 25, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Preset 3", windows[i].x + 75, (windows[i].h / 2) + 75);
 				if(mouseIsDown && windowOn == true)
 				{
@@ -464,7 +465,7 @@ function drawWindows()
 				ctx.fillStyle = "rgb(200,200,200)";
 				ctx.fillRect((windows[i].w / 2) + 25, (windows[i].h / 2) + 25, (windows[i].w / 2) - 50, (windows[i].h / 2) - 50);
 				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.font = "40px Ariel";
+				ctx.font = "40px Arial";
 				ctx.fillText("Preset 4", (windows[i].w / 2) + 75, (windows[i].h / 2) + 75);
 				if(mouseIsDown && windowOn == true)
 				{
@@ -550,7 +551,7 @@ function characterCreator(slot)
 			mouseIsDown = false;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 	else
@@ -558,7 +559,7 @@ function characterCreator(slot)
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(0, 0, 30, 30);
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 	//swap parts
@@ -596,7 +597,7 @@ function characterCreator(slot)
 		}
 	}
 	ctx.textAlign = "center";
-	ctx.font = "25px Ariel";
+	ctx.font = "25px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("Prev.", (wW / 2) - 50, wH - 20);
 	ctx.fillText("Next", (wW / 2) + 50, wH - 20);
@@ -676,7 +677,7 @@ function characterCreator(slot)
 				for(let j = 0; j < races[i].featureNames.length; j++)
 				{
 					ctx.fillStyle = "rgb(0,0,0)";
-					ctx.font = "25px Ariel";
+					ctx.font = "25px Arial";
 					ctx.textAlign = "start";
 					let text = races[i].featureNames[j];
 					let textWidth = ctx.measureText(text);
@@ -714,6 +715,11 @@ function characterCreator(slot)
 					ctx.fillStyle = "rgb(0,0,0)";
 					wrapText(ctx,races[i].features[openFeature],70,195 + (openFeature*50),560,28);
 					ctx.strokeRect(50, 160 + (openFeature*50),600,35 + height*(28));
+					if(races[i].choices[openFeature] == "Yes")
+					{
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(660, 160 + (openFeature*50),300,150);
+					}
 				}
 				else
 				{
@@ -737,7 +743,7 @@ function characterCreator(slot)
 					for(let k = 0; k < races[i].sub[j].featureNames.length; k++)
 					{
 						ctx.fillStyle = "rgb(0,0,0)";
-						ctx.font = "25px Ariel";
+						ctx.font = "25px Arial";
 						ctx.textAlign = "end";
 						let text = races[i].sub[j].featureNames[k];
 						let textWidth = ctx.measureText(text);
@@ -868,7 +874,7 @@ function characterCreator(slot)
 				for(let j = 0; j < classes[i].featureNames.length; j++)
 				{
 					ctx.fillStyle = "rgb(0,0,0)";
-					ctx.font = "25px Ariel";
+					ctx.font = "25px Arial";
 					ctx.textAlign = "start";
 					let text = classes[i].featureNames[j];
 					let textWidth = ctx.measureText(text);
@@ -929,7 +935,7 @@ function characterCreator(slot)
 					for(let k = 0; k < classes[i].sub[j].featureNames.length; k++)
 					{
 						ctx.fillStyle = "rgb(0,0,0)";
-						ctx.font = "25px Ariel";
+						ctx.font = "25px Arial";
 						ctx.textAlign = "end";
 						let text = classes[i].sub[j].featureNames[k];
 						let textWidth = ctx.measureText(text);
@@ -1038,7 +1044,7 @@ function characterCreator(slot)
 		localStorage.setItem(JSON.stringify("cha" + slot), characters[slot].cha);
 
 		let dice = 4;
-		ctx.font = "30px Ariel";
+		ctx.font = "30px Arial";
 		ctx.fillText("Roll numbers?", wW / 2, 225);
 		if(mouseX >= (wW / 2 - 50) && mouseX <= (wW / 2 + 50) && mouseY >= 250 && mouseY <= 310)
 		{
@@ -1095,7 +1101,7 @@ function characterCreator(slot)
 		if(drawDice)
 		{
 			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.font = "25px Ariel";
+			ctx.font = "25px Arial";
 			ctx.fillText(res1, wW / 2 - 125, 375);
 			ctx.fillText(res2, wW / 2 - 75, 375);
 			ctx.fillText(res3, wW / 2 - 25, 375);
@@ -1110,6 +1116,425 @@ function characterCreator(slot)
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.textAlign = "center";
 		ctx.fillText("4. Choose Equipment", wW / 2, 50);
+		for(let i = 0; i < classes.length; i++)
+		{
+			if(characters[slot].cClass == classes[i].name)
+			{
+				ctx.fillStyle = "rgb(200,200,200)";
+				ctx.fillRect(94, 15, 92, 40);
+				ctx.fillRect(194, 15, 92, 40);
+				if(mouseX >= 94 && mouseX <= 186 && mouseY >= 15 && mouseY <= 55)
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(94, 15, 92, 40);
+					if(mouseIsDown)
+					{
+						mouseIsDown = false;
+						characters[slot].bc = "choose";
+						localStorage.setItem(JSON.stringify("bc" + i), characters[slot].bc);
+					}
+				}
+				if(mouseX >= 194 && mouseX <= 286 && mouseY >= 15 && mouseY <= 55)
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(194, 15, 92, 40);
+					if(mouseIsDown)
+					{
+						mouseIsDown = false;
+						characters[slot].bc = "buy";
+						localStorage.setItem(JSON.stringify("bc" + i), characters[slot].bc);
+					}
+				}
+				ctx.textAlign = "center";
+				ctx.font = "25px Arial";
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText("Choose", 140, 43);
+				ctx.fillText("Buy", 240, 43);
+				if(characters[slot].bc == "choose")
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(94, 15, 92, 40);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.fillText("Choose", 140, 43);
+					for(let j = 0; j < 4; j++)
+					{
+						if(j == 0)
+						{
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.font = "25px Arial";
+							ctx.textAlign = "end";
+							let textWidth = ctx.measureText(classes[i].e1[0]);
+							if(characters[slot].ec1 != 1)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e1[0],wW/2 - 25,150);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,155,textWidth.width,2);
+							}
+							if(characters[slot].ec1 == 1)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e1[0],wW/2 - 25,150);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,155,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 - 25 - textWidth.width && mouseX <= wW/2 - 25 && mouseY >= 125 && mouseY <= 150)
+							{
+								if(characters[slot].ec1 != 1)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e1[0],wW/2 - 25,150);
+									ctx.fillRect(wW/2 - 25 - textWidth.width,155,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec1 = 1;
+									localStorage.setItem(JSON.stringify("ec1" + slot), JSON.stringify(characters[slot].ec1));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e1[1])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e1[0]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.textAlign = "center";
+							ctx.fillText("or",wW/2,150);
+							ctx.textAlign = "start";
+							textWidth = ctx.measureText(classes[i].e1[1]);
+							if(characters[slot].ec1 != 2)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e1[1],wW/2 + 25,150);
+								ctx.fillRect(wW/2 + 25,155,textWidth.width,2);
+							}
+							if(characters[slot].ec1 == 2)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e1[1],wW/2 + 25,150);
+								ctx.fillRect(wW/2 + 25,155,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 + 25 && mouseX <= wW/2 + 25 + textWidth.width && mouseY >= 125 && mouseY <= 150)
+							{
+								if(characters[slot].ec1 != 2)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e1[1],wW/2 + 25,150);
+									ctx.fillRect(wW/2 + 25,155,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec1 = 2;
+									localStorage.setItem(JSON.stringify("ec1" + slot), JSON.stringify(characters[slot].ec1));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e1[0])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e1[1]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+						}
+						if(j == 1)
+						{
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.font = "25px Arial";
+							ctx.textAlign = "end";
+							let textWidth = ctx.measureText(classes[i].e2[0]);
+							if(characters[slot].ec2 != 1)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e2[0],wW/2 - 25,200);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,205,textWidth.width,2);
+							}
+							if(characters[slot].ec2 == 1)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e2[0],wW/2 - 25,200);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,205,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 - 25 - textWidth.width && mouseX <= wW/2 - 25 && mouseY >= 175 && mouseY <= 200)
+							{
+								if(characters[slot].ec2 != 1)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e2[0],wW/2 - 25,200);
+									ctx.fillRect(wW/2 - 25 - textWidth.width,205,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec2 = 1;
+									localStorage.setItem(JSON.stringify("ec2" + slot), JSON.stringify(characters[slot].ec2));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e2[1])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e2[0]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.textAlign = "center";
+							ctx.fillText("or",wW/2,200);
+							ctx.textAlign = "start";
+							textWidth = ctx.measureText(classes[i].e2[1]);
+							if(characters[slot].ec2 != 2)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e2[1],wW/2 + 25,200);
+								ctx.fillRect(wW/2 + 25,205,textWidth.width,2);
+							}
+							if(characters[slot].ec2 == 2)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e2[1],wW/2 + 25,200);
+								ctx.fillRect(wW/2 + 25,205,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 + 25 && mouseX <= wW/2 + 25 + textWidth.width && mouseY >= 175 && mouseY <= 200)
+							{
+								if(characters[slot].ec2 != 2)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e2[1],wW/2 + 25,200);
+									ctx.fillRect(wW/2 + 25,205,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec2 = 2;
+									localStorage.setItem(JSON.stringify("ec2" + slot), JSON.stringify(characters[slot].ec2));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e2[0])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e2[1]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+						}
+						if(j == 2)
+						{
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.font = "25px Arial";
+							ctx.textAlign = "end";
+							let textWidth = ctx.measureText(classes[i].e3[0]);
+							if(characters[slot].ec3 != 1)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e3[0],wW/2 - 25,250);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,255,textWidth.width,2);
+							}
+							if(characters[slot].ec3 == 1)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e3[0],wW/2 - 25,250);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,255,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 - 25 - textWidth.width && mouseX <= wW/2 - 25 && mouseY >= 225 && mouseY <= 250)
+							{
+								if(characters[slot].ec3 != 1)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e3[0],wW/2 - 25,250);
+									ctx.fillRect(wW/2 - 25 - textWidth.width,255,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec3 = 1;
+									localStorage.setItem(JSON.stringify("ec3" + slot), JSON.stringify(characters[slot].ec3));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e3[1])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e3[0]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.textAlign = "center";
+							ctx.fillText("or",wW/2,250);
+							ctx.textAlign = "start";
+							textWidth = ctx.measureText(classes[i].e3[1]);
+							if(characters[slot].ec3 != 2)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e3[1],wW/2 + 25,250);
+								ctx.fillRect(wW/2 + 25,255,textWidth.width,2);
+							}
+							if(characters[slot].ec3 == 2)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e3[1],wW/2 + 25,250);
+								ctx.fillRect(wW/2 + 25,255,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 + 25 && mouseX <= wW/2 + 25 + textWidth.width && mouseY >= 225 && mouseY <= 250)
+							{
+								if(characters[slot].ec3 != 2)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e3[1],wW/2 + 25,250);
+									ctx.fillRect(wW/2 + 25,255,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec3 = 2;
+									localStorage.setItem(JSON.stringify("ec3" + slot), JSON.stringify(characters[slot].ec3));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e3[0])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e3[1]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+						}
+						if(j == 3)
+						{
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.font = "25px Arial";
+							ctx.textAlign = "end";
+							let textWidth = ctx.measureText(classes[i].e4[0]);
+							if(characters[slot].ec4 != 1)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e4[0],wW/2 - 25,300);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,305,textWidth.width,2);
+							}
+							if(characters[slot].ec4 == 1)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e4[0],wW/2 - 25,300);
+								ctx.fillRect(wW/2 - 25 - textWidth.width,305,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 - 25 - textWidth.width && mouseX <= wW/2 - 25 && mouseY >= 275 && mouseY <= 300)
+							{
+								if(characters[slot].ec4 != 1)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e4[0],wW/2 - 25,300);
+									ctx.fillRect(wW/2 - 25 - textWidth.width,305,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec4 = 1;
+									localStorage.setItem(JSON.stringify("ec4" + slot), JSON.stringify(characters[slot].ec4));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e4[1])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e4[0]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.textAlign = "center";
+							ctx.fillText("or",wW/2,300);
+							ctx.textAlign = "start";
+							textWidth = ctx.measureText(classes[i].e4[1]);
+							if(characters[slot].ec4 != 2)
+							{
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.fillText(classes[i].e4[1],wW/2 + 25,300);
+								ctx.fillRect(wW/2 + 25,305,textWidth.width,2);
+							}
+							if(characters[slot].ec4 == 2)
+							{
+								ctx.fillStyle = "rgb(50,125,50)";
+								ctx.fillText(classes[i].e4[1],wW/2 + 25,300);
+								ctx.fillRect(wW/2 + 25,305,textWidth.width,2);
+							}
+							if(mouseX >= wW/2 + 25 && mouseX <= wW/2 + 25 + textWidth.width && mouseY >= 275 && mouseY <= 300)
+							{
+								if(characters[slot].ec4 != 2)
+								{
+									ctx.fillStyle = "rgb(150,150,150)";
+									ctx.fillText(classes[i].e4[1],wW/2 + 25,300);
+									ctx.fillRect(wW/2 + 25,305,textWidth.width,2);
+								}
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									characters[slot].ec4 = 2;
+									localStorage.setItem(JSON.stringify("ec4" + slot), JSON.stringify(characters[slot].ec4));
+									for(let k = 0; k < characters[slot].equipment.length; k++)
+									{
+										if(characters[slot].equipment[k] == classes[i].e4[0])
+										{
+											characters[slot].equipment.splice(k,1);
+										}
+									}
+									characters[slot].equipment.push(classes[i].e4[1]);
+									localStorage.setItem(JSON.stringify("equipment" + slot), JSON.stringify(characters[slot].equipment));
+								}
+							}
+						}
+					}
+				}
+				if(characters[slot].bc == "buy")
+				{
+					ctx.fillStyle = "rgb(180,180,180)";
+					ctx.fillRect(194, 15, 92, 40);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.fillText("Buy", 240, 43);
+					localStorage.setItem(JSON.stringify("ec1" + slot), "-1");
+					localStorage.setItem(JSON.stringify("ec2" + slot), "-1");
+					localStorage.setItem(JSON.stringify("ec3" + slot), "-1");
+					localStorage.setItem(JSON.stringify("ec4" + slot), "-1");
+		 			localStorage.setItem(JSON.stringify("equipment" + slot), "[]");
+
+					ctx.fillStyle = "rgb(250,0,0)";
+					ctx.fillRect(wW/2 - 50, 150, 100, 60);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.textAlign = "center";
+					ctx.fillText("Class gold: " + classes[i].g, wW/2, 125);
+					ctx.fillText("Roll?", wW/2, 190);
+					if(mouseX >= wW/2 - 50 && mouseX <= wW/2 + 50 && mouseY >= 150 && mouseY <= 210)
+					{
+						ctx.fillStyle = "rgb(200,0,0)";
+						ctx.fillRect(wW/2 - 50, 150, 100, 60);
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.fillText("Roll?", wW/2, 190);
+						if(mouseIsDown)
+						{
+							mouseIsDown = false;
+							goldRoll = 0;
+							for(let j = 0; j < parseInt(classes[i].g.charAt(0)); j++)
+							{
+								goldRoll += (Math.floor(Math.random() * 4) + 1) * 10;
+							}
+						}
+					}
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.fillText("Gold: " + goldRoll, wW/2, 250);
+				}
+			}
+		}
 	}
 
 	if(step == 5) //description
@@ -1264,7 +1689,7 @@ function drawSpells(slot)
 			openTimer = 0;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 	else
@@ -1272,7 +1697,7 @@ function drawSpells(slot)
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(0, 0, 30, 30);
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 
@@ -1315,7 +1740,7 @@ function drawSheet(slot)
 			ctx.canvas.width = wW;
 		}
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 	else
@@ -1323,7 +1748,7 @@ function drawSheet(slot)
 		ctx.fillStyle = "rgb(210,210,210)";
 		ctx.fillRect(0, 0, 30, 30);
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "32px Ariel";
+		ctx.font = "32px Arial";
 		ctx.fillText("X", 3, 26);
 	}
 
@@ -1547,7 +1972,7 @@ function drawSheet(slot)
 	localStorage.setItem(JSON.stringify("inspiration" + slot), characters[slot].inspiration);
 
 	//draw text for some of the character attributes
-	ctx.font = "20px Ariel";
+	ctx.font = "20px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText(characters[slot].name, 60, 155 - 85);
 	ctx.textAlign = "center";
@@ -1555,7 +1980,7 @@ function drawSheet(slot)
 	ctx.fillText(Math.floor((characters[slot].wis - 10) / 2) + 10, 1000, 655);
 	ctx.textAlign = "start";
 
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText(characters[slot].cClass + " " + characters[slot].level, 320, 140 - 85);
 	wrapText(ctx, characters[slot].pTraits, 508, 151, 180, 16);
@@ -1578,7 +2003,7 @@ function drawSheet(slot)
 	ctx.fillText(characters[slot].wis, 751, 520);
 	ctx.fillText(characters[slot].cha, 751, 622);
 
-	ctx.font = "25px Ariel";
+	ctx.font = "25px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText(characters[slot].currentHp, 125, 280);
 	ctx.fillText(characters[slot].tHP, 125, 345);
@@ -1609,7 +2034,7 @@ function drawSheet(slot)
 
 	ctx.beginPath();
 	//proficiencies
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	function drawProficiencies(statType, profBonus, profType, x1, x2, y1, y2, arcX, arcY, textX, textY)
 	{
 		if(profType == "true")
@@ -1755,7 +2180,7 @@ function drawSheet(slot)
 	characterInfo(proficiencies[slot].other, 10, 237, 475, 668, 227, 193, .3);
 	proficiencies[slot].other = makeSame;
 	localStorage.setItem(JSON.stringify("otherProf" + slot), proficiencies[slot].other);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.textAlign = "start";
 	wrapText(ctx, proficiencies[slot].other, 15, 487, 225, 16);
@@ -1763,9 +2188,9 @@ function drawSheet(slot)
 	ctx.closePath();
 
 	//equipment
-	characterInfo(characters[slot].equipment, 323, 478, 440, 670, 155, 230, .3);
-	characters[slot].equipment = makeSame;
-	localStorage.setItem(JSON.stringify("equipment" + slot), characters[slot].equipment);
+	// characterInfo(characters[slot].equipment, 323, 478, 440, 670, 155, 230, .3);
+	// characters[slot].equipment = makeSame;
+	// localStorage.setItem(JSON.stringify("equipment" + slot), characters[slot].equipment);
 	//copper pieces
 	characterInfo(characters[slot].cp, 275, 310, 450, 475, 35, 25, .3);
 	characters[slot].cp = makeSame;
@@ -1828,9 +2253,9 @@ function drawSheet(slot)
 	localStorage.setItem(JSON.stringify("details" + slot), equipment[slot].details);
 
 
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
-	wrapText(ctx, characters[slot].equipment, 325, 452, 160, 15.2);
+	wrapText(ctx, characters[slot].equipment.join(", "), 325, 452, 160, 15.2);
 	ctx.textAlign = "center";
 	ctx.fillText(characters[slot].cp, 292, 467);
 	ctx.fillText(characters[slot].sp, 292, 503);
@@ -1876,7 +2301,7 @@ function dice()
 		}
 	}
 	ctx.fillStyle = "rgb(0,0,0)";
-	ctx.font = "20px Ariel";
+	ctx.font = "20px Arial";
 	ctx.fillText("How many?", 515, 600)
 	ctx.textAlign = "center";
 	ctx.fillText(diceNum, 640, 600);
@@ -1884,7 +2309,7 @@ function dice()
 	ctx.textAlign = "start";
 
 	//roll button
-	ctx.font = "30px Ariel";
+	ctx.font = "30px Arial";
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(515, 555 - 85, 155, 75);
 	ctx.fillStyle = "rgb(0,0,0)";
@@ -1894,7 +2319,7 @@ function dice()
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515, 555 - 85, 155, 75);
 		ctx.fillStyle = "rgb(0,0,0)";
-		ctx.font = "30px Ariel";
+		ctx.font = "30px Arial";
 		ctx.fillText("Roll Dice", 535, 600 - 85);
 		if(mouseIsDown)
 		{
@@ -1932,14 +2357,14 @@ function dice()
 	//d20
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(515, 530 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d20", 525, 545 - 85);
 	if(mouseX >= 515 && mouseX <= 560 && mouseY >= 530 - 85 && mouseY <= 550 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515, 530 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d20", 525, 545 - 85);
 		if(mouseIsDown)
@@ -1962,14 +2387,14 @@ function dice()
 	//d12
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(570, 530 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d12", 580, 545 - 85);
 	if(mouseX >= 570 && mouseX <= 615 && mouseY >= 530 - 85 && mouseY <= 550 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(570, 530 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d12", 580, 545 - 85);
 		if(mouseIsDown)
@@ -1992,14 +2417,14 @@ function dice()
 	//d10
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(625, 530 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d10", 635, 545 - 85);
 	if(mouseX >= 625 && mouseX <= 670 && mouseY >= 530 - 85 && mouseY <= 550 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(625, 530 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d10", 635, 545 - 85);
 		if(mouseIsDown)
@@ -2022,14 +2447,14 @@ function dice()
 	//d8
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(515, 635 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d8", 530, 650 - 85);
 	if(mouseX >= 515 && mouseX <= 560 && mouseY >= 635 - 85 && mouseY <= 655 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(515, 635 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d8", 530, 650 - 85);
 		if(mouseIsDown)
@@ -2052,14 +2477,14 @@ function dice()
 	//d6
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(570, 635 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d6", 585, 650 - 85);
 	if(mouseX >= 570 && mouseX <= 615 && mouseY >= 635 - 85 && mouseY <= 655 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(570, 635 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d6", 585, 650 - 85);
 		if(mouseIsDown)
@@ -2082,14 +2507,14 @@ function dice()
 	//d4
 	ctx.fillStyle = "rgb(175,175,175)";
 	ctx.fillRect(625, 635 - 85, 45, 20);
-	ctx.font = "15px Ariel";
+	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.fillText("d4", 640, 650 - 85);
 	if(mouseX >= 625 && mouseX <= 670 && mouseY >= 635 - 85 && mouseY <= 655 - 85)
 	{
 		ctx.fillStyle = "rgb(140,140,140)";
 		ctx.fillRect(625, 635 - 85, 45, 20);
-		ctx.font = "15px Ariel";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText("d4", 640, 650 - 85);
 		if(mouseIsDown)
@@ -2112,7 +2537,7 @@ function dice()
 	
 	ctx.strokeStyle = "rgb(0,0,0)";
 	ctx.strokeRect(550, 620, 100, 50);
-	ctx.font = "25px Ariel";
+	ctx.font = "25px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.textAlign = "center";
 	ctx.fillText(result, 600, 655);
@@ -2306,10 +2731,10 @@ function useLocalStorage()
 		{
 			characters[i].other = "";
 		}
-		characters[i].equipment = localStorage.getItem(JSON.stringify("equipment" + i));
+		characters[i].equipment = JSON.parse(localStorage.getItem(JSON.stringify("equipment" + i)));
 		if(characters[i].equipment == null)
 		{
-			characters[i].equipment = "";
+			characters[i].equipment = [];
 		}
 		characters[i].cp = localStorage.getItem(JSON.stringify("cp" + i));
 		if(characters[i].cp == null)
@@ -2440,6 +2865,31 @@ function useLocalStorage()
 		if(characters[i].sClass == null)
 		{
 			characters[i].sClass = "Subclass";
+		}
+		characters[i].ec1 = localStorage.getItem(JSON.stringify("ec1" + i));
+		if(characters[i].ec1 == null)
+		{
+			characters[i].ec1 = -1;
+		}
+		characters[i].ec2 = localStorage.getItem(JSON.stringify("ec2" + i));
+		if(characters[i].ec2 == null)
+		{
+			characters[i].ec2 = -1;
+		}
+		characters[i].ec3 = localStorage.getItem(JSON.stringify("ec3" + i));
+		if(characters[i].ec3 == null)
+		{
+			characters[i].ec3 = -1;
+		}
+		characters[i].ec4 = localStorage.getItem(JSON.stringify("ec4" + i));
+		if(characters[i].ec4 == null)
+		{
+			characters[i].ec4 = -1;
+		}
+		characters[i].bc = localStorage.getItem(JSON.stringify("bc" + i));
+		if(characters[i].bc == null)
+		{
+			characters[i].bc = "";
 		}
 	}
 }

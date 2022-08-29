@@ -27,7 +27,7 @@ function character(slot)
 	this.intelligence = "10";
 	this.cha = "10";
 	this.prof = "2";
-	this.equipment = "equipment";
+	this.equipment = [];
 	this.cp = "0";
 	this.sp = "0";
 	this.gp = "0";
@@ -48,6 +48,11 @@ function character(slot)
 	this.tHP = "0";
 	this.speed = "30 Ft";
 	this.subrace = "Subrace";
+	this.ec1 = -1;
+	this.ec2 = -1;
+	this.ec3 = -1;
+	this.ec4 = -1;
+	this.bc = "";
 }
 
 function proficiency(other)
@@ -109,49 +114,6 @@ function alignment(alignments)
 	this.name = alignments;
 }
 
-//templates
-
-function template(subClasses)
-{
-	this.lvl = 1;
-	this.sub = subClasses
-	this.featureNames = ["Name 1","Name 2"];;
-	this.features = ["Put features here","Multiple separated by commas"];
-	this.hd = "d4";
-	this.profI = ["Proficiencies for items, like tools, weapons, and vehicles. Languages go here, despite not being items."];
-	this.skA = ["Skills granted to every person in the class","If not applicable, leave this as blank brackets, like []"];
-	this.skC = ["Skills that you choose from","Number of skills goes on the line below"];
-	this.skCNum = 2;
-	this.e1 = ["Equipment you choose between.","The 'or' will be automatically placed in the creator"];
-	this.e2 = ["Leather Armor","Plate Armor"];
-	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
-	this.e4 = ["More equipment","More equipment"];
-	this.g = "Amount of gold present if you choose to buy equipment instead. Example: 12d8";
-	this.sp = //I'll figure this out later
-	this.spSlots //I'll figure this out later
-}
-
-function subclassTemplate()
-{
-	this.features = ["Subclass features go here", "More Features"];
-}
-
-
-
-function raceTemplate(subRaces)
-{
-	this.name = "Name";
-	this.sub = subRaces;
-	this.featureNames = ["Test 1","Test 2"];
-	this.features = ["Subclass features go here","another feature"];
-}
-
-function subraceTemplate()
-{
-	this.name = "Name";
-	this.featureNames = ["Test 1","Test 2"];
-	this.features = ["Subclass features go here","another feature"];
-}
 
 
 //Create classes
@@ -176,11 +138,11 @@ function Fighter(subclasses)
 	this.skA = ["Strength Saving Throws","Constitution Saving Throws"];
 	this.skC = ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"];
 	this.skCNum = 2;
-	this.e1 = ["Equipment you choose between.","The 'or' will be automatically placed in the creator"];
-	this.e2 = ["Leather Armor","Plate Armor"];
-	this.e3 = ["Adventurer's Pack","Dungeoneer's Pack"];
-	this.e4 = ["More equipment","More equipment"];
-	this.g = "Amount of gold present if you choose to buy equipment instead. Example: 12d8";
+	this.e1 = ["Chain Mail","Leather Armor"];
+	this.e2 = ["A martial weapon and a shield","Two martial weapons"];
+	this.e3 = ["A light crossbow and 20 bolts","Two handaxes"];
+	this.e4 = ["A dungeoneer's pack","An adventurer's Pack"];
+	this.g = "5d4 x 10";
 	this.sp = //I'll figure this out later
 	this.spSlots //I'll figure this out later
 }
@@ -209,8 +171,12 @@ function Cavalier()
 function Champion()
 {
 	this.name = "Champion";
-	this.featureNames = ["Test 1","Test 2"];
-	this.features = ["Subclass features go here","another feature"];
+	this.featureNames = ["Improved Critical","Remarkable Athlete","Additional Fighting Style","Superior Critical","Survivor"];
+	this.features = ["Beginning when you choose this archetype at 3rd level, your weapon attacks score a critical hit on a roll of 19 or 20.",
+					"Starting at 7th level, you can add half your proficiency bonus (round up) to any Strength, Dexterity, or Constitution check you make that doesn't already use your proficiency bonus. In addition, when you make a running long jump, the distance you can cover increases by a number of feet equal to your strength modifier.",
+					"At 10th level, you can choose a second option from the fighting style class feature.",
+					"Starting at 15th level, your weapon attacks score a critical hit on a roll of 18-20.",
+					"At 18th level, you attain the pinnacle of resilience in battle. At the start of each of your turns, you regain hit points equal to 5 + your Constitution modifier if you have no more than half of your hit points left. You don't gain this benifit if you have 0 hit points left."];
 }
 
 function EldritchKnight()
@@ -265,7 +231,8 @@ function Human(subRaces)
 					"Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is medium.",
 					"Your base walking speed is 30 feet.",
 					"You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on."];
-
+	this.choices = ["No","No","No","Yes"];
+	
 }
 
 function NormalHuman()
