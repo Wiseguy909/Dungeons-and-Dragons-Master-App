@@ -55,7 +55,7 @@ function character(slot)
 	this.bc = "";
 }
 
-function proficiency(other)
+function proficiency()
 {
 	this.strProf = false;
 	this.dexProf = false;
@@ -80,7 +80,7 @@ function proficiency(other)
 	this.sleightProf = false;
 	this.stealthProf = false;
 	this.survivalProf = false;
-	this.other = other;
+	this.other = [];
 }
 
 function weapon()
@@ -133,6 +133,10 @@ function Fighter(subclasses)
 					"When you reach 4th level, and again at 6th, 8th, 12th, 14th, 16th, and 19th level, you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature. Using the optional feats rule, you can forgo taking this feature to take a feature of your choice instead.",
 					"Armor: All armor, shields      Weapons: Simple weapons, martial weapons      Tools: None      Saving throws: Strength, Constitution      Skills: Choose two skills from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival",
 					"Hit Dice: 1d10 per fighter level      Hit Points at 1st Level: 10 + your constitution Modifier      Hit Points at Higher Levels: 1d10 (or 6) + your constitution modifier per fighter level after 1st"];
+	this.options = [["Archery","Blind Fighting","Defense","Dueling","Great Weapon Fighting","Interception","Protection","Superior Technique","Thrown Weapon Fighting","Two Weapon Fighting","Unarmed Fighting"],
+					[],[],["Subclasses"],[],[],["Ability","Score","Improvement"],["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"],[]];
+	this.choiceNums = ["1","","","1","","","2","2",""];
+	this.saveTo = ["","","","","","","","",""];
 	this.hd = "d10";
 	this.profI = ["All Armor","Shields","Simple Weapons","Martial Weapons"];
 	this.skA = ["Strength Saving Throws","Constitution Saving Throws"];
@@ -177,6 +181,9 @@ function Champion()
 					"At 10th level, you can choose a second option from the fighting style class feature.",
 					"Starting at 15th level, your weapon attacks score a critical hit on a roll of 18-20.",
 					"At 18th level, you attain the pinnacle of resilience in battle. At the start of each of your turns, you regain hit points equal to 5 + your Constitution modifier if you have no more than half of your hit points left. You don't gain this benifit if you have 0 hit points left."];
+	this.options = [[],[],["Archery","Blind Fighting","Defense","Dueling","Great Weapon Fighting","Interception","Protection","Superior Technique","Thrown Weapon Fighting","Two Weapon Fighting","Unarmed Fighting"],[],[]];
+	this.choiceNums = ["","","1","",""];
+	this.saveTo = ["","","features","",""];
 }
 
 function EldritchKnight()
@@ -231,8 +238,9 @@ function Human(subRaces)
 					"Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is medium.",
 					"Your base walking speed is 30 feet.",
 					"You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on."];
-	this.choices = ["No","No","No","Yes"];
-	
+	this.options = [[],[],[],["Dwarvish","Elvish","Giant","Gnomish","Goblin","Halfling","Orc","Abyssal","Celestial","Draconic","Deep Speech","Infernal","Primordial","Sylvan","Undercommon"]];
+	this.choiceNums = ["", "", "", "1"];
+	this.saveTo = ["","","","proficiencies"];
 }
 
 function NormalHuman()
@@ -240,6 +248,9 @@ function NormalHuman()
 	this.name = "Normal Human";
 	this.featureNames = ["Ability Score Increase"];
 	this.features = ["Your ability scores each increase by 1."];
+	this.options = [[]];
+	this.choiceNums = [""];
+	this.saveTo = [""];
 }
 
 function VariantHuman()
@@ -249,6 +260,11 @@ function VariantHuman()
 	this.features = ["Two different ablility scores of your choice increase by 1.",
 					"You gain proficiency in one skill of your choice.",
 					"You gain one feat of your choice."];
+	this.options = [["Strength","Dexterity","Constitution","Intelligence","Wisdom","Charisma"],
+					["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigatiom","Medicine","Nature","Perception","Performance","Persuasion","Religion","Sleight of Hand","Stealth","Survival"],
+					["Feats","Are","Not","Done","Yet"]];
+	this.choiceNums = ["2", "1", "1"];
+	this.saveTo = ["scores","skills","features"];
 }
 
 let humanSub = [];

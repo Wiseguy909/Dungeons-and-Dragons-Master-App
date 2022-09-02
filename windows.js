@@ -45,6 +45,18 @@ let drawDice = false;
 let openFeature = -1;
 let openFeatureS = -1;
 let goldRoll = 0;
+let choiceBox = false;
+let raceChosen = [[],[],[],[]];
+let raceChosen2 = [[],[],[],[]];
+let subRaceChosen = [[],[],[],[]];
+let subRaceChosen2 = [[],[],[],[]];
+let classChosen = [[],[],[],[]];
+let classChosen2 = [[],[],[],[]];
+let subClassChosen = [[],[],[],[]];
+let subClassChosen2 = [[],[],[],[]];
+let choiceAmount = 0;
+let temp1 = [];
+let temp2 = [];
 //sheet paper images
 let sheet1 = new Image();
 sheet1.src = "images/sheet1.png";
@@ -612,12 +624,14 @@ function characterCreator(slot)
 		ctx.fillRect(wW / 2 - 150, 75, 300, 75);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[slot].race, wW / 2, 120);
-		if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 75 && mouseY <= 150)
+		ctx.strokeRect(wW / 2 - 150, 75, 300, 75);
+		if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 75 && mouseY <= 150 && openFeature == -1 && openFeatureS == -1)
 		{
 			ctx.fillStyle = "rgb(180,180,180)";
 			ctx.fillRect(wW / 2 - 150, 75, 300, 75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].race, wW / 2, 120);
+			ctx.strokeRect(wW / 2 - 150, 75, 300, 75);
 			if(mouseIsDown)
 			{
 				mouseIsDown = false;
@@ -626,7 +640,9 @@ function characterCreator(slot)
 		}
 		if(raceBox)
 		{
-			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 400, 9, races, false);
+			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 400, 9, races, false, true);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.strokeRect(wW / 2 + 155, 75, 250, 400);
 			raceBox = makeBoxSame;
 			characters[slot].race = makeListSame;
 			characters[slot].subrace = "";
@@ -643,12 +659,14 @@ function characterCreator(slot)
 				ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText(characters[slot].subrace, wW / 2, 220);
-				if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 175 && mouseY <= 250)
+				ctx.strokeRect(wW / 2 - 150, 175, 300, 75);
+				if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 175 && mouseY <= 250 && openFeature == -1 && openFeatureS == -1)
 				{
 					ctx.fillStyle = "rgb(180,180,180)";
 					ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 					ctx.fillStyle = "rgb(0,0,0)";
 					ctx.fillText(characters[slot].subrace, wW / 2, 220);
+					ctx.strokeRect(wW / 2 - 150, 175, 300, 75);
 					if(mouseIsDown)
 					{
 						mouseIsDown = false;
@@ -661,7 +679,9 @@ function characterCreator(slot)
 					{
 						loc = i;
 					}
-					dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, races[loc].sub.length * 50, races[loc].sub.length, races[loc].sub, true);
+					dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, races[loc].sub.length * 50, races[loc].sub.length, races[loc].sub, true, true);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.strokeRect(wW / 2 + 155, 75, 250, races[loc].sub.length * 50);
 					subraceBox = makeBoxSame;
 					characters[slot].subrace = makeListSame;
 					localStorage.setItem(JSON.stringify("subrace" + slot), characters[slot].subrace);
@@ -669,7 +689,6 @@ function characterCreator(slot)
 			}
 		}
 		//display race features
-
 		for(let i = 0; i < races.length; i++)
 		{
 			if(characters[slot].race == races[i].name)
@@ -683,6 +702,11 @@ function characterCreator(slot)
 					let textWidth = ctx.measureText(text);
 					ctx.fillText(races[i].featureNames[j],50,150 + (j*50));;
 					ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+					if(raceChosen[slot][j] == "" && races[i].choiceNums[j] != "")
+					{
+						ctx.fillStyle = "rgb(200,0,0)";
+						ctx.fillText("!", 35, 150 + (j*50));
+					}
 					if(mouseX >= 50 && mouseX <= textWidth.width + 50 && mouseY >= (130 + (j*50)) && mouseY <= (155 + (j*50)))
 					{
 						ctx.fillStyle = "rgb(150,150,150)";
@@ -700,14 +724,43 @@ function characterCreator(slot)
 					}
 					if(openFeature != -1 && (mouseX < 50 || mouseX > textWidth.width || mouseY < (130 + (openFeature*50)) || mouseY > (155 + (openFeature*50))))
 					{
-						if(mouseIsDown)
+						if(openFeature < 6 && mouseIsDown && (mouseX < 450 || mouseX > 650 || mouseY < 40 + (openFeature*50) || mouseY > 140 + (openFeature*50)) &&
+						(mouseX < 240 || mouseX > 440 || mouseY < 40 + (openFeature*50) || mouseY > 140 + (openFeature*50)))
 						{
-							mouseIsDown = false;
-							openFeature = -1;
+							if(choiceBox && (mouseX < 670 || mouseX > 950 || mouseY < 30 + (openFeature*50) || mouseY > 30 + (openFeature*50) + races[i].options[openFeature].length * 26))
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+								choiceBox = false;
+							}
+							else if(!choiceBox)
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+							}
+						}
+						if(openFeature >= 6 && mouseIsDown && (mouseX < 650 || mouseX > 850 || mouseY < (-105) + (openFeature*50) || mouseY > (-5) + (openFeature*50)) &&
+						(mouseX < 440 || mouseX > 640 || mouseY < (-105) + (openFeature*50) || mouseY > (-5) + (openFeature*50)))
+						{
+							if(choiceBox && (mouseX < 870 || mouseX > 1150 || mouseY < (-115) + (openFeature*50) || mouseY > (-115) + (openFeature*50) + races[i].options[openFeature].length * 26))
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+								choiceBox = false;
+							}
+							else if(!choiceBox)
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+							}
 						}
 					}
+					if(raceChosen[slot][j] == null)
+					{
+						raceChosen[slot][j] = "";
+					}
 				}
-				if(openFeature < 7)
+				if(openFeature < 6 && openFeature != -1)
 				{
 					let height = wrapTextCount(ctx,races[i].features[openFeature],70,195 + (openFeature*50),560,28);
 					ctx.fillStyle = "rgb(200,200,200)";
@@ -715,13 +768,91 @@ function characterCreator(slot)
 					ctx.fillStyle = "rgb(0,0,0)";
 					wrapText(ctx,races[i].features[openFeature],70,195 + (openFeature*50),560,28);
 					ctx.strokeRect(50, 160 + (openFeature*50),600,35 + height*(28));
-					if(races[i].choices[openFeature] == "Yes")
+					if(races[i].choiceNums[openFeature] != "")
 					{
+						choiceAmount = races[i].options[openFeature].length;
 						ctx.fillStyle = "rgb(200,200,200)";
-						ctx.fillRect(660, 160 + (openFeature*50),300,150);
+						ctx.fillRect(450, 40 + (openFeature*50),200,100);
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.strokeRect(450, 40 + (openFeature*50),200,100);
+						ctx.textAlign = "center"
+						ctx.fillText(raceChosen[slot][openFeature], 550, 100 + (openFeature*50));
+						if(mouseX >= 450 && mouseX <= 650 && mouseY >= 40 + (openFeature*50) && mouseY <= 140 + (openFeature*50))
+						{
+							ctx.fillStyle = "rgb(180,180,180)";
+							ctx.fillRect(450, 40 + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(450, 40 + (openFeature*50),200,100);
+							ctx.fillText(raceChosen[slot][openFeature], 550, 100 + (openFeature*50));
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								choiceBox = true;
+							}
+						}
+						if(choiceBox == true && races[i].choiceNums[openFeature] == 1)
+						{
+							dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, choiceAmount, races[i].options[openFeature], "choose", true);
+							ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+							choiceBox = makeBoxSame;
+							raceChosen[slot][openFeature] = makeListSame;
+						}
+						if(races[i].choiceNums[openFeature] > 1)
+						{
+							let temp = races[i].options[openFeature];
+							temp1 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(raceChosen2[slot][openFeature] != temp[k])
+								{
+									temp1.push(temp[k])
+								}
+							}
+							temp2 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(raceChosen[slot][openFeature] != temp[k])
+								{
+									temp2.push(temp[k])
+								}
+							}
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(240, 40 + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(240, 40 + (openFeature*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(raceChosen2[slot][openFeature], 340, 100 + (openFeature*50));
+							if(mouseX >= 240 && mouseX <= 440 && mouseY >= 40 + (openFeature*50) && mouseY <= 140 + (openFeature*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(240, 40 + (openFeature*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(240, 40 + (openFeature*50),200,100);
+								ctx.fillText(raceChosen2[slot][openFeature], 340, 100 + (openFeature*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = 2;
+								}
+							}
+							if(choiceBox == 2)
+							{
+								dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+								ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								raceChosen2[slot][openFeature] = makeListSame;
+							}
+							if(choiceBox == true)
+							{
+								dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+								ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								raceChosen[slot][openFeature] = makeListSame;
+							}
+						}
 					}
 				}
-				else
+				else if(openFeature != -1)
 				{
 					let height = wrapTextCount(ctx,races[i].features[openFeature],270,50 + (openFeature*50),560,28);
 					ctx.fillStyle = "rgb(200,200,200)";
@@ -729,6 +860,89 @@ function characterCreator(slot)
 					ctx.fillStyle = "rgb(0,0,0)";
 					wrapText(ctx,races[i].features[openFeature],270,50 + (openFeature*50),560,28);
 					ctx.strokeRect(250, 15 + (openFeature*50),600,35 + height*(28));
+					if(races[i].choiceNums[openFeature] != "")
+					{
+						choiceAmount = races[i].options[openFeature].length;
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(650, (-105) + (openFeature*50),200,100);
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.strokeRect(650, (-105) + (openFeature*50),200,100);
+						ctx.textAlign = "center"
+						ctx.fillText(raceChosen[slot][openFeature], 750, (-45) + (openFeature*50));
+						if(mouseX >= 650 && mouseX <= 850 && mouseY >= (-105) + (openFeature*50) && mouseY <= (-5) + (openFeature*50))
+						{
+							ctx.fillStyle = "rgb(180,180,180)";
+							ctx.fillRect(650, (-105) + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(650, (-105) + (openFeature*50),200,100);
+							ctx.fillText(raceChosen[slot][openFeature], 750, (-45) + (openFeature*50));
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								choiceBox = true;
+							}
+						}
+						if(choiceBox == true && races[i].choiceNums[openFeature] == 1)
+						{
+							dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, choiceAmount, races[i].options[openFeature], "choose", true);
+							ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+							choiceBox = makeBoxSame;
+							raceChosen[slot][openFeature] = makeListSame;
+						}
+						if(races[i].choiceNums[openFeature] > 1)
+						{
+							let temp = races[i].options[openFeature];
+							temp1 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(raceChosen2[slot][openFeature] != temp[k])
+								{
+									temp1.push(temp[k])
+								}
+							}
+							temp2 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(raceChosen[slot][openFeature] != temp[k])
+								{
+									temp2.push(temp[k])
+								}
+							}
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(440, (-105) + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(440, (-105) + (openFeature*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(raceChosen2[slot][openFeature], 340, 100 + (openFeature*50));
+							if(mouseX >= 440 && mouseX <= 640 && mouseY >= (-105) + (openFeature*50) && mouseY <= (-5) + (openFeature*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(440, (-105) + (openFeature*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(440, (-105) + (openFeature*50),200,100);
+								ctx.fillText(raceChosen2[slot][openFeature], 540, (-45) + (openFeature*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = 2;
+								}
+							}
+							if(choiceBox == 2)
+							{
+								dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+								ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								raceChosen2[slot][openFeature] = makeListSame;
+							}
+							if(choiceBox == true)
+							{
+								dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+								ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								raceChosen[slot][openFeature] = makeListSame;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -749,6 +963,11 @@ function characterCreator(slot)
 						let textWidth = ctx.measureText(text);
 						ctx.fillText(races[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
 						ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+						if(subRaceChosen[slot][k] == "" && races[i].sub[j].choiceNums[k] != "")
+						{
+							ctx.fillStyle = "rgb(200,0,0)";
+							ctx.fillText("!", wW - 35, 150 + (k*50));
+						}
 						if(mouseX >= wW - 50 - textWidth.width && mouseX <= wW - 50 && mouseY >= (130 + (k*50)) && mouseY <= (155 + (k*50)))
 						{
 							ctx.fillStyle = "rgb(150,150,150)";
@@ -766,14 +985,47 @@ function characterCreator(slot)
 						}
 						if(openFeatureS != -1 && (mouseX < wW - 50 - textWidth.width || mouseX > wW - 50 || mouseY < (130 + (openFeatureS*50)) || mouseY > (155 + (openFeatureS*50))))
 						{
-							if(mouseIsDown)
+							if(openFeatureS < 6 && mouseIsDown && (mouseX < wW - 650 || mouseX > wW - 450 || mouseY < 40 + (openFeatureS*50) || mouseY > 140 + (openFeatureS*50)) &&
+							(mouseX < wW - 440 || mouseX > wW - 240 || mouseY < 40 + (openFeatureS*50) || mouseY > 140 + (openFeatureS*50)))
 							{
-								mouseIsDown = false;
-								openFeatureS = -1;
+								if(choiceBox && (mouseX < wW - 950 || mouseX > wW - 670 || mouseY < 30 + (openFeatureS*50) || mouseY > 30 + (openFeatureS*50) + choiceAmount * 26))
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+									choiceBox = false;
+								}
+								else if(!choiceBox)
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+								}
+							}
+							if(openFeatureS >= 6 && mouseIsDown && (mouseX < wW - 650 || mouseX > wW - 450 || mouseY < 40 + (openFeatureS*50) || mouseY > 140 + (openFeatureS*50)) &&
+							(mouseX < wW - 640 || mouseX > wW - 440 || mouseY < (-105) + (openFeatureS*50) || mouseY > (-5) + (openFeatureS*50)))
+							{
+								if(choiceBox && (mouseX < wW - 950 || mouseX > wW - 670 || mouseY < 30 + (openFeatureS*50) || mouseY > 30 + (openFeatureS*50) + choiceAmount * 26))
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+									choiceBox = false;
+								}
+								else if(!choiceBox)
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+								}
 							}
 						}
 						ctx.textAlign = "start";
-						if(openFeatureS < 7)
+						if(subRaceChosen[slot][k] == null)
+						{
+							subRaceChosen[slot][k] = "";
+						}
+						if(subRaceChosen2[slot][k] == null)
+						{
+							subRaceChosen2[slot][k] = "";
+						}
+						if(openFeatureS < 6 && openFeatureS != -1)
 						{
 							let height = wrapTextCount(ctx,races[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
 							ctx.fillStyle = "rgb(200,200,200)";
@@ -781,8 +1033,91 @@ function characterCreator(slot)
 							ctx.fillStyle = "rgb(0,0,0)";
 							wrapText(ctx,races[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
 							ctx.strokeRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+							if(races[i].sub[j].choiceNums[openFeatureS] != "")
+							{
+								choiceAmount = races[i].sub[j].options[openFeatureS].length
+								ctx.fillStyle = "rgb(200,200,200)";
+								ctx.fillRect(wW - 650, 40 + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 650, 40 + (openFeatureS*50),200,100);
+								ctx.textAlign = "center"
+								ctx.fillText(subRaceChosen[slot][openFeatureS], wW - 550, 100 + (openFeatureS*50));
+								if(mouseX >= wW - 650 && mouseX <= wW - 450 && mouseY >= 40 + (openFeatureS*50) && mouseY <= 140 + (openFeatureS*50))
+								{
+									ctx.fillStyle = "rgb(180,180,180)";
+									ctx.fillRect(wW - 650, 40 + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 650, 40 + (openFeatureS*50),200,100);
+									ctx.fillText(subRaceChosen[slot][openFeatureS], wW - 550, 100 + (openFeatureS*50));
+									if(mouseIsDown)
+									{
+										mouseIsDown = false;
+										choiceBox = true;
+									}
+								}
+								if(choiceBox == true && races[i].sub[j].choiceNums[openFeatureS] == 1)
+								{
+									dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, choiceAmount, races[i].sub[j].options[openFeatureS], "choose", true);
+									ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subRaceChosen[slot][openFeatureS] = makeListSame;
+								}
+								if(races[i].sub[j].choiceNums[openFeatureS] > 1)
+								{
+									let temp = races[i].sub[j].options[openFeatureS];
+									temp1 = [];
+									for(let k = 0; k < choiceAmount; k++)
+									{
+										if(subRaceChosen2[slot][openFeatureS] != temp[k])
+										{
+											temp1.push(temp[k])
+										}
+									}
+									temp2 = [];
+									for(let k = 0; k < choiceAmount; k++)
+									{
+										if(subRaceChosen[slot][openFeatureS] != temp[k])
+										{
+											temp2.push(temp[k])
+										}
+									}
+									ctx.fillStyle = "rgb(200,200,200)";
+									ctx.fillRect(wW - 440, 40 + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 440, 40 + (openFeatureS*50),200,100);
+									ctx.textAlign = "center"
+									ctx.fillText(subRaceChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+									if(mouseX >= wW - 440 && mouseX <= wW - 240 && mouseY >= 40 + (openFeatureS*50) && mouseY <= 140 + (openFeatureS*50))
+									{
+										ctx.fillStyle = "rgb(180,180,180)";
+										ctx.fillRect(wW - 440, 40 + (openFeatureS*50),200,100);
+										ctx.fillStyle = "rgb(0,0,0)";
+										ctx.strokeRect(wW - 440, 40 + (openFeatureS*50),200,100);
+										ctx.fillText(subRaceChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+										if(mouseIsDown)
+										{
+											mouseIsDown = false;
+											choiceBox = 2;
+										}
+									}
+									if(choiceBox == 2)
+									{
+										dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+										ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+										choiceBox = makeBoxSame;
+										subRaceChosen2[slot][openFeatureS] = makeListSame;
+									}
+									if(choiceBox == true)
+									{
+										dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+										ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+										choiceBox = makeBoxSame;
+										subRaceChosen[slot][openFeatureS] = makeListSame;
+									}
+								}
+							}
 						}
-						else
+						else if(openFeatureS != -1)
 						{
 							let height = wrapTextCount(ctx,races[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
 							ctx.fillStyle = "rgb(200,200,200)";
@@ -790,6 +1125,89 @@ function characterCreator(slot)
 							ctx.fillStyle = "rgb(0,0,0)";
 							wrapText(ctx,races[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
 							ctx.strokeRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+							if(races[i].sub[j].choiceNums[openFeatureS] != "")
+							{
+								choiceAmount = races[i].sub[j].options[openFeatureS].length
+								ctx.fillStyle = "rgb(200,200,200)";
+								ctx.fillRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+								ctx.textAlign = "center"
+								ctx.fillText(subRaceChosen[slot][openFeatureS], wW - 750, (-45) + (openFeatureS*50));
+								if(mouseX >= wW - 850 && mouseX <= wW - 650 && mouseY >= (-105) + (openFeatureS*50) && mouseY <= (-5) + (openFeatureS*50))
+								{
+									ctx.fillStyle = "rgb(180,180,180)";
+									ctx.fillRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 850, (-195) + (openFeatureS*50),200,100);
+									ctx.fillText(subRaceChosen[slot][openFeatureS], wW - 750, (-45) + (openFeatureS*50));
+									if(mouseIsDown)
+									{
+										mouseIsDown = false;
+										choiceBox = true;
+									}
+								}
+								if(choiceBox == true && races[i].sub[j].choiceNums[openFeatureS] == 1)
+								{
+									dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, choiceAmount, races[i].sub[j].options[openFeatureS], "choose", true);
+									ctx.strokeRect(wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subRaceChosen[slot][openFeatureS] = makeListSame;
+								}
+								if(races[i].sub[j].choiceNums[openFeatureS] > 1)
+								{
+									let temp = races[i].sub[j].options[openFeatureS];
+									temp1 = [];
+									for(let k = 0; k < choiceAmount; k++)
+									{
+										if(subRaceChosen2[slot][openFeatureS] != temp[k])
+										{
+											temp1.push(temp[k])
+										}
+									}
+									temp2 = [];
+									for(let k = 0; k < choiceAmount; k++)
+									{
+										if(subRaceChosen[slot][openFeatureS] != temp[k])
+										{
+											temp2.push(temp[k])
+										}
+									}
+									ctx.fillStyle = "rgb(200,200,200)";
+									ctx.fillRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+									ctx.textAlign = "center"
+									ctx.fillText(subRaceChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+									if(mouseX >= wW - 640 && mouseX <= wW - 440 && mouseY >= (-105) + (openFeatureS*50) && mouseY <= (-5) + (openFeatureS*50))
+									{
+										ctx.fillStyle = "rgb(180,180,180)";
+										ctx.fillRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+										ctx.fillStyle = "rgb(0,0,0)";
+										ctx.strokeRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+										ctx.fillText(subRaceChosen2[slot][openFeatureS], wW - 540, (-45) + (openFeatureS*50));
+										if(mouseIsDown)
+										{
+											mouseIsDown = false;
+											choiceBox = 2;
+										}
+									}
+									if(choiceBox == 2)
+									{
+										dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+										ctx.strokeRect(wW - 950, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+										choiceBox = makeBoxSame;
+										subRaceChosen2[slot][openFeatureS] = makeListSame;
+									}
+									if(choiceBox == true)
+									{
+										dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+										ctx.strokeRect(wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+										choiceBox = makeBoxSame;
+										subRaceChosen[slot][openFeatureS] = makeListSame;
+									}
+								}
+							}
 						}
 					}
 				}
@@ -808,12 +1226,14 @@ function characterCreator(slot)
 		ctx.fillRect(wW / 2 - 150, 75, 300, 75);
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillText(characters[slot].cClass, wW / 2, 120);
-		if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 75 && mouseY <= 150)
+		ctx.strokeRect(wW / 2 - 150, 75, 300, 75);
+		if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 75 && mouseY <= 150 && openFeature == -1 && openFeatureS == -1)
 		{
 			ctx.fillStyle = "rgb(180,180,180)";
 			ctx.fillRect(wW / 2 - 150, 75, 300, 75);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillText(characters[slot].cClass, wW / 2, 120);
+			ctx.strokeRect(wW / 2 - 150, 75, 300, 75);
 			if(mouseIsDown)
 			{
 				mouseIsDown = false;
@@ -822,7 +1242,9 @@ function characterCreator(slot)
 		}
 		if(classBox)
 		{
-			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 525, 13, classes, false);
+			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 525, 13, classes, false, true);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.strokeRect(wW / 2 + 155, 75, 250, 525);
 			classBox = makeBoxSame;
 			characters[slot].cClass = makeListSame;
 			characters[slot].sClass = "";
@@ -839,12 +1261,14 @@ function characterCreator(slot)
 				ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillText(characters[slot].sClass, wW / 2, 220);
-				if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 175 && mouseY <= 250)
+				ctx.strokeRect(wW / 2 - 150, 175, 300, 75);
+				if(mouseX >= wW / 2 - 150 && mouseX <= wW / 2 + 150 && mouseY >= 175 && mouseY <= 250 && openFeature == -1 && openFeatureS == -1)
 				{
 					ctx.fillStyle = "rgb(180,180,180)";
 					ctx.fillRect(wW / 2 - 150, 175, 300, 75);
 					ctx.fillStyle = "rgb(0,0,0)";
 					ctx.fillText(characters[slot].sClass, wW / 2, 220);
+					ctx.strokeRect(wW / 2 - 150, 175, 300, 75);
 					if(mouseIsDown)
 					{
 						mouseIsDown = false;
@@ -857,7 +1281,9 @@ function characterCreator(slot)
 					{
 						loc = i;
 					}
-					dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, classes[loc].sub.length * 50, classes[loc].sub.length, classes[loc].sub, true);
+					dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, classes[loc].sub.length * 50, classes[loc].sub.length, classes[loc].sub, true, true);
+					ctx.fillStyle = "rgb(0,0,0)";
+					ctx.strokeRect(wW / 2 + 155, 75, 250, classes[loc].sub.length * 50);
 					subclassBox = makeBoxSame;
 					characters[slot].sClass = makeListSame;
 					localStorage.setItem(JSON.stringify("sClass" + slot), characters[slot].sClass);
@@ -866,7 +1292,6 @@ function characterCreator(slot)
 		}
 
 		//display class features
-
 		for(let i = 0; i < classes.length; i++)
 		{
 			if(characters[slot].cClass == classes[i].name)
@@ -880,6 +1305,11 @@ function characterCreator(slot)
 					let textWidth = ctx.measureText(text);
 					ctx.fillText(classes[i].featureNames[j],50,150 + (j*50));;
 					ctx.fillRect(50, 155 + (j*50),textWidth.width,2);
+					if(classChosen[slot][j] == "" && classes[i].choiceNums[j] != "")
+					{
+						ctx.fillStyle = "rgb(200,0,0)";
+						ctx.fillText("!", 35, 150 + (j*50));
+					}
 					if(mouseX >= 50 && mouseX <= textWidth.width + 50 && mouseY >= (130 + (j*50)) && mouseY <= (155 + (j*50)))
 					{
 						if(openFeature == -1)
@@ -897,14 +1327,47 @@ function characterCreator(slot)
 					}
 					if(openFeature != -1 && (mouseX < 50 || mouseX > textWidth.width || mouseY < (130 + (openFeature*50)) || mouseY > (155 + (openFeature*50))))
 					{
-						if(mouseIsDown)
+						if(openFeature < 6 && mouseIsDown && (mouseX < 450 || mouseX > 650 || mouseY < 40 + (openFeature*50) || mouseY > 140 + (openFeature*50)) &&
+						(mouseX < 240 || mouseX > 440 || mouseY < 40 + (openFeature*50) || mouseY > 140 + (openFeature*50)))
 						{
-							mouseIsDown = false;
-							openFeature = -1;
+							if(choiceBox && (mouseX < 670 || mouseX > 950 || mouseY < 30 + (openFeature*50) || mouseY > 30 + (openFeature*50) + classes[i].options[openFeature].length * 26))
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+								choiceBox = false;
+							}
+							else if(!choiceBox)
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+							}
+						}
+						if(openFeature >= 6 && mouseIsDown && (mouseX < 650 || mouseX > 850 || mouseY < (-105) + (openFeature*50) || mouseY > (-5) + (openFeature*50)) &&
+						(mouseX < 440 || mouseX > 640 || mouseY < (-105) + (openFeature*50) || mouseY > (-5) + (openFeature*50)))
+						{
+							if(choiceBox && (mouseX < 870 || mouseX > 1150 || mouseY < (-115) + (openFeature*50) || mouseY > (-115) + (openFeature*50) + classes[i].options[openFeature].length * 26))
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+								choiceBox = false;
+							}
+							else if(!choiceBox)
+							{
+								mouseIsDown = false;
+								openFeature = -1;
+							}
 						}
 					}
+					if(classChosen[slot][j] == null)
+					{
+						classChosen[slot][j] = "";
+					}
+					if(classChosen2[slot][j] == null)
+					{
+						classChosen2[slot][j] = "";
+					}
 				}
-				if(openFeature < 7)
+				if(openFeature < 6 && openFeature != -1)
 				{
 					let height = wrapTextCount(ctx,classes[i].features[openFeature],70,50 + (openFeature*50),560,28);
 					ctx.fillStyle = "rgb(200,200,200)";
@@ -912,8 +1375,91 @@ function characterCreator(slot)
 					ctx.fillStyle = "rgb(0,0,0)";
 					wrapText(ctx,classes[i].features[openFeature],70,195 + (openFeature*50),560,28);
 					ctx.strokeRect(50, 160 + (openFeature*50),600,35 + height*(28));
+					if(classes[i].choiceNums[openFeature] != "")
+					{
+						choiceAmount = classes[i].options[openFeature].length;
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(450, 40 + (openFeature*50),200,100);
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.strokeRect(450, 40 + (openFeature*50),200,100);
+						ctx.textAlign = "center"
+						ctx.fillText(classChosen[slot][openFeature], 550, 100 + (openFeature*50));
+						if(mouseX >= 450 && mouseX <= 650 && mouseY >= 40 + (openFeature*50) && mouseY <= 140 + (openFeature*50))
+						{
+							ctx.fillStyle = "rgb(180,180,180)";
+							ctx.fillRect(450, 40 + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(450, 40 + (openFeature*50),200,100);
+							ctx.fillText(classChosen[slot][openFeature], 550, 100 + (openFeature*50));
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								choiceBox = true;
+							}
+						}
+						if(choiceBox == true && classes[i].choiceNums[openFeature] == 1)
+						{
+							dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, choiceAmount, classes[i].options[openFeature], "choose", true);
+							ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+							choiceBox = makeBoxSame;
+							classChosen[slot][openFeature] = makeListSame;
+						}
+						if(classes[i].choiceNums[openFeature] > 1)
+						{
+							let temp = classes[i].options[openFeature];
+							temp1 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(classChosen2[slot][openFeature] != temp[k])
+								{
+									temp1.push(temp[k])
+								}
+							}
+							temp2 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(classChosen[slot][openFeature] != temp[k])
+								{
+									temp2.push(temp[k])
+								}
+							}
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(240, 40 + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(240, 40 + (openFeature*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(classChosen2[slot][openFeature], 340, 100 + (openFeature*50));
+							if(mouseX >= 240 && mouseX <= 440 && mouseY >= 40 + (openFeature*50) && mouseY <= 140 + (openFeature*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(240, 40 + (openFeature*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(240, 40 + (openFeature*50),200,100);
+								ctx.fillText(classChosen2[slot][openFeature], 340, 100 + (openFeature*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = 2;
+								}
+							}
+							if(choiceBox == 2)
+							{
+								dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+								ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								classChosen2[slot][openFeature] = makeListSame;
+							}
+							if(choiceBox == true)
+							{
+								dropDownBox(200, 200, 200, 670, 30 + (openFeature*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+								ctx.strokeRect(670, 30 + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								classChosen[slot][openFeature] = makeListSame;
+							}
+						}
+					}
 				}
-				else
+				else if(openFeature != -1)
 				{
 					let height = wrapTextCount(ctx,classes[i].features[openFeature],270,50 + (openFeature*50),560,28);
 					ctx.fillStyle = "rgb(200,200,200)";
@@ -921,6 +1467,89 @@ function characterCreator(slot)
 					ctx.fillStyle = "rgb(0,0,0)";
 					wrapText(ctx,classes[i].features[openFeature],270,50 + (openFeature*50),560,28);
 					ctx.strokeRect(250, 15 + (openFeature*50),600,35 + height*(28));
+					if(classes[i].choiceNums[openFeature] != "")
+					{
+						choiceAmount = classes[i].options[openFeature].length;
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(650, (-105) + (openFeature*50),200,100);
+						ctx.fillStyle = "rgb(0,0,0)";
+						ctx.strokeRect(650, (-105) + (openFeature*50),200,100);
+						ctx.textAlign = "center"
+						ctx.fillText(classChosen[slot][openFeature], 750, (-45) + (openFeature*50));
+						if(mouseX >= 650 && mouseX <= 850 && mouseY >= (-105) + (openFeature*50) && mouseY <= (-5) + (openFeature*50))
+						{
+							ctx.fillStyle = "rgb(180,180,180)";
+							ctx.fillRect(650, (-105) + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(650, (-105) + (openFeature*50),200,100);
+							ctx.fillText(classChosen[slot][openFeature], 750, (-45) + (openFeature*50));
+							if(mouseIsDown)
+							{
+								mouseIsDown = false;
+								choiceBox = true;
+							}
+						}
+						if(choiceBox == true && classes[i].choiceNums[openFeature] == 1)
+						{
+							dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, choiceAmount, classes[i].options[openFeature], "choose", true);
+							ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+							choiceBox = makeBoxSame;
+							classChosen[slot][openFeature] = makeListSame;
+						}
+						if(classes[i].choiceNums[openFeature] > 1)
+						{
+							let temp = classes[i].options[openFeature];
+							temp1 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(classChosen2[slot][openFeature] != temp[k])
+								{
+									temp1.push(temp[k])
+								}
+							}
+							temp2 = [];
+							for(let k = 0; k < choiceAmount; k++)
+							{
+								if(classChosen[slot][openFeature] != temp[k])
+								{
+									temp2.push(temp[k])
+								}
+							}
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(440, (-105) + (openFeature*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(440, (-105) + (openFeature*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(classChosen2[slot][openFeature], 540, (-45) + (openFeature*50));
+							if(mouseX >= 440 && mouseX <= 640 && mouseY >= (-105) + (openFeature*50) && mouseY <= (-5) + (openFeature*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(440, (-105) + (openFeature*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(440, (-105) + (openFeature*50),200,100);
+								ctx.fillText(classChosen2[slot][openFeature], 540, (-45) + (openFeature*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = 2;
+								}
+							}
+							if(choiceBox == 2)
+							{
+								dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+								ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								classChosen2[slot][openFeature] = makeListSame;
+							}
+							if(choiceBox == true)
+							{
+								dropDownBox(200, 200, 200, 870, (-115) + (openFeature*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+								ctx.strokeRect(870, (-115) + (openFeature*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								classChosen[slot][openFeature] = makeListSame;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -941,6 +1570,11 @@ function characterCreator(slot)
 						let textWidth = ctx.measureText(text);
 						ctx.fillText(classes[i].sub[j].featureNames[k],wW - 50,150 + (k*50));
 						ctx.fillRect(wW - 50 - textWidth.width, 155 + (k*50),textWidth.width,2);
+						if(subClassChosen[slot][k] == "" && classes[i].sub[j].choiceNums[k] != "")
+						{
+							ctx.fillStyle = "rgb(200,0,0)";
+							ctx.fillText("!", wW - 35, 150 + (k*50));
+						}
 						if(mouseX >= wW - 50 - textWidth.width && mouseX <= wW - 50 && mouseY >= (130 + (k*50)) && mouseY <= (155 + (k*50)))
 						{
 							ctx.fillStyle = "rgb(150,150,150)";
@@ -958,15 +1592,42 @@ function characterCreator(slot)
 						}
 						if(openFeatureS != -1 && (mouseX < wW - 50 - textWidth.width || mouseX > wW - 50 || mouseY < (130 + (openFeatureS*50)) || mouseY > (155 + (openFeatureS*50))))
 						{
-							if(mouseIsDown)
+							if(openFeatureS < 7 && mouseIsDown && (mouseX < wW - 650 || mouseX > wW - 450 || mouseY < 40 + (openFeatureS*50) || mouseY > 140 + (openFeatureS*50)))
 							{
-								mouseIsDown = false;
-								openFeatureS = -1;
+								if(choiceBox && (mouseX < wW - 950 || mouseX > wW - 670 || mouseY < 30 + (openFeatureS*50) || mouseY > 30 + (openFeatureS*50) + choiceAmount * 26))
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+									choiceBox = false;
+								}
+								else if(!choiceBox)
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+								}
 							}
+							if(openFeatureS >= 7 && mouseIsDown && (mouseX < wW - 650 || mouseX > wW - 450 || mouseY < 40 + (openFeatureS*50) || mouseY > 140 + (openFeatureS*50)))
+							{
+								if(choiceBox && (mouseX < wW - 950 || mouseX > wW - 670 || mouseY < 30 + (openFeatureS*50) || mouseY > 30 + (openFeatureS*50) + choiceAmount * 26))
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+									choiceBox = false;
+								}
+								else if(!choiceBox)
+								{
+									mouseIsDown = false;
+									openFeatureS = -1;
+								}
+							}
+						}
+						if(subClassChosen[slot][k] == null)
+						{
+							subClassChosen[slot][k] = "";
 						}
 					}
 					ctx.textAlign = "start";
-					if(openFeatureS < 7)
+					if(openFeatureS < 7 && openFeatureS != -1)
 					{
 						let height = wrapTextCount(ctx,classes[i].sub[j].features[openFeatureS],wW - 630,50 + (openFeatureS*50),560,28);
 						ctx.fillStyle = "rgb(200,200,200)";
@@ -974,8 +1635,91 @@ function characterCreator(slot)
 						ctx.fillStyle = "rgb(0,0,0)";
 						wrapText(ctx,classes[i].sub[j].features[openFeatureS],wW - 630,195 + (openFeatureS*50),560,28);
 						ctx.strokeRect(wW - 650, 160 + (openFeatureS*50),600,35 + height*(28));
+						if(classes[i].sub[j].choiceNums[openFeatureS] != "")
+						{
+							choiceAmount = classes[i].sub[j].options[openFeatureS].length;
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(wW - 650, 40 + (openFeatureS*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(wW - 650, 40 + (openFeatureS*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(subClassChosen[slot][openFeatureS], wW - 550, 100 + (openFeatureS*50));
+							if(mouseX >= wW - 650 && mouseX <= wW - 450 && mouseY >= 40 + (openFeatureS*50) && mouseY <= 140 + (openFeatureS*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(wW - 650, 40 + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 650, 40 + (openFeatureS*50),200,100);
+								ctx.fillText(subClassChosen[slot][openFeatureS], wW - 550, 100 + (openFeatureS*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = true;
+								}
+							}
+							if(choiceBox == true && classes[i].sub[j].choiceNums[openFeatureS] == 1)
+							{
+								dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, choiceAmount, classes[i].sub[j].options[openFeatureS], "choose", true);
+								ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								subClassChosen[slot][openFeatureS] = makeListSame;
+							}
+							if(classes[i].sub[j].choiceNums[openFeatureS] > 1)
+							{
+								let temp = classes[i].sub[j].options[openFeatureS];
+								temp1 = [];
+								for(let k = 0; k < choiceAmount; k++)
+								{
+									if(subClassChosen2[slot][openFeatureS] != temp[k])
+									{
+										temp1.push(temp[k])
+									}
+								}
+								temp2 = [];
+								for(let k = 0; k < choiceAmount; k++)
+								{
+									if(subClassChosen[slot][openFeatureS] != temp[k])
+									{
+										temp2.push(temp[k])
+									}
+								}
+								ctx.fillStyle = "rgb(200,200,200)";
+								ctx.fillRect(wW - 440, 40 + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 440, 40 + (openFeatureS*50),200,100);
+								ctx.textAlign = "center"
+								ctx.fillText(subClassChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+								if(mouseX >= wW - 440 && mouseX <= wW - 240 && mouseY >= 40 + (openFeatureS*50) && mouseY <= 140 + (openFeatureS*50))
+								{
+									ctx.fillStyle = "rgb(180,180,180)";
+									ctx.fillRect(wW - 440, 40 + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 440, 40 + (openFeatureS*50),200,100);
+									ctx.fillText(subClassChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+									if(mouseIsDown)
+									{
+										mouseIsDown = false;
+										choiceBox = 2;
+									}
+								}
+								if(choiceBox == 2)
+								{
+									dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+									ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subClassChosen2[slot][openFeatureS] = makeListSame;
+								}
+								if(choiceBox == true)
+								{
+									dropDownBox(200, 200, 200, wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+									ctx.strokeRect(wW - 950, 30 + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subClassChosen[slot][openFeatureS] = makeListSame;
+								}
+							}
+						}
 					}
-					else
+					else if(openFeatureS != -1)
 					{
 						let height = wrapTextCount(ctx,classes[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
 						ctx.fillStyle = "rgb(200,200,200)";
@@ -983,6 +1727,89 @@ function characterCreator(slot)
 						ctx.fillStyle = "rgb(0,0,0)";
 						wrapText(ctx,classes[i].sub[j].features[openFeatureS],wW - 830,50 + (openFeatureS*50),560,28);
 						ctx.strokeRect(wW - 850, 15 + (openFeatureS*50),600,35 + height*(28));
+						if(classes[i].sub[j].choiceNums[openFeatureS] != "")
+						{
+							choiceAmount = classes[i].sub[j].options[openFeatureS].length
+							ctx.fillStyle = "rgb(200,200,200)";
+							ctx.fillRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+							ctx.fillStyle = "rgb(0,0,0)";
+							ctx.strokeRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+							ctx.textAlign = "center"
+							ctx.fillText(subClassChosen[slot][openFeatureS], wW - 750, (-45) + (openFeatureS*50));
+							if(mouseX >= wW - 850 && mouseX <= wW - 650 && mouseY >= (-105) + (openFeatureS*50) && mouseY <= (-5) + (openFeatureS*50))
+							{
+								ctx.fillStyle = "rgb(180,180,180)";
+								ctx.fillRect(wW - 850, (-105) + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 850, (-195) + (openFeatureS*50),200,100);
+								ctx.fillText(subClassChosen[slot][openFeatureS], wW - 750, (-45) + (openFeatureS*50));
+								if(mouseIsDown)
+								{
+									mouseIsDown = false;
+									choiceBox = true;
+								}
+							}
+							if(choiceBox == true && classes[i].sub[j].choiceNums[openFeatureS] == 1)
+							{
+								dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, choiceAmount, classes[i].sub[j].options[openFeatureS], "choose", true);
+								ctx.strokeRect(wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+								choiceBox = makeBoxSame;
+								subClassChosen[slot][openFeatureS] = makeListSame;
+							}
+							if(classes[i].sub[j].choiceNums[openFeatureS] > 1)
+							{
+								let temp = classes[i].sub[j].options[openFeatureS];
+								temp1 = [];
+								for(let k = 0; k < choiceAmount; k++)
+								{
+									if(subClassChosen2[slot][openFeatureS] != temp[k])
+									{
+										temp1.push(temp[k])
+									}
+								}
+								temp2 = [];
+								for(let k = 0; k < choiceAmount; k++)
+								{
+									if(subClassChosen[slot][openFeatureS] != temp[k])
+									{
+										temp2.push(temp[k])
+									}
+								}
+								ctx.fillStyle = "rgb(200,200,200)";
+								ctx.fillRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+								ctx.fillStyle = "rgb(0,0,0)";
+								ctx.strokeRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+								ctx.textAlign = "center"
+								ctx.fillText(subClassChosen2[slot][openFeatureS], wW - 340, 100 + (openFeatureS*50));
+								if(mouseX >= wW - 640 && mouseX <= wW - 440 && mouseY >= (-105) + (openFeatureS*50) && mouseY <= (-5) + (openFeatureS*50))
+								{
+									ctx.fillStyle = "rgb(180,180,180)";
+									ctx.fillRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+									ctx.fillStyle = "rgb(0,0,0)";
+									ctx.strokeRect(wW - 640, (-105) + (openFeatureS*50),200,100);
+									ctx.fillText(subClassChosen2[slot][openFeatureS], wW - 540, (-45) + (openFeatureS*50));
+									if(mouseIsDown)
+									{
+										mouseIsDown = false;
+										choiceBox = 2;
+									}
+								}
+								if(choiceBox == 2)
+								{
+									dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, temp2.length, temp2, "choose", 2);
+									ctx.strokeRect(wW - 950, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subClassChosen2[slot][openFeatureS] = makeListSame;
+								}
+								if(choiceBox == true)
+								{
+									dropDownBox(200, 200, 200, wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26, temp1.length, temp1, "choose", true);
+									ctx.strokeRect(wW - 1150, (-115) + (openFeatureS*50), 280, choiceAmount * 26);
+									choiceBox = makeBoxSame;
+									subClassChosen[slot][openFeatureS] = makeListSame;
+								}
+							}
+						}
 					}
 				}
 			}
@@ -1110,6 +1937,10 @@ function characterCreator(slot)
 			ctx.fillText(res6, wW / 2 + 125, 375);
 		}
 	}
+	else
+	{
+		drawDice = false;
+	}
 
 	if(step == 4) //equipment
 	{
@@ -1131,7 +1962,7 @@ function characterCreator(slot)
 					{
 						mouseIsDown = false;
 						characters[slot].bc = "choose";
-						localStorage.setItem(JSON.stringify("bc" + i), characters[slot].bc);
+						localStorage.setItem(JSON.stringify("bc" + slot), characters[slot].bc);
 					}
 				}
 				if(mouseX >= 194 && mouseX <= 286 && mouseY >= 15 && mouseY <= 55)
@@ -1142,7 +1973,7 @@ function characterCreator(slot)
 					{
 						mouseIsDown = false;
 						characters[slot].bc = "buy";
-						localStorage.setItem(JSON.stringify("bc" + i), characters[slot].bc);
+						localStorage.setItem(JSON.stringify("bc" + slot), characters[slot].bc);
 					}
 				}
 				ctx.textAlign = "center";
@@ -1562,7 +2393,7 @@ function characterCreator(slot)
 		}
 		if(alignmentBox)
 		{
-			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 400, 9, alignments, false);
+			dropDownBox(200, 200, 200, wW / 2 + 155, 75, 250, 400, 9, alignments, false, true);
 			alignmentBox = makeBoxSame;
 			characters[slot].alignment = makeListSame;
 			localStorage.setItem(JSON.stringify("alignment" + slot), characters[slot].alignment);
@@ -2177,9 +3008,9 @@ function drawSheet(slot)
 	localStorage.setItem(JSON.stringify("persuasionProf" + slot), proficiencies[slot].persuasionProf);
 
 	//other
-	characterInfo(proficiencies[slot].other, 10, 237, 475, 668, 227, 193, .3);
-	proficiencies[slot].other = makeSame;
-	localStorage.setItem(JSON.stringify("otherProf" + slot), proficiencies[slot].other);
+	// characterInfo(proficiencies[slot].other, 10, 237, 475, 668, 227, 193, .3);
+	// proficiencies[slot].other = makeSame;
+	// localStorage.setItem(JSON.stringify("otherProf" + slot), proficiencies[slot].other);
 	ctx.font = "15px Arial";
 	ctx.fillStyle = "rgb(0,0,0)";
 	ctx.textAlign = "start";
@@ -2545,9 +3376,9 @@ function dice()
 }
 
 //creates drop down boxes when called
-function dropDownBox(cR, cG, cB, rectX, rectY, rectL, rectH, listAmount, text, sub)
+function dropDownBox(cR, cG, cB, rectX, rectY, rectL, rectH, listAmount, text, sub, equals)
 {
-	makeBoxSame = true;
+	makeBoxSame = equals;
 	ctx.fillStyle = "rgb(" + cR + "," + cG + "," + cB + ")";
 	ctx.fillRect(rectX, rectY, rectL, rectH);
 	let listPart = 0;
@@ -2587,6 +3418,23 @@ function dropDownBox(cR, cG, cB, rectX, rectY, rectL, rectH, listAmount, text, s
 				{
 					mouseIsDown = false;
 					makeListSame = text[i].name;
+					makeBoxSame = false;
+				}
+			}
+		}
+		if(sub == "choose")
+		{
+			ctx.fillText(text[i], rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
+			if(mouseX >= rectX && mouseX <= rectX + rectL && mouseY >= rectY + listPart && mouseY <= rectY + listPart + tabSize)
+			{
+				ctx.fillStyle = "rgb(" + (cR - 20) + "," + (cG - 20) + "," + (cB - 20) + ")";
+				ctx.fillRect(rectX, rectY + listPart, rectL, tabSize);
+				ctx.fillStyle = "rgb(0,0,0)";
+				ctx.fillText(text[i], rectX + (rectL / 2), rectY + listPart + (tabSize / 2));
+				if(mouseIsDown)
+				{
+					mouseIsDown = false;
+					makeListSame = text[i];
 					makeBoxSame = false;
 				}
 			}
